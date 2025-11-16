@@ -1,0 +1,17 @@
+/* app-mobile-nav.component.css */
+.mobile-nav-container {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000; /* más alto que header y footer */
+}
+
+
+
+@media (max-width: 768px) {
+  .mobile-nav-container {
+    width: 100%;
+    max-width: 350px;
+  }
+}

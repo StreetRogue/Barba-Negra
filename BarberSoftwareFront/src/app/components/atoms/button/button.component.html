@@ -1,0 +1,20 @@
+<button *ngIf="!isLink()" [type]="type" class="c-btn" [ngClass]="{
+    'c-btn-primary': style === 'primary',
+    'c-btn-secondary': style === 'secondary',
+    'c-btn-icon': style === 'icon',
+    'c-btn-overlay': style === 'overlay', 'c-btn-native-reset': style === 'icon'
+  }" [disabled]="disabled">
+  <ng-content></ng-content>
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</button>
+
+<a *ngIf="isLink()" [href]="link" [routerLink]="routerLink" class="c-btn" [ngClass]="{
+    'c-btn-primary': style === 'primary',
+    'c-btn-secondary': style === 'secondary',
+    'c-btn-icon': style === 'icon',
+    'c-btn-overlay': style === 'overlay', 
+    'disabled': disabled
+  }" [attr.aria-disabled]="disabled" (click)="disabled ? $event.preventDefault() : null">
+  <ng-content></ng-content>
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</a>

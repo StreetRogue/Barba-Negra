@@ -1,0 +1,33 @@
+:host {
+    perspective: 1000px;
+    display: block;
+    height: 100%;
+}
+
+
+.service-card {
+    border: none;
+    border-radius: 12px;
+    background-color: #f8f6f5;
+    overflow: hidden;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.service-card img {
+    height: 250px;
+    object-fit: cover;
+}
+
+.service-card .card-body {
+    padding: 1.5rem;
+}
+
+
+:host(:hover) .service-card {
+    transform: translateY(-10px) scale(1.02);
+    transform:
+        translateY(-10px) scale(1.02) rotateX(var(--rotateX)) rotateY(var(--rotateY));
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}

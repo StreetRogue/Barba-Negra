@@ -1,0 +1,274 @@
+.list-container {
+  padding: 2rem;
+  padding-top: 10px; 
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* --- Encabezado y Buscador --- */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Para que se apile en pantallas pequeñas */
+  gap: 1rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #8a2c3b 0%, #414345 100%);
+  color: #fff;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.header-content {
+  flex-grow: 1; /* Ocupa el espacio disponible */
+}
+.title {
+  font-weight: 700;
+  margin: 0;
+}
+.subtitle {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-top: 0.25rem;
+}
+.btn-back {
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+/* --- Buscador --- */
+.search-bar-wrapper {
+  position: relative;
+  margin-top: 1.5rem;
+  max-width: 500px;
+}
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 1.1rem;
+}
+.search-bar {
+  border-radius: 50px;
+  padding-left: 45px;
+  height: 50px;
+  font-size: 1rem;
+  border: none;
+  background-color: #f4f7f6;
+}
+.search-bar:focus {
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(138, 44, 59, 0.15);
+  border-color: var(--c-primary-barber, #8a2c3b);
+}
+
+/* --- Cabecera de Acciones (Botones) --- */
+.list-actions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Para que se apile en pantallas pequeñas */
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.actions-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Estilo de botón innovador */
+.btn-action-primary,
+.btn-action-secondary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid;
+  border-radius: 50px; 
+  padding: 0.6rem 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Botón Principal (Registrar) */
+.btn-action-primary {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  border-color: var(--c-primary-barber, #8a2c3b);
+  color: #fff;
+}
+
+.btn-action-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(138, 44, 59, 0.3);
+}
+
+/* Botón Secundario (Ver por Categoría) */
+.btn-action-secondary {
+  background-color: transparent;
+  border-color: #ddd;
+  color: #555;
+}
+
+.btn-action-secondary:hover {
+  border-color: var(--c-primary-barber, #8a2c3b);
+  color: var(--c-primary-barber, #8a2c3b);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Lista de Servicios --- */
+.services-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+
+.service-item {
+  display: grid;
+  grid-template-columns: auto 120px 150px; 
+  align-items: center; /* Alinea verticalmente */
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+
+  /* Animación de entrada */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+
+.service-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+
+.service-category {
+  display: inline-block;
+  background-color: var(--c-primary-barber, #8a2c3b);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  margin-bottom: 0.5rem;
+}
+.service-name {
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+.service-description {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 0.25rem;
+}
+
+/* Columna 2: Detalles (Precio, Duración) */
+.service-details {
+  text-align: right;
+}
+.service-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #000;
+  display: block;
+}
+.service-duration {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Columna 3: Acciones (Botones) */
+.service-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+.btn-action {
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+.btn-edit {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+}
+.btn-edit:hover {
+  background-color: #c7d2fe;
+}
+.btn-delete {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+.btn-delete:hover {
+  background-color: #fecaca;
+}
+
+/* --- Estado Vacío --- */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  color: #777;
+}
+.empty-state i {
+  font-size: 4rem;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+.bg-success{
+  margin-left: 2px;
+}
+
+.bg-secondary{
+  margin-left: 5px;
+}
+
+/* --- Animación --- */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsividad --- */
+@media (max-width: 768px) {
+  .list-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-back {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  /* En móvil,  sola columna */
+  .service-item {
+    grid-template-columns: 1fr; 
+    gap: 0.5rem;
+  }
+  .service-details, .service-actions {
+    text-align: left;
+    justify-content: flex-start;
+  }
+}

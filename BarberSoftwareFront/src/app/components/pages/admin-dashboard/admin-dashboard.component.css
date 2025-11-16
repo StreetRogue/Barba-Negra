@@ -1,0 +1,122 @@
+.admin-panel-container {
+  padding-top: 10px; 
+  padding-bottom: 5rem;
+  min-height: 100vh;
+  background-color: #f8f9fa; /* Un fondo gris claro */
+}
+
+.admin-card {
+  display: block;
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  height: 100%; /* Para que todas las tarjetas tengan la misma altura */
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border-color: var(--c-primary-barber, #8a2c3b);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: inline-flex;
+  margin: 1.5rem;
+  margin-bottom: 0;
+}
+
+.card-body-admin {
+  padding: 1.5rem;
+  padding-top: 1rem;
+  flex-grow: 1; /* Empuja el footer hacia abajo */
+}
+
+.card-body-admin .card-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #212529;
+}
+
+.card-body-admin .card-text {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+.card-footer-admin {
+  padding: 1rem 1.5rem;
+  background-color: #fdfdfd;
+  border-top: 1px solid #e9ecef;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  font-weight: 500;
+  color: var(--c-primary-barber, #8a2c3b);
+  transition: all 0.3s ease;
+}
+
+.admin-card:hover .card-footer-admin {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  color: #fff;
+}
+
+/* --- Colores de Iconos --- */
+.icon-success { background-color: #d1fae5; color: #065f46; }
+.icon-primary { background-color: #dbeafe; color: #1d4ed8; }
+.icon-info    { background-color: #cffafe; color: #0e7490; }
+.icon-warning { background-color: #fef3c7; color: #b45309; }
+.icon-danger  { background-color: #fee2e2; color: #b91c1c; }
+.icon-secondary { background-color: #e5e7eb; color: #374151; }
+
+.admin-card.disabled-card {
+  /* 1. Las hace semi-transparentes */
+  opacity: 0.6; 
+  
+  /* 2. Desactiva todos los clics y eventos del mouse */
+  pointer-events: none; 
+  
+  /* 3. Cambia el cursor (aunque ya no se puede clickear) */
+  cursor: not-allowed;
+}
+
+/* Esto anula cualquier efecto :hover que
+  pudiera estar definido en .admin-card:hover
+*/
+.admin-card.disabled-card:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); /* Sombra base */
+  border-color: #e9ecef; /* Borde base */
+}
+
+/* Estilo del footer para tarjetas desactivadas */
+.admin-card.disabled-card .card-footer-admin {
+  color: #6c757d;
+  background-color: #f8f9fa;
+}
+
+/* Tarjeta de "Volver" */
+.card-home:hover {
+  border-color: #6c757d;
+}
+.card-home .card-footer-admin {
+  color: #374151;
+}
+.card-home:hover .card-footer-admin {
+  background-color: #374151;
+  color: #fff;
+}
+
+/* Tarjetas deshabilitadas */
+.admin-card.disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+.admin-card.disabled .card-footer-admin {
+  color: #6c757d;
+}
+

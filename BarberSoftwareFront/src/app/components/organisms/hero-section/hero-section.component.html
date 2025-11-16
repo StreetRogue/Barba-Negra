@@ -1,0 +1,55 @@
+<section class="hero-section hero-mask-stage" (mousemove)="onMouseMove($event)">
+  <!-- Capa BASE (oscura, se verá dentro del círculo) -->
+  <div class="hero-layer hero-base">
+    <div class="container text-center py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+          <h2 #heroLine1 class="hero-text-secondary">
+            En BARBA NEGRA, un buen corte es solo el comienzo.
+          </h2>
+          <h1 #heroLine2 class="hero-text-primary">
+            Vive una experiencia
+          </h1>
+          <h1 #flipWord class="hero-text-elegant">
+            ELEGANTE.
+          </h1>
+          <app-button #heroBtn link="#" [style]="'primary'" class="mt-4">
+            Reserva <i class="bi bi-arrow-right"></i>
+          </app-button>
+          <p #heroSubtext class="hero-subtext mt-5">
+            Disfruta asesoría personalizada, un ambiente agradable y una bebida o snack gratis mientras te renovas.<br>
+            ¿No quedaste convencido? ¡No pagas!<br>
+            Así de seguros estamos de que en BARBA NEGRA vas a salir con estilo y actitud.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Capa SUPERIOR (crema, se recorta con el círculo) -->
+  <div #heroTopLayer class="hero-layer hero-top-mask">
+    <div class="container text-center py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+          <h2 class="hero-text-secondary">
+            En BARBA NEGRA, un buen corte es solo el comienzo.
+          </h2>
+          <h1 class="hero-text-primary">
+            Vive una experiencia
+          </h1>
+          <h1 class="hero-text-elegant">
+            ELEGANTE.
+          </h1>
+          <app-button link="#" [style]="'primary'" class="mt-4">
+            Reserva <i class="bi bi-arrow-right"></i>
+          </app-button>
+          <p class="hero-subtext mt-5">
+            Disfruta asesoría personalizada, un ambiente agradable y una bebida o snack gratis mientras te renovas.<br>
+            ¿No quedaste convencido? ¡No pagas!<br>
+            Así de seguros estamos de que en BARBA NEGRA vas a salir con estilo y actitud.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

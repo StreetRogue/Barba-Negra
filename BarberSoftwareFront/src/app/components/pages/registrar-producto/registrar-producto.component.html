@@ -1,0 +1,173 @@
+<div class="form-container">
+  
+  <form class="form-wizard-card" #formServicio="ngForm" (ngSubmit)="crearServicio(formServicio)">
+    
+    <div class="form-header">
+      <h2 class="form-title">{{ titulo }}</h2>
+      <div class="progress-bar-container">
+        <div class="progress-bar" 
+             [style.width.%]="(currentStep() - 1) * 33.3">
+        </div>
+        <div class="steps">
+          <div class="step" [class.active]="currentStep() >= 1">1</div>
+          <div class="step" [class.active]="currentStep() >= 2">2</div>
+          <div class="step" [class.active]="currentStep() >= 3">3</div>
+          <div class="step" [class.active]="currentStep() >= 4">4</div> </div>
+      </div>
+    </div>
+
+    <div class="form-steps">
+
+      @switch (currentStep()) {
+
+        @case (1) {
+          <div class="form-step active">
+            <h5 class="step-title">1. Información del Servicio</h5>
+            <div class="form-group floating mb-3">
+              <input type="text" id="nombre" name="nombre" class="form-control" placeholder=" "
+                     [(ngModel)]="servicio.nombre" #nombre="ngModel" 
+                     required minlength="3">
+              <label for="nombre">Nombre del Servicio</label>
+              @if (nombre.invalid && (nombre.dirty || nombre.touched)) {
+                <div class="invalid-feedback">
+                  @if (nombre.errors?.['required']) { <span>El nombre es requerido.</span> }
+                  @if (nombre.errors?.['minlength']) { <span>Debe tener al menos 3 caracteres.</span> }
+                </div>
+              }
+            </div>
+            <div class="form-group floating mb-3">
+              <textarea id="descripcion" name="descripcion" class="form-control" rows="4" placeholder=" "
+                        [(ngModel)]="servicio.descripcion" #descripcion="ngModel" 
+                        required></textarea>
+              <label for="descripcion">Descripción</label>
+              @if (descripcion.invalid && (descripcion.dirty || descripcion.touched)) {
+                <div class="invalid-feedback"><span>La descripción es requerida.</span></div>
+              }
+            </div>
+          </div>
+        }
+
+        @case (2) {
+          <div class="form-step active">
+            <h5 class="step-title">2. Detalles y Precio</h5>
+            <div class="form-group floating mb-3">
+              <input type="number" id="duracion" name="duracionMinutos" class="form-control" placeholder=" " min="10"
+                     [(ngModel)]="servicio.duracionMinutos" #duracion="ngModel" 
+                     required>
+              <label for="duracion">Duración (en minutos)</label>
+              @if (duracion.invalid && (duracion.dirty || duracion.touched)) {
+                <div class="invalid-feedback">
+                  @if (duracion.errors?.['required']) { <span>La duración es requerida.</span> }
+                  @if (duracion.errors?.['min']) { <span>El mínimo es 10 minutos.</span> }
+                </div>
+              }
+            </div>
+            <div class="form-group floating mb-3">
+              <input type="number" id="precio" name="precio" class="form-control" placeholder=" " min="0"
+                     [(ngModel)]="servicio.precio" #precio="ngModel" 
+                     required>
+              <label for="precio">Precio ($)</label>
+              @if (precio.invalid && (precio.dirty || precio.touched)) {
+                <div class="invalid-feedback"><span>El precio es requerido.</span></div>
+              }
+            </div>
+          </div>
+        }
+
+        @case (3) {
+          <div class="form-step active">
+            <h5 class="step-title">3. Logística</h5>
+            <div class="form-group floating mb-3">
+              <select id="categoria" name="categoria" class="form-select"
+                      [(ngModel)]="servicio.objCategoria" #categoria="ngModel" required>
+                <option [ngValue]="null" disabled>Seleccione una categoría</option>
+                @for (cat of categorias(); track cat.id) {
+                  <option [ngValue]="cat.id">{{ cat.nombre }}</option>
+                }
+              </select>
+              <label for="categoria">Categoría</label>
+              @if (categoria.invalid && (categoria.dirty || categoria.touched)) {
+                <div class="invalid-feedback"><span>Debe seleccionar una categoría.</span></div>
+              }
+            </div>
+            <div class="form-group floating mb-3">
+              <select id="estado" name="estado" class="form-select"
+                      [(ngModel)]="servicio.estado" #estado="ngModel" 
+                      required>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+              <label for="estado">Estado del Servicio</label>
+            </div>
+          </div>
+        }
+
+        @case (4) {
+          <div class="form-step active">
+            <h5 class="step-title">4. Imagen del Servicio</h5>
+            
+            <div class="form-group mb-3">
+              <label for="imagen" class="form-label">Subir Imagen</label>
+              <input 
+                class="form-control" 
+                type="file" 
+                id="imagen"
+                accept="image/*"
+                (change)="onFileChange($event)">
+              <small class="form-text text-muted">
+                La imagen es opcional. Tamaño máximo: 4MB.
+              </small>
+            </div>
+
+            @if (imagePreview()) {
+              <div class="image-preview-container">
+                <p class="text-muted">Vista Previa:</p>
+                <img [src]="imagePreview()" class="image-preview" alt="Vista previa de la imagen">
+              </div>
+            } @else {
+              <div class="image-preview-container placeholder">
+                <i class="bi bi-image"></i>
+                <p>Aquí se verá la vista previa</p>
+              </div>
+            }
+
+          </div>
+        }
+
+      }
+    </div>
+
+    <div class="form-navigation">
+      
+      @if (currentStep() > 1) {
+        <button type="button" class="btn btn-secondary" (click)="prevStep()">
+          <i class="bi bi-arrow-left me-1"></i> Anterior
+        </button>
+      } @else {
+        <div></div> }
+
+      @if (currentStep() < 4) {
+        <button type="button" class="btn btn-registrar" (click)="nextStep()">
+          Siguiente <i class="bi bi-arrow-right ms-1"></i>
+        </button>
+      }
+
+      @if (currentStep() === 4) {
+        <button type="submit" class="btn btn-registrar" [disabled]="formServicio.invalid">
+          <i class="bi bi-check-lg me-1"></i>
+          Registrar Servicio
+        </button>
+      }
+
+    </div>
+
+  </form>
+  <div class="text-center mt-4">
+    <a routerLink="/admin" class="btn-return-link">
+      <i class="bi bi-arrow-left me-1"></i>
+      Volver al Panel de Administrador
+    </a>
+  </div>
+    
+</div>
+```eof

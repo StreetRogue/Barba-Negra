@@ -1,0 +1,81 @@
+/* src/app/components/1-atoms/button/button.component.css (RENOMBRADO) */
+
+/* 1. CLASE BASE RENOMBRADA */
+.c-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  min-width: 180px;
+  white-space: nowrap;
+}
+
+/* 2. ESTILO PRIMARIO (Botón Rojo/Burgundy) */
+.c-btn-primary {
+  background-color: var(--color-pampas-900);
+  color: var(--color-pampas-50);
+  border-color: var(--color-pampas-900); 
+}
+.c-btn-primary:hover {
+  background-color: var(--color-pampas-700);
+  border-color: var(--color-pampas-600);
+  transform: translateY(-2px);
+}
+
+/* 3. ESTILO SECUNDARIO (Para fondo blanco) */
+.c-btn-secondary {
+  background-color: transparent;
+  color: var(--color-pampas-950);
+  border-color: var(--color-pampas-900); 
+}
+.c-btn-secondary:hover {
+  background-color: #f8f8f8;
+  color: #333;
+  border-color: #bbb;
+}
+
+/* 4. ¡NUEVO ESTILO! (Para fondo oscuro/rojo) */
+.c-btn-overlay {
+  background-color: transparent;
+  color: var(--color-pampas-50);
+  border-color: var(--color-pampas-50);
+}
+.c-btn-overlay:hover {
+  background-color: var(--color-pampas-0);
+  color: var(--color-pampas-900); 
+}
+
+/* 5. ESTILO ICONO (Reset) */
+.c-btn-icon {
+  display: contents;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--color-pampas-950);
+}
+.c-btn-icon:hover {
+  color: var(--color-pampas-700);
+  transform: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* 6. RESET DE BOTÓN NATIVO (Para estilo 'icon') */
+.c-btn-native-reset {
+  background-color: var(--color-pampas-50);
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}

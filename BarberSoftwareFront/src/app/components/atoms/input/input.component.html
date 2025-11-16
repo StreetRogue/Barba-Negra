@@ -1,0 +1,14 @@
+<div class="custom-input-container">
+  <input
+    [type]="type"
+    class="custom-input"
+    [id]="controlName"
+    [placeholder]="placeholder || ' '"  
+    [value]="value"
+    [disabled]="isDisabled"
+    (input)="onInputChange($event)"
+    (blur)="onTouched()"
+    autocomplete="off"
+  />
+  <label class="floating-label" [for]="controlName">{{ label }}</label>
+</div>

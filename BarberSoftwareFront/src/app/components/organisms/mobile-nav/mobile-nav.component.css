@@ -1,0 +1,51 @@
+.mobile-nav-container {
+  position: fixed; /* Fijo en la parte inferior */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.mobile-nav-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  border-radius: 50px; /* Redondeado tipo píldora */
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  max-width: 300px; /* Ancho máximo de la píldora */
+}
+
+/* Regla general para TODOS los items 
+  (aplica a <a> y <button>)
+*/
+.nav-item {
+  color: #adb5bd; /* Color de ícono inactivo */
+  text-decoration: none;
+  transition: color 0.2s ease;
+  
+  /* --- INICIO DE LA CORRECCIÓN --- */
+  /* Esto es un "reseteo" para el botón, 
+    para que se vea idéntico a un <a>
+  */
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  /* --- FIN DE LA CORRECCIÓN --- */
+}
+
+.nav-item:hover {
+  color: #495057; /* Color al pasar el mouse */
+}
+
+/* Esta regla resalta el ícono ACTIVO (si es un link)
+*/
+.nav-item.active {
+  color: #000; /* Color de ícono activo */
+}
+

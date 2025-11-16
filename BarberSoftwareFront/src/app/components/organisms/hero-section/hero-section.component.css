@@ -1,0 +1,98 @@
+/* ======================================
+   ESTRUCTURA BASE
+====================================== */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background-color: #f8f6f5;
+  min-height: 90vh;
+  cursor: none;
+}
+
+/* ======================================
+   CAPAS
+====================================== */
+.hero-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Capa inferior (visible siempre) */
+.hero-base {
+  z-index: 1;
+  color: #222;
+}
+
+/* Capa superior (oscura, con recorte) */
+.hero-top-mask {
+  z-index: 2;
+  background-color: #2e2e2e;
+  color: #f8f6f5;
+
+  /* valores iniciales seguros */
+  --x: 50;
+  --y: 50;
+
+  /* el círculo se dibuja centrado al inicio */
+  clip-path: circle(150px at calc(var(--x) * 1px) calc(var(--y) * 1px));
+}
+
+/* ======================================
+   CONTENIDO INTERNO
+====================================== */
+.hero-layer .container {
+  max-width: 900px;
+  padding: 0 1rem;
+}
+
+/* ======================================
+   TEXTOS Y BOTÓN
+====================================== */
+.hero-text-secondary {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.hero-text-primary {
+  font-size: 2.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.hero-text-elegant {
+  font-size: 3.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.hero-top-mask .hero-subtext {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #f8f6f5;
+  margin-top: 2rem;
+}
+
+/* Botón */
+app-button {
+  margin-top: 1.5rem;
+}
+
+/* ======================================
+   RESPONSIVE
+====================================== */
+@media (max-width: 768px) {
+  .hero-text-primary {
+    font-size: 2rem;
+  }
+  .hero-text-elegant {
+    font-size: 2.4rem;
+  }
+}

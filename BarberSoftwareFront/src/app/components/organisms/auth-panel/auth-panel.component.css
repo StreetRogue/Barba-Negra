@@ -1,0 +1,232 @@
+/* (Asegúrate de que tus colores de paleta estén definidos en styles.css) */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.auth-container {
+  background-color: var(--background-secondary, #fff);
+  border-radius: 12px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 520px;
+}
+
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+  padding: 2rem;
+
+  isolation: isolate;
+}
+
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.sign-up-container {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+
+  isolation: isolate;
+}
+
+.overlay {
+  background: var(--color-pampas-950);
+  color: var(--color-pampas-50);
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+  isolation: isolate;
+}
+
+
+
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.overlay-left {
+  transform: translateX(-20%);
+}
+
+/* --- (Animación) --- */
+
+/* Mueve el panel de Login */
+.auth-container.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Mueve el Overlay */
+.auth-container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+
+/* Mueve el panel de Registro */
+.auth-container.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: show 0.6s;
+}
+
+/* Mueve los paneles de Overlay */
+.auth-container.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+
+.auth-container.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+
+.auth-container.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}
+
+.social-login-container {
+  width: 100%;
+  max-width: 380px;
+  /* Mismo ancho máximo que los inputs para consistencia */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  /* Lo posicionamos absolutamente */
+  bottom: 50px;
+  /* A una distancia de la parte inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  /* Lo centramos horizontalmente */
+}
+
+@keyframes show {
+
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+
+
+@media (max-width: 767.98px) {
+
+  /* 1. Hace el contenedor full-screen */
+  .auth-container {
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    /* Quitamos el overflow para que el scroll funcione si el form es largo */
+    overflow: visible;
+  }
+
+  /* 2. ¡OCULTA EL OVERLAY! 
+     La animación deslizante roja es solo para desktop.
+  */
+  .overlay-container {
+    display: none;
+  }
+
+  /* 3. Posiciona los formularios 
+     Ocupan el 100% del ancho ahora.
+  */
+  .form-container {
+    width: 100%;
+    height: auto;
+    /* Altura automática */
+    position: relative;
+    /* Ya no son 'absolute' */
+    padding: 0 2rem;
+    /* Más padding en móvil */
+  }
+
+  /* 4. Muestra el 'sign-in' por defecto */
+  .sign-in-container {
+    left: 0;
+    z-index: 2;
+    transform: translateX(0);
+    /* Lo reseteamos */
+  }
+
+  /* 5. Mueve el 'sign-up' fuera de la pantalla */
+  .sign-up-container {
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+    position: absolute;
+    /* Este SÍ es absoluto para ocultarlo */
+    transform: translateX(100%);
+  }
+
+  /* 6. Animación para móvil (slide)
+     Cuando el panel está "activo"...
+  */
+  .auth-container.right-panel-active .sign-in-container {
+    /* Mueve el login fuera de la pantalla a la izquierda */
+    transform: translateX(-100%);
+    opacity: 0;
+    z-index: 1;
+    position: absolute;
+    /* Lo ocultamos */
+  }
+
+  .auth-container.right-panel-active .sign-up-container {
+    /* Mueve el registro a la pantalla */
+    transform: translateX(0);
+    opacity: 1;
+    z-index: 5;
+    position: relative;
+    /* Lo mostramos */
+  }
+}

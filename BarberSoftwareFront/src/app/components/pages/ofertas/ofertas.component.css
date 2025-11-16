@@ -1,0 +1,97 @@
+/* --- 1. Contenedor Principal --- */
+.construction-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  padding-top: 10px; 
+  background-color: #f4f7f6; 
+  min-height: 100vh;
+}
+
+/* --- 2. Tarjeta de Contenido --- */
+.construction-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 3rem 3rem;
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  
+  /* Animación sutil de entrada */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* --- 3. Icono (Color rojo/peligro para cupones) --- */
+.icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Paleta de color "danger" (rojo) */
+  background-color: #fde2e4; /* Rojo muy claro */
+  color: #dc2626; /* Rojo oscuro */
+}
+
+.icon-wrapper i {
+  font-size: 2.5rem; /* Tamaño del ícono */
+}
+
+/* --- 4. Tipografía --- */
+.title {
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  /* Usamos el color de la marca para el subtítulo */
+  color: var(--c-primary-barber, #8a2c3b); 
+  margin-bottom: 1rem;
+}
+
+.message {
+  color: #6c757d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+/* --- 5. Botón de Retorno --- */
+.btn-return-panel {
+  font-weight: 600;
+  color: #555;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #ddd;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  display: inline-flex; /* Para alinear el ícono y el texto */
+  align-items: center;
+}
+
+.btn-return-panel:hover {
+  /* Al pasar el mouse, toma el color de la marca */
+  background-color: var(--c-primary-barber, #8a2c3b);
+  border-color: var(--c-primary-barber, #8a2c3b);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(138, 44, 59, 0.3);
+}
+
+/* --- 6. Animación de Entrada --- */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

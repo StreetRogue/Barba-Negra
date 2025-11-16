@@ -1,0 +1,85 @@
+<div class="list-container">
+  
+  <div class="list-header">
+    <div class="header-content">
+      <h1 class="title">Gestión de Servicios</h1>
+      <p class="subtitle">Gestiona, edita y elimina los servicios de tu barbería.</p>
+      
+      <div class="search-bar-wrapper">
+        <i class="bi bi-search search-icon"></i>
+        <input 
+          type="text" 
+          class="form-control search-bar" 
+          placeholder="Buscar por nombre o descripción..."
+          [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)">
+      </div>
+    </div>
+    <a routerLink="/admin" class="btn btn-outline-light btn-sm btn-back">
+      <i class="bi bi-arrow-left me-1"></i> Volver al Panel
+    </a>
+  </div>
+
+  <div class="list-actions-header">
+    <a routerLink="/admin/registrar-producto" class="btn-action-primary">
+      <i class="bi bi-plus-circle-fill me-2"></i>
+      Registrar Nuevo Servicio
+    </a>
+    <a routerLink="/admin/ver-categorias" class="btn-action-secondary">
+      <i class="bi bi-tags-fill me-2"></i>
+      Ver por Categoría
+    </a>
+  </div>
+
+
+  <div class="services-list">
+    
+    @for (servicio of filteredServices(); track servicio.id; let i = $index) {
+      <div class="service-item" [style.animation-delay.ms]="i * 50">
+        <div class="service-info">
+          <span class="service-category">{{ servicio.objCategoria?.nombre || 'Sin Cat.' }}</span>
+          <h5 class="service-name">{{ servicio.nombre }}</h5>
+          <p class="service-description">{{ servicio.descripcion | slice:0:100 }}...</p>
+        </div>
+        
+        <div class="service-details">
+          <span class="service-price">{{ servicio.precio | currency:'COP':'$' }}</span>
+          <span class="service-duration">{{ servicio.duracionMinutos }} min.</span>
+          @if (servicio.estado === 'Activo') {
+            <span class="badge bg-success mt-2">Activo</span>
+          } @else {
+            <span class="badge bg-secondary mt-2">Inactivo</span>
+          }
+        </div>
+        
+        <div class="service-actions">
+          <button class="btn btn-action btn-edit" (click)="onEdit(servicio)">
+            <i class="bi bi-pencil-fill"></i> Editar
+          </button>
+          <button class="btn btn-action btn-delete" (click)="onDelete(servicio)">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <i class="bi bi-box-seam-fill"></i>
+        @if (searchTerm() === '') {
+          <p>No hay servicios registrados.</p>
+        } @else {
+          <p>No se encontraron servicios para "<b>{{ searchTerm() }}</b>".</p>
+        }
+      </div>
+    }
+
+  </div>
+</div>
+
+
+@if (selectedService()) {
+  <app-editar-servicio-modal 
+    [servicio]="selectedService()!" 
+    (close)="onModalClose()"
+    (save)="onModalSave()">
+  </app-editar-servicio-modal>
+}

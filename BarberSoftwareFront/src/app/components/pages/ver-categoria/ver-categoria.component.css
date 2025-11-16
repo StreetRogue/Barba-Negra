@@ -1,0 +1,171 @@
+/* 1. Header */
+.category-header {
+  background: linear-gradient(135deg, #8a2c3b 0%, #414345 100%);
+  color: #fff;
+  padding: 3rem 2rem;
+  padding-top: 130px; /* Más espacio para el header fijo */
+  position: relative;
+  margin-bottom: 2rem;
+}
+.category-header .title {
+  font-weight: 700;
+  margin: 0;
+  font-size: 2.5rem;
+}
+.category-header .subtitle {
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-top: 0.25rem;
+}
+.category-header .btn-back {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border-radius: 50px;
+}
+
+/* 2. Main Content Container */
+.category-view-container {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* 3. Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem;
+  color: #555;
+}
+.loading-state .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: var(--c-primary-barber, #8a2c3b);
+}
+.loading-state p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+/* 4a. Sidebar de Filtros */
+.filter-sidebar {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 100px; /* 80px header + 20px padding */
+}
+.filter-sidebar h5 {
+  font-weight: 600;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+.list-group-item.list-group-item-action {
+  border: none;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 0.25rem;
+  border-radius: 8px;
+}
+.list-group-item.list-group-item-action:hover {
+  background-color: #f8f9fa;
+  color: #000;
+}
+.list-group-item.list-group-item-action.active {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  color: #fff;
+  border-color: var(--c-primary-barber, #8a2c3b);
+}
+
+/* 4b. Resultados */
+.results-content {
+  padding-left: 1rem;
+}
+.results-title {
+  font-weight: 700;
+}
+.results-count {
+  color: #777;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Tarjetas de Servicio */
+.service-card-item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+.service-card-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.service-card-item .card-img-top {
+  height: 200px; 
+  width: 100%;
+  object-fit: cover; 
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.card-img-top-placeholder {
+  height: 200px; 
+  width: 100%;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  font-size: 3rem;
+}
+
+.service-card-item .card-body {
+  padding: 1.25rem;
+}
+.service-card-item .card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.service-card-item .card-text {
+  font-size: 0.9rem;
+  color: #6c757d;
+  min-height: 40px; /* Ayuda a alinear tarjetas */
+}
+.service-price {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--c-primary-barber, #8a2c3b);
+}
+.service-duration {
+  font-size: 0.9rem;
+  color: #555;
+  background-color: #f8f9fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+/* Estado Vacío */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  color: #777;
+  border: 1px dashed #ddd;
+}
+.empty-state i {
+  font-size: 3rem;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+

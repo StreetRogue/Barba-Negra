@@ -1,0 +1,105 @@
+/* --- Contenedor Principal (Fondo) --- */
+.client-panel-container {
+  padding-top: 10px;
+  padding-bottom: 5rem;
+  min-height: 100vh;
+  background-color: #f8f9fa; /* Fondo gris claro */
+}
+
+/* --- Estilo de Tarjeta Base --- */
+.client-card {
+  display: block;
+  background-color: #fff;
+  border-radius: 16px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Efecto Hover (SOLO para tarjetas activas) --- */
+/* Solo se aplica a las tarjetas que NO tienen la clase .disabled-card */
+.client-card:not(.disabled-card):hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border-color: var(--c-primary-barber, #8a2c3b);
+}
+
+/* --- Partes Internas de la Tarjeta --- */
+.card-icon {
+  font-size: 2.5rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: inline-flex;
+  margin: 1.5rem;
+  margin-bottom: 0;
+}
+
+.card-body-client {
+  padding: 1.5rem;
+  padding-top: 1rem;
+  flex-grow: 1; /* Empuja el footer hacia abajo */
+}
+
+.card-body-client .card-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #212529;
+}
+
+.card-body-client .card-text {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+.card-footer-client {
+  padding: 1rem 1.5rem;
+  background-color: #fdfdfd;
+  border-top: 1px solid #e9ecef;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  font-weight: 500;
+  color: var(--c-primary-barber, #8a2c3b);
+  transition: all 0.3s ease;
+}
+
+/* Efecto hover del footer (SOLO para tarjetas activas) */
+.client-card:not(.disabled-card):hover .card-footer-client {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  color: #fff;
+}
+
+/* --- Colores de Iconos (Reutilizados del panel de admin) --- */
+.icon-primary { background-color: #dbeafe; color: #1d4ed8; }
+.icon-warning { background-color: #fef3c7; color: #b45309; }
+.icon-danger  { background-color: #fee2e2; color: #b91c1c; }
+.icon-info    { background-color: #cffafe; color: #0e7490; }
+
+
+/* --- Reglas para las tarjetas "En Construcción" --- */
+/* Estas son las reglas que pediste para desactivarlas */
+.client-card.disabled-card {
+  /* 1. Las hace semi-transparentes */
+  opacity: 0.6; 
+  
+  /* 2. Desactiva todos los clics y eventos del mouse */
+  pointer-events: none; 
+  
+  /* 3. Cambia el cursor (aunque ya no se puede clickear) */
+  cursor: not-allowed;
+}
+
+/* Anula cualquier efecto :hover */
+.client-card.disabled-card:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); /* Sombra base */
+  border-color: #e9ecef; /* Borde base */
+}
+
+/* Estilo del footer para tarjetas desactivadas */
+.client-card.disabled-card .card-footer-client {
+  color: #6c757d;
+  background-color: #f8f9fa;
+}

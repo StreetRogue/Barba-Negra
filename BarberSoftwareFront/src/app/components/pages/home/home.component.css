@@ -1,0 +1,3 @@
+app-hero-section:hover ~ app-custom-cursor ::ng-deep .cursor-paint {
+  display: block;
+}

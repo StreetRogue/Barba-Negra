@@ -1,0 +1,31 @@
+<nav class="mobile-nav-container d-flex d-lg-none">
+  <div class="mobile-nav-content shadow-lg">
+    
+    <!-- Ícono Home -->
+    <a 
+      routerLink="/" 
+      class="nav-item"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}">
+      <i class="bi bi-house-door-fill fs-4"></i>
+    </a>
+    
+    <!-- Ícono Ajustes (Admin) -->
+    <a 
+      routerLink="/admin" 
+      class="nav-item"
+      routerLinkActive="active">
+      <i class="bi bi-gear-fill fs-4"></i>
+    </a>
+    
+    <!-- Ícono Citas (En Construcción) -->
+    <button 
+      type="button" 
+      class="nav-item" 
+      (click)="showEnConstruccion()">
+      <i class="bi bi-calendar-event-fill fs-4"></i>
+    </button>
+    
+  </div>
+</nav>
+

@@ -1,0 +1,23 @@
+.nav-item {
+    color: #adb5bd;
+    /* Color de ícono inactivo */
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    /* Reseteo para el botón */
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.nav-item:hover {
+    color: #495057;
+}
+
+
+.nav-item.active {
+    color: #000;
+    /* Color de ícono activo */
+}

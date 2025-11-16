@@ -1,0 +1,48 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap');
+:root {
+  --color-pampas-0: #ffffff;
+  --color-pampas-50: #f8f5f2;
+  --color-pampas-100: #f0eae4;
+  --color-pampas-200: #e1d4c7;
+  --color-pampas-300: #cdb7a4;
+  --color-pampas-400: #b8967f;
+  --color-pampas-500: #aa7d65;
+  --color-pampas-600: #9c6c5a;
+  --color-pampas-700: #82594c;
+  --color-pampas-800: #6a4a42;
+  --color-pampas-900: #573d37;
+  --color-pampas-950: #2e1f1c;
+}
+
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, .display-4, .hero-text-elegant {
+  /* Fuente "clásica" para todos los títulos */
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+/* You can add global styles to this file, and also import other style files */
+/* Añade un 'padding' en la parte inferior del body 
+  solo en pantallas móviles (más pequeñas que 'lg') 
+  para que el mobile-nav no tape el contenido.
+*/
+@media (max-width: 991.98px) {
+  body {
+    /* 100px es un valor seguro, ajústalo si es necesario */
+    padding-bottom: 10px;
+  }
+}
+
+

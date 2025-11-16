@@ -1,0 +1,8 @@
+<a *ngIf="isLink()" [routerLink]="link" class="nav-item" routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}">
+    <i class="fs-4" [class]="icon"></i>
+</a>
+
+<button *ngIf="!isLink()" type="button" class="nav-item" (click)="itemClick.emit()">
+    <i class="fs-4" [class]="icon"></i>
+</button>

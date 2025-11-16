@@ -1,0 +1,35 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: auth_service_route
+              uri: http://localhost:5000 # URL del microservicio de usuario
+              predicates:
+                - Path=/api/v1/usuarios/**
+            # -- Esta es para pruebas
+            - id: jsonplaceholder
+              uri: https://jsonplaceholder.typicode.com
+              predicates:
+                - Path=/todos/**
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1024634608715-d6esgqsrhs7ttfdnae2hcg9hel9hno3c.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - openid
+              - profile
+              - email
+
+jwt:
+  secret: clave-secreta-que-nunca-lograras-decifrar-porque-alta-kurtosis-software-solutions-es-el-mejor

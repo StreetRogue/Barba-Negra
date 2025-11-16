@@ -1,0 +1,164 @@
+/* --- 1. Cabecera --- */
+.catalogo-header {
+  background: linear-gradient(135deg, #8a2c3b 0%, #414345 100%);
+  color: #fff;
+  border-bottom: 5px solid var(--c-primary-barber, #8a2c3b);
+}
+
+.catalogo-header .display-3 {
+  font-weight: 700; /* Más peso para el título */
+}
+
+/* --- *** NUEVA REGLA PARA EL BOTÓN *** --- */
+.catalogo-header .btn-back {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+}
+
+p.lead{
+    color: #ccc !important;
+}
+
+
+.catalogo-header .display-3 {
+  font-weight: 700; 
+}
+
+
+
+/* --- 2. Barra de Filtros (Categorías) --- */
+.filter-bar {
+  background-color: #fff;
+  z-index: 100; 
+  padding: 0.75rem 0;
+ 
+  position: sticky;
+}
+
+.filter-pills-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto; 
+  padding-bottom: 10px; 
+  margin-bottom: -10px; 
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+
+.filter-pills-container::-webkit-scrollbar {
+  display: none; 
+}
+
+.filter-pill {
+  border-radius: 50px; 
+  padding: 0.5rem 1.25rem;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  background-color: #f8f9fa;
+  color: #555;
+  flex-shrink: 0; 
+  margin-right: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.filter-pill:hover {
+  background-color: #eee;
+  transform: translateY(-2px); 
+}
+
+
+.filter-pill.active {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  color: #fff;
+  border-color: var(--c-primary-barber, #8a2c3b);
+  box-shadow: 0 4px 10px rgba(138, 44, 59, 0.3);
+}
+
+/* --- 3. Contenido Principal (Servicios) --- */
+.loading-state .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  color: var(--c-primary-barber, #8a2c3b);
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+
+/* Grid de Tarjetas de Servicio */
+.service-card {
+  border: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: cardFadeIn 0.5s ease forwards;
+}
+
+
+.service-card .card-img-top {
+  height: 200px; 
+  width: 100%;
+  object-fit: cover; 
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.card-img-top-placeholder {
+  height: 200px; 
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  
+  /* (Estilos para centrar el ícono) */
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.service-card:hover {
+  transform: translateY(-8px); 
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón de Reservar */
+.btn-primary {
+  background-color: var(--c-primary-barber, #8a2c3b);
+  border-color: var(--c-primary-barber, #8a2c3b);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: scale(1.02); 
+}
+
+/* Estado Vacío */
+.empty-state {
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+}
+
+/* --- 4. Animación de Entrada --- */
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
