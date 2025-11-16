@@ -1,4 +1,4 @@
-\# 💈 Barbería App (Proyecto Ingeniería de Software III)
+# 💈 Barbería App (Proyecto Ingeniería de Software III)
 
 
 
@@ -10,21 +10,21 @@ Sistema web para la gestión de turnos, reservas en línea y colas virtuales par
 
 
 
-\## 🛠️ Stack Tecnológico
+## 🛠️ Stack Tecnológico
 
 
 
-\* \*\*Frontend:\*\* Angular + TypeScript + Tailwind CSS
+* **Frontend:** Angular + TypeScript + Boostrap + CSS
 
-\* \*\*Backend:\*\* Spring Boot (Java) + Microservicios
+* **Backend:** Spring Boot (Java) + Auth0 + Auth2
 
-\* \*\*Base de Datos:\*\* PostgreSQL
+* **Base de Datos:** PostgreSQL + Neon
 
-\* \*\*Mensajería:\*\* RabbitMQ
+* **Mensajería:** RabbitMQ
 
-\* \*\*API Gateway:\*\* Spring Cloud Gateway
+* **API Gateway:** Spring Cloud Gateway
 
-\* \*\*Contenedores:\*\* Docker
+* **Contenedores:** Docker
 
 
 
@@ -32,7 +32,7 @@ Sistema web para la gestión de turnos, reservas en línea y colas virtuales par
 
 
 
-\## 🚀 Ejecución Local
+## 🚀 Ejecución Local
 
 
 
