@@ -1,0 +1,10 @@
+/* Este estilo es importante para que routerLinkActive funcione */
+.active-link {
+  color: white;
+  background-color: rgba(75, 85, 99, 0.3); /* bg-gray-600/30 */
+}
+
+/* Opcional: Cambia el color del SVG cuando está activo */
+.active-link div svg {
+  stroke: white;
+}
