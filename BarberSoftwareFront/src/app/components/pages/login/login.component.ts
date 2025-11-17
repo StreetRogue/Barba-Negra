@@ -64,7 +64,7 @@ export class LoginPageComponent {
   private handleSuccessLogin(response: any): void {
     console.log("LOGIN EXITOSO:", response.token);
     this.isLoading = false;
-    this.router.navigate(['/cliente-dashboard']);
+    this.router.navigate(['/cliente']);
   }
 
   private handleError(error: any): void {
