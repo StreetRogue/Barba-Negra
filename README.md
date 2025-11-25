@@ -1,4 +1,4 @@
-\# 💈 Barbería App (Proyecto Ingeniería de Software III)
+# 💈 Barbería App (Proyecto Ingeniería de Software III)
 
 
 
@@ -10,21 +10,21 @@ Sistema web para la gestión de turnos, reservas en línea y colas virtuales par
 
 
 
-\## 🛠️ Stack Tecnológico
+## 🛠️ Stack Tecnológico
 
 
 
-\* \*\*Frontend:\*\* Angular + TypeScript + Tailwind CSS
+* **Frontend:** Angular + TypeScript + Tailwind CSS
 
-\* \*\*Backend:\*\* Spring Boot (Java) + Microservicios
+* **Backend:** Spring Boot (Java) + Microservicios
 
-\* \*\*Base de Datos:\*\* PostgreSQL
+* **Base de Datos:**PostgreSQL
 
-\* \*\*Mensajería:\*\* RabbitMQ
+* \*\*Mensajería:\*\* RabbitMQ
 
-\* \*\*API Gateway:\*\* Spring Cloud Gateway
+* **API Gateway:** Spring Cloud Gateway
 
-\* \*\*Contenedores:\*\* Docker
+* **Contenedores:**Docker
 
 
 
@@ -32,7 +32,7 @@ Sistema web para la gestión de turnos, reservas en línea y colas virtuales par
 
 
 
-\## 🚀 Ejecución Local
+## 🚀 Ejecución Local
 
 
 
@@ -40,21 +40,21 @@ Para levantar el proyecto completo en un entorno de desarrollo local, sigue esto
 
 
 
-\### 1. Requisitos Previos
+### 1. Requisitos Previos
 
 
 
-\* Git
+* Git
 
-\* Node.js (v18+)
+* Node.js (v18+)
 
-\* JDK (v17+)
+* JDK (v17+)
 
-\* Docker y Docker Compose
+* Docker y Docker Compose
 
 
 
-\### 2. Clonar el Repositorio
+### 2. Clonar el Repositorio
 
 
 
