@@ -1,0 +1,29 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: auth_service_route
+              uri: http://localhost:5000 # URL del microservicio de usuario
+              predicates:
+                - Path=/api/v1/usuarios/**
+            # -- Esta es para pruebas
+            - id: jsonplaceholder
+              uri: https://jsonplaceholder.typicode.com
+              predicates:
+                - Path=/todos/**
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-q8voma4k1vi0ux1s.us.auth0.com/
+
+auth0:
+  audience: https://BarbaNegra.com
