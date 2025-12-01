@@ -1,0 +1,7 @@
+# NUNCA SUBIR CONFIGURACIONES LOCALES
+*.env
+.env
+*.local
+node_modules/
+dist/
+target/
