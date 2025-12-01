@@ -1,0 +1,72 @@
+.event-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #FAFAFA;
+  transition: all 0.25s ease;
+  position: relative;
+  cursor: pointer;
+  border-left: 4px solid #E6E6E6;
+}
+
+/* Ripple tactil */
+.event-item:active {
+  transform: scale(0.98);
+}
+
+/* Hover (desktop) */
+@media (min-width: 600px) {
+  .event-item:hover {
+    background: #F0F0F0;
+    border-left-color: #FFD60A;
+  }
+}
+
+
+
+/* Cuando es un highlight (próximo evento) */
+.highlight .marker {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+/* Content */
+.event-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.event-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.event-details {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #666;
+  gap: 6px;
+}
+
+.event-details i {
+  font-size: 0.85rem;
+}
+
+/* Mobile compact */
+@media (max-width: 480px) {
+  .event-item {
+    padding: 12px;
+    border-radius: 12px;
+  }
+  .event-title {
+    font-size: 0.9rem;
+  }
+  .event-details {
+    font-size: 0.75rem;
+  }
+}

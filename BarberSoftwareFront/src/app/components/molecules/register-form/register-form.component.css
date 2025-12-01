@@ -1,0 +1,83 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    /* Centra el texto como el h1 y el link */
+}
+
+
+.register-button {
+    --btn-primary-bg: var(--color-yellow-accent);
+    --btn-primary-text: #000;
+    --btn-primary-border: var(--color-yellow-accent);
+    --btn-primary-bg-hover: white;
+    --btn-primary-text-hover: #000;
+    --btn-primary-border-hover: 1px solid #000;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #fff;
+    /* Asegura un fondo blanco para el form de login */
+}
+
+h1 {
+    font-weight: bold;
+}
+
+/* Ajuste para que los inputs no sean demasiado anchos */
+app-input {
+    width: 100%;
+    max-width: 380px;
+}
+
+.forgot-pass-link {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+app-button[style="primary"] {
+    color: #FFFFFF;
+    /* Color de texto para el botón primario */
+}
+
+app-button[style="secondary"] {
+    color: #555;
+    /* Color de texto para el botón secundario */
+}
+
+
+
+.mobile-toggle-link {
+    display: none;
+    /* Oculto en desktop por defecto */
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #A0A0A0);
+}
+
+.mobile-toggle-link a {
+    color: var(--color-pampas-950);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+@media (max-width: 767.98px) {
+    .mobile-toggle-link {
+        display: block;
+        /* Visible en móvil */
+    }
+}

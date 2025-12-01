@@ -1,0 +1,79 @@
+.feedback-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.badge-new {
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(46, 204, 113, 0.4);
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.review-item {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px;
+  border-radius: 10px;
+  border-left: 3px solid #D4AF37; /* Borde dorado */
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.author {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.stars i {
+  font-size: 0.7rem;
+  color: #444;
+}
+
+.stars i.gold {
+  color: #FFD700;
+}
+
+.comment {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #aaa;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.date {
+  display: block;
+  text-align: right;
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 5px;
+}

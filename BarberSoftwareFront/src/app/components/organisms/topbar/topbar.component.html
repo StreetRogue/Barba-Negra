@@ -1,0 +1,34 @@
+<div class="topbar-container" [ngClass]="variant">
+
+  <!-- SECCIÓN IZQUIERDA: Botón Menú + Buscador -->
+  <div class="left-section">
+    <!-- Botón Hamburguesa (Solo visible en móvil por CSS) -->
+    <button class="menu-btn" (click)="toggleMenu.emit()">
+      <i class="bi bi-list"></i>
+    </button>
+
+  </div>
+
+  <!-- SECCIÓN DERECHA: Perfil -->
+  <div class="profile-section">
+    <div class="divider"></div>
+
+    <div class="profile-wrapper">
+      <div class="user-info">
+        <span class="user-name">{{ userName }}</span>
+        <span class="user-role">{{ variant === 'client' ? 'Cliente' : variant === 'barber' ? 'Barbero' : 'Admin'
+          }}</span>
+      </div>
+
+      <img [src]="userImage || defaultImage" (error)="handleImageError($event)" alt="Perfil" class="avatar-img">
+
+      <div class="dropdown-menu">
+        <button (click)="logoutAction.emit()" class="dropdown-item danger">
+          <i class="bi bi-box-arrow-right"></i>
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

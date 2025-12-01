@@ -1,0 +1,499 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.services-section-card {
+    display: block;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    padding-top: 80px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    min-height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+/* --- TÍTULO SVG (Igual) --- */
+.svg-title-container {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 900px;
+    height: 120px;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.svg-title-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 80px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    fill: url(#chromeGradient);
+}
+
+/* --- ESCENARIO DEL CARRUSEL --- */
+.custom-carousel-stage {
+    width: 100%;
+    height: 350px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+    /* Para el efecto 3D */
+}
+
+.cards-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- LA CARTA BASE --- */
+.service-card-wrapper {
+    position: absolute;
+    /* Todos apilados en el centro inicialmente */
+    width: 200px;
+    height: 320px;
+    /* Incluye espacio para info abajo */
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.service-card {
+    width: 200px;
+    height: 250px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #222;
+    transition: all 0.5s ease;
+}
+
+.card-visual {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* --- ESTADOS DE POSICIÓN --- */
+
+/* 1. CENTRO (ACTIVO) */
+.card-center {
+    z-index: 10;
+    transform: translateX(0) scale(1.1);
+    opacity: 1;
+}
+
+.card-center .service-card {
+    filter: grayscale(0%) brightness(1);
+    /* Color real */
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    /* Dorado */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+/* 2. IZQUIERDA (ANTERIOR) */
+.card-left {
+    z-index: 5;
+    /* Se mueve a la izquierda y se mete detrás */
+    transform: translateX(-200px) scale(0.85) translateZ(-50px);
+    opacity: 0.7;
+}
+
+.card-left .service-card {
+    filter: grayscale(100%) brightness(0.4);
+    /* Oscuro */
+}
+
+/* 3. DERECHA (SIGUIENTE) */
+.card-right {
+    z-index: 5;
+    /* Se mueve a la derecha y se mete detrás */
+    transform: translateX(200px) scale(0.85) translateZ(-50px);
+    opacity: 0.7;
+}
+
+.card-right .service-card {
+    filter: grayscale(100%) brightness(0.4);
+    /* Oscuro */
+}
+
+/* 4. OCULTOS (DETRÁS) */
+.card-hidden {
+    z-index: 0;
+    transform: scale(0.5);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- INFO TEXTO --- */
+.service-info {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.5s ease;
+}
+
+.info-text {
+    text-align: center;
+}
+
+.service-name {
+    color: #fff;
+    font-weight: 700;
+    margin: 0;
+}
+
+.service-price {
+    color: var(--color-yellow-accent, #FFC107);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.line-deco {
+    width: 30px;
+    height: 1px;
+    background: #555;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- FLECHAS DE NAVEGACIÓN --- */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Centrado vertical exacto */
+    background: transparent;
+    border: none;
+    color: var(--color-yellow-accent, #FFC107);
+    font-size: 2.5rem;
+    /* Un poco más grandes */
+    cursor: pointer;
+    z-index: 100;
+    /* Por encima de las cards */
+    padding: 10px;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.nav-btn:hover {
+    transform: translateY(-50%) scale(1.2);
+    /* Mantiene el centro y crece */
+    color: #fff;
+}
+
+.prev-btn {
+    /* En lugar de left: 20px */
+    left: calc(35% - 240px);
+}
+
+.next-btn {
+    /* En lugar de right: 20px */
+    right: calc(35% - 240px);
+}
+
+@media (max-width: 600px) {
+    .svg-title-text {
+        font-size: 60px;
+    }
+}
+
+/* --- WRAPPER DE PROMOCIONES --- */
+.promos-wrapper {
+    width: 100%;
+    margin-top: 40px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.promos-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    color: #FFC107;
+}
+
+.promos-header i {
+    font-size: 1.5rem;
+}
+
+.promos-header h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.line-flex {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, #FFC107 0%, transparent 100%);
+    opacity: 0.5;
+}
+
+/* --- CONTENEDOR GRID --- */
+.tickets-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* --- EL TICKET (La Magia) --- */
+.ticket-card {
+    display: flex;
+    min-height: 140px; 
+    height: auto;   
+    background: #2a2a2a;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.ticket-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+/* Variación Dorada (Premium) */
+.ticket-card.gold-bg {
+    background: linear-gradient(135deg, #3d3506 0%, #1a1a1a 100%);
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+/* --- LADO IZQUIERDO (STUB) --- */
+.ticket-stub {
+    width: 100px; /* Aumentado de 90px a 100px para más espacio */
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-right: 2px dashed #444; /* Línea de corte */
+    text-align: center; /* Asegura el centrado del texto */
+    padding: 0 5px;
+}
+
+.discount-val {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #FFC107;
+    line-height: 1;
+    width: 100%; /* Asegura que ocupe el ancho para centrarse */
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.off-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+/* CÍRCULOS (MUESCAS) - Efecto troquelado */
+.stub-circles {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #1a1a1a; /* Debe coincidir con el color de fondo de la página padre */
+    border-radius: 50%;
+    right: -10px; /* Mitad adentro, mitad afuera */
+    z-index: 2;
+}
+
+.stub-circles.top {
+    top: -10px;
+}
+
+.stub-circles.bottom {
+    bottom: -10px;
+}
+
+/* --- LADO DERECHO (BODY) --- */
+.ticket-body {
+    flex: 1;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.promo-title {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.promo-desc {
+    margin: 5px 0 0 0;
+    font-size: 0.85rem;
+    color: #aaa;
+    line-height: 1.3;
+    max-height: 38px;
+}
+
+.promo-meta {
+    font-size: 0.75rem;
+    color: #FFC107;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* --- BOTÓN CANJEAR --- */
+.btn-claim {
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid #FFC107;
+    color: #FFC107;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-top: 10px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+}
+
+.code-span {
+    font-weight: 800;
+    font-family: monospace;
+    letter-spacing: 1px;
+    background: rgba(0,0,0,0.3);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 5px;
+}
+
+.btn-claim:hover {
+    background: #FFC107;
+    color: #000;
+}
+
+/* Estado Copiado */
+.btn-claim.copied {
+    background: #28a745;
+    border-color: #28a745;
+    color: #fff;
+    pointer-events: none;
+}
+
+.no-services {
+    width: 100%;
+    text-align: center;
+    padding: 40px 0;
+    color: #ccc;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.no-services i {
+    font-size: 2.5rem;
+    color: #FFC107;
+}
+
+@media (max-width: 600px) {
+    .tickets-container {
+        grid-template-columns: 1fr; /* Una columna en móvil */
+    }
+}
+
+/* --- INDICADOR DE DOBLE CLIC --- */
+.double-click-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 200;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Animación del dedo o lápiz */
+.double-click-hint i {
+  font-size: 1.1rem;
+  animation: tapAnimation 1.5s infinite;
+}
+/* Animación del dedo "tocando" */
+@keyframes tapAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.8); }
+    100% { transform: scale(1); }
+}
+
+/* Mostrar cuando el usuario pasa el mouse sobre la tarjeta central */
+.service-card-wrapper:hover .double-click-hint {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Opcional: Si quieres que siempre sea visible en móviles */
+@media (max-width: 768px) {
+    .card-center .double-click-hint {
+        opacity: 1;
+        transform: translateY(0);
+        background: rgba(0,0,0,0.6); /* Fondo más sólido en móvil */
+        padding: 8px;
+        border-radius: 0 0 16px 16px;
+    }
+}

@@ -1,0 +1,28 @@
+<div class="custom-input-container" 
+     [class.invalid]="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)">
+  
+  <input
+    [type]="type"
+    class="custom-input"
+    [id]="controlName"
+    [placeholder]="placeholder || ' '"  
+    [value]="value"
+    [disabled]="isDisabled"
+    (input)="onInputChange($event)"
+    (blur)="onTouched()"
+    autocomplete="off"
+  />
+  
+  <label class="floating-label" [for]="controlName">{{ label }}</label>
+
+  <div class="error-message" *ngIf="ngControl?.invalid && (ngControl?.dirty || ngControl?.touched)">
+    
+    <small *ngIf="ngControl?.errors?.['required']">Este campo es obligatorio.</small>
+    <small *ngIf="ngControl?.errors?.['email']">Correo electrónico inválido.</small>
+    <small *ngIf="ngControl?.errors?.['pattern']">Formato incorrecto (solo números).</small>
+    
+    <small *ngIf="ngControl?.errors?.['whitespace']">No dejes espacios en blanco.</small>
+    
+  </div>
+
+</div>

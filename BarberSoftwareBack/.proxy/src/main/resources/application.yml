@@ -1,0 +1,87 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: api-gateway
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${AUTH0_ISSUER_URI}
+          jwk-set-uri: ${AUTH0_JWKS_URI}
+
+  cloud:
+    gateway:
+
+      # Habilita WebSocket forwarding real
+      httpserver:
+        websocket:
+          enabled: true
+          max-frame-payload-length: 65536
+
+      # Filtros globales
+      default-filters:
+        - PreserveHostHeader
+        - RemoveHopByHopHeaders=connection,keep-alive,transfer-encoding
+
+      server:
+        webflux:
+          routes:
+
+            # -----------------------
+            # Microservicio de Usuarios (REST)
+            # -----------------------
+            - id: auth_service_route
+              uri: ${USERS_SERVICE_URL}
+              predicates:
+                - Path=/api/v1/usuarios/**
+
+            # -----------------------
+            # Micro Barberos
+            # -----------------------
+            - id: micro_barberos_route
+              uri: ${BARBEROS_SERVICE_URL}
+              predicates:
+                - Path=/api/v1/microBarberos/**
+
+            # -----------------------
+            # Micro Reservas
+            # -----------------------
+            - id: micro_reservas_route
+              uri: ${RESERVAS_SERVICE_URL}
+              predicates:
+                - Path=/api/v1/microReservas/**
+
+            # -----------------------
+            # Micro Notificaciones (REST)
+            # -----------------------
+            - id: micro_notificaciones_api_route
+              uri: ${NOTIFICACIONES_SERVICE_URL}
+              predicates:
+                - Path=/api/v1/notificaciones/**
+
+            # -----------------------
+            # Micro Notificaciones (WebSockets)
+            # -----------------------
+            - id: micro_notificaciones_ws_route
+              uri: ${NOTIFICACIONES_WS_URL}
+              predicates:
+                - Path=/ws
+                - Path=/ws/**
+              filters:
+                - PreserveHostHeader
+                - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+
+# ===========================
+# CONFIG EXTRAS
+# ===========================
+
+auth0:
+  audience: ${AUTH0_AUDIENCE}
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty: DEBUG

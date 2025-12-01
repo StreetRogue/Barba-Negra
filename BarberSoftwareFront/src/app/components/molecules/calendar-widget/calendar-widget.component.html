@@ -1,0 +1,43 @@
+<div class="calendar-container">
+
+  <div class="calendar-header">
+    <button class="nav-btn" (click)="changeMonth(-1)" *ngIf="view === 'days'">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <div class="header-title" (click)="toggleView()">
+      <span class="month-label" *ngIf="view === 'days'">
+        {{ monthNames[currentDate.getMonth()] }}
+      </span>
+      <span class="year-label">
+        {{ currentDate.getFullYear() }}
+      </span>
+      <i class="bi bi-caret-down-fill dropdown-icon"></i>
+    </div>
+
+    <button class="nav-btn" (click)="changeMonth(1)" *ngIf="view === 'days'">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+
+  <div class="calendar-grid days-view" [class.slide-left]="slideDirection === 'left'"
+    [class.slide-right]="slideDirection === 'right'" *ngIf="view === 'days'">
+
+    <div class="weekday" *ngFor="let day of weekDays">{{ day }}</div>
+
+    <div class="day-cell" *ngFor="let day of daysInMonth">
+      <span *ngIf="day" class="day-number" [class.today]="isToday(day)" [class.selected]="isSelected(day)"
+        (click)="selectDay(day)">
+        {{ day }}
+      </span>
+    </div>
+  </div>
+
+  <div class="years-view" *ngIf="view === 'years'">
+    <div class="year-pill" *ngFor="let year of yearsList" [class.active-year]="year === currentDate.getFullYear()"
+      (click)="selectYear(year)">
+      {{ year }}
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,154 @@
+/* Contenedor Principal */
+.rebook-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    min-height: 0;
+    padding: 0.5rem 0;
+    gap: 1rem;
+    color: #ffffff;
+}
+
+/* Header (Fecha y Servicio) */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.service-tag {
+    background: var(--bg-card-principal);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    /* Evita que el texto se rompa en dos líneas */
+}
+
+/* Sección Central (El Contador) */
+.counter-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    /* Margen para separarlo del botón y header */
+}
+
+.days-display {
+    display: flex;
+    align-items: baseline;
+    /* Alinea el "22" y "días" en la base */
+    justify-content: center;
+    gap: 8px;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.days-display .number {
+    /* Responsive font: mínimo 3rem, ideal 4vw, máximo 4.5rem */
+    font-size: clamp(3rem, 15vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    transition: color 0.3s ease;
+}
+
+/* --- COLORES CORREGIDOS PARA MODO OSCURO --- */
+/* Fresco: Verde brillante */
+.days-display.low .number {
+    color: #4ade80;
+}
+
+/* Medio: Blanco (Antes era negro y no se veía) */
+.days-display.medium .number {
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Urgente: Rojo/Naranja intenso */
+.days-display.high .number {
+    color: #ff6b6b;
+}
+
+.days-display .label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.message {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+}
+
+/* Botón de Acción */
+.action-btn {
+    background: #FFD60A;
+    color: #1f1f1f;
+    border: none;
+    width: 100%;
+    padding: 14px 1rem;
+    /* Botón un poco más alto para tocar fácil en móvil */
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 214, 10, 0.3);
+    background: #ffe45e;
+}
+
+.arrow-icon {
+    font-style: normal;
+    transition: transform 0.2s;
+}
+
+.action-btn:hover .arrow-icon {
+    transform: translateX(4px);
+}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+
+/* Móviles pequeños (iPhone SE, etc) */
+@media (max-width: 380px) {
+    .rebook-container {
+        min-height: auto;
+        /* Dejar que la altura sea automática */
+        gap: 0.8rem;
+    }
+
+    .days-display .number {
+        font-size: 2.8rem;
+        /* Reducir fuente */
+    }
+
+    .service-tag {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+    }
+
+    .message {
+        font-size: 0.9rem;
+    }
+
+    .action-btn {
+        padding: 10px;
+        /* Botón más compacto */
+    }
+}

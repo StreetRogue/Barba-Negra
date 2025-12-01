@@ -1,0 +1,26 @@
+<div class="progress-widget">
+
+  <h3 class="progress-title">Progreso del Servicio Actual</h3>
+
+  <div class="progress-circle-wrapper">
+    <svg class="progress-circle" viewBox="0 0 36 36">
+      <path class="circle-bg"
+        d="M18 2 a16 16 0 0 1 0 32 a16 16 0 0 1 0 -32" />
+      <path class="circle-progress"
+        [attr.stroke-dasharray]="circleLength"
+        [attr.stroke-dashoffset]="dashOffset"
+        d="M18 2 a16 16 0 1 1 0 32 a16 16 0 1 1 0 -32" />
+    </svg>
+
+    <span class="progress-label">{{ displayValue }}%</span>
+  </div>
+
+  <p class="remaining-time" *ngIf="remainingMinutes > 0">
+    Tiempo restante: {{ remainingMinutes }} min
+  </p>
+
+  <p class="remaining-time" *ngIf="remainingMinutes === 0">
+    Servicio finalizado
+  </p>
+
+</div>

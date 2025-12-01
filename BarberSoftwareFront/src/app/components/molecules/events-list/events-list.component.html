@@ -1,0 +1,11 @@
+<div class="events-widget">
+  <h3 class="list-title">Próximas Reservas</h3>
+
+  <div class="events-container">
+    <app-event-item
+      *ngFor="let e of events"
+      [title]="e.nombreServicio + ' - ' + e.nombreBarbero"
+      [date]="e.horaInicio"
+    ></app-event-item>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<header [class.scrolled]="isScrolled" [class.force-black]="isLoginPage" class="app-header"
+  [class.header-overlay]="isHome">
+  <div class="container-fluid">
+
+    <!-- Desktop -->
+    <div class="d-none d-lg-flex justify-content-between align-items-center header-desktop">
+
+      <!-- Logo izquierda -->
+      <div class="header-logo">
+        <app-logo variant="hero"></app-logo>
+      </div>
+
+      <!-- Menú centro -->
+      <nav class="header-nav">
+        <a routerLink="/" routerLinkActive="active">Inicio</a>
+        <a routerLink="/sobre-nosotros" routerLinkActive="active">Sobre Nosotros</a>
+        <a routerLink="/encuentranos" routerLinkActive="active">Encuéntranos</a>
+      </nav>
+
+      <!-- Icono usuario derecha -->
+      <div class="header-user">
+        <app-button [style]="'icon'" [routerLink]="dashboardRoute()">
+          <i class="bi bi-person fs-3"></i>
+        </app-button>
+      </div>
+
+    </div>
+
+    <!-- Mobile -->
+    <div class="d-flex d-lg-none justify-content-between align-items-center header-mobile">
+
+      <!-- Icono usuario -->
+      <app-button [style]="'icon'" [routerLink]="dashboardRoute()">
+        <i class="bi bi-person fs-3"></i>
+      </app-button>
+
+      <!-- Logo -->
+      <app-logo variant="hero"></app-logo>
+
+      <!-- Espaciador -->
+      <div style="width: 36px;"></div>
+
+    </div>
+
+  </div>
+</header>

@@ -1,0 +1,211 @@
+/* --- RESET GLOBAL --- */
+:host {
+    display: block;
+    box-sizing: border-box;
+}
+
+/* =========================================
+   1. SECCIÓN SUPERIOR
+   ========================================= */
+.top-section {
+    display: flex;
+    gap: 1.5rem;
+    align-items: stretch;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+app-welcome-card {
+    flex: 2;
+    min-width: 300px;
+}
+
+app-calendar-widget {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* =========================================
+   2. SECCIÓN INFERIOR (LAYOUT PRINCIPAL)
+   ========================================= */
+.bottom-section {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    align-items: start; /* Evita estiramientos */
+}
+
+/* --- COLUMNA IZQUIERDA (GRILLA) --- */
+.left-column {
+    flex: 2; /* Ocupa 2/3 */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    grid-auto-rows: minmax(200px, auto);
+    gap: 1rem;
+}
+
+/* Posicionamiento de tarjetas Izquierda */
+
+/* 1. Perfil (Arriba Izq) */
+.barber-profile-card {
+    grid-column: 1 / 2;
+}
+
+/* 2. Progreso (Arriba Der) */
+.progress-card {
+    grid-column: 2 / 3;
+}
+
+/* 3. Loyalty / Niveles (Abajo - Ocupa todo el ancho) */
+.loyalty-card {
+    grid-column: 1 / -1; /* <-- ESTO FALTABA: Span completo */
+}
+
+
+/* --- COLUMNA DERECHA (VERTICAL) --- */
+.right-column {
+    flex: 1; /* Ocupa 1/3 */
+    display: flex;
+    flex-direction: column;
+    min-width: 280px;
+    gap: 1rem;
+}
+
+.events-widget {
+    display: flex;
+    flex-direction: column;
+    /* height: 260px; Opcional: Altura fija si quieres scroll interno */
+}
+
+.available-card {
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+/* =========================================
+   3. ESTILOS INTERNOS (LOYALTY CARD)
+   ========================================= */
+.loyalty-content {
+    padding: 10px;
+}
+
+.loyalty-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.gold-icon {
+    font-size: 2rem;
+    color: #FFD700;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.loyalty-header h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.loyalty-header small {
+    color: #aaa;
+}
+
+/* Barra de progreso */
+.loyalty-track {
+    width: 100%;
+    height: 8px;
+    background-color: #333;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.loyalty-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #D4AF37, #FFD700);
+    border-radius: 4px;
+    transition: width 1s ease-out;
+}
+
+.loyalty-footer {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0;
+}
+
+.loyalty-footer strong {
+    color: #fff;
+}
+
+/* Empty States */
+.empty-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: #888;
+    text-align: center;
+    height: 100%;
+    min-height: 150px;
+}
+
+.empty-widget i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.5;
+}
+
+/* =========================================
+   4. RESPONSIVE DESIGN
+   ========================================= */
+
+/* TABLETS (< 1024px) */
+@media (max-width: 1024px) {
+    .bottom-section {
+        flex-direction: column; /* Todo en vertical */
+    }
+
+    .left-column {
+        width: 100%;
+        /* Mantenemos grid de 2 columnas internas */
+    }
+
+    .right-column {
+        width: 100%;
+        flex-direction: row; /* Eventos y Rebooking lado a lado */
+        flex-wrap: wrap;
+    }
+
+    .events-widget,
+    .available-card {
+        flex: 1 1 300px;
+    }
+}
+
+/* MÓVILES (< 768px) */
+@media (max-width: 768px) {
+    .top-section {
+        flex-direction: column;
+    }
+
+    .left-column {
+        grid-template-columns: 1fr; /* Una sola columna */
+    }
+
+    /* Hacemos que todos ocupen el 100% en móvil */
+    .progress-card,
+    .barber-profile-card,
+    .loyalty-card {
+        grid-column: 1 / -1;
+    }
+
+    .right-column {
+        flex-direction: column;
+    }
+}

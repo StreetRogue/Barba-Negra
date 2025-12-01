@@ -1,0 +1,116 @@
+<div class="services-wrapper">
+
+    <app-card class="services-section-card">
+        <div class="carousel-container">
+
+            <div class="svg-title-container">
+                <!-- (Tu SVG se mantiene igual) -->
+                <svg viewBox="0 0 800 150" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <linearGradient id="chromeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffffff; stop-opacity:1" />
+                            <stop offset="45%" style="stop-color:#a0a0a0; stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#404040; stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#dddddd; stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="dropShadow">
+                            <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="rgba(0,0,0,0.8)" />
+                        </filter>
+                    </defs>
+                    <path id="curvePath" d="M 0,120 Q 400,20 800,120" fill="transparent" />
+                    <text filter="url(#dropShadow)">
+                        <textPath href="#curvePath" startOffset="50%" text-anchor="middle" class="svg-title-text">
+                            SERVICIOS
+                        </textPath>
+                    </text>
+                </svg>
+                <div *ngIf="services.length === 0" class="no-services">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <p>No hay servicios registrados por el momento.</p>
+                </div>
+            </div>
+
+            <div class="custom-carousel-stage">
+
+                <button class="nav-btn prev-btn" (click)="prev()">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
+                <div class="cards-stack">
+                    <div *ngFor="let service of services; let i = index" class="service-card-wrapper"
+                        [ngClass]="getClass(i)" (click)="activeIndex = i">
+
+                        <div class="service-card" (dblclick)="confirmBooking(service)">
+                            <div class="card-visual" [style.background-image]="'url(' + service.img + ')'"></div>
+
+
+                            <div class="double-click-hint" *ngIf="i === activeIndex">
+                                <i class="bi bi-hand-index-thumb"></i>
+                                <span>Doble clic para reservar</span>
+                            </div>
+                        </div>
+
+                        <div class="service-info" *ngIf="i === activeIndex">
+                            <div class="line-deco"></div>
+                            <div class="info-text">
+                                <h3 class="service-name">{{ service.name }}</h3>
+                                <p class="service-price">{{ service.price }}</p>
+                            </div>
+                            <div class="line-deco"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button class="nav-btn next-btn" (click)="next()">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+
+            </div>
+        </div>
+    </app-card>
+
+    <!-- (Sección de promociones se mantiene igual) -->
+    <div class="promos-wrapper fade-in">
+        <div class="promos-header">
+            <i class="bi bi-stars"></i>
+            <h3>Ofertas Exclusivas</h3>
+            <div class="line-flex"></div>
+        </div>
+
+        <div class="tickets-container">
+            <div *ngFor="let promo of promotions" class="ticket-card" [class.gold-bg]="promo.bgType === 'gold'">
+                <div class="ticket-stub">
+                    <span class="discount-val">{{ promo.discount }}</span>
+                    <span class="off-label">OFF</span>
+                    <div class="stub-circles top"></div>
+                    <div class="stub-circles bottom"></div>
+                </div>
+                <div class="ticket-divider"></div>
+                <div class="ticket-body">
+                    <div class="promo-info">
+                        <h4 class="promo-title">{{ promo.title }}</h4>
+                        <p class="promo-desc">{{ promo.description }}</p>
+                        <div class="promo-meta">
+                            <i class="bi bi-clock-history"></i> {{ promo.expiry }}
+                        </div>
+                    </div>
+                    <button class="btn-claim" [class.copied]="copiedCode === promo.code"
+                        (click)="copyPromoCode(promo.code)">
+                        <span *ngIf="copiedCode !== promo.code">
+                            Canjear <span class="code-span">{{ promo.code }}</span>
+                        </span>
+                        <span *ngIf="copiedCode === promo.code">
+                            <i class="bi bi-check-lg"></i> Copiado
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-booking-modal [isVisible]="showBookingModal" [serviceData]="selectedService"
+        (close)="showBookingModal = false">
+    </app-booking-modal>
+
+</div>

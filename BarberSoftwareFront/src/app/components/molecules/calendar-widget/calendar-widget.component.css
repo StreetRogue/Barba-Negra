@@ -1,0 +1,279 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+
+  margin: 0 auto;
+}
+
+/* CONTAINER */
+.calendar-container {
+  background: #fff;
+  border-radius: 24px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+
+/* HEADER */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.header-title .dropdown-icon {
+  transition: transform 0.2s ease;
+}
+
+.header-title:hover .dropdown-icon {
+  transform: translateY(2px);
+}
+
+/* NAV BUTTONS */
+.nav-btn {
+  background: #f3f3f3;
+  border: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #555;
+}
+
+.nav-btn:hover {
+  background: #e8e8e8;
+  color: #111;
+}
+
+/* GRID DE DÍAS */
+.days-view {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0;
+  text-align: center;
+  animation-duration: 0.25s;
+  animation-timing-function: ease;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;        /* ← redondea toda la malla */
+  overflow: hidden; 
+}
+
+.slide-left {
+  animation-name: slideLeft;
+}
+
+.slide-right {
+  animation-name: slideRight;
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fade {
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weekday {
+  font-size: 0.7rem;
+  color: #a7a7a7;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 4px;
+}
+
+/* CELDAS */
+.day-cell {
+  height: 2.3rem;
+  border: 1px solid #e0e0e0;
+  border-style: dotted;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-number {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.25s ease;
+}
+
+.day-number:active {
+  transform: scale(0.9);
+}
+
+.day-number:hover {
+  background-color: #f0f0f0;
+}
+
+/* ESTADOS */
+.day-number.today {
+  border: 1px solid #111;
+  font-weight: 700;
+}
+
+.day-number.selected {
+  background: #111;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+  }
+
+  70% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* VISTA DE AÑOS */
+.years-view {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.year-pill {
+  padding: 0.6rem;
+  border-radius: 10px;
+  background: #f5f5f5;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 0.9rem;
+}
+
+.year-pill:hover {
+  background: #e3e3e3;
+}
+
+.year-pill.active-year {
+  background: #111;
+  color: white;
+  font-weight: 700;
+}
+
+/* SCROLL SUAVE */
+.years-view::-webkit-scrollbar {
+  width: 4px;
+}
+
+.years-view::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* ------------------ RESPONSIVE ------------------ */
+
+
+@media (max-width: 1024px) {
+  .calendar-container {
+    height: 100%;
+  }
+
+  .days-view {
+    height: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .calendar-container {
+    padding: 1rem;
+    border-radius: 20px;
+  }
+
+  .header-title {
+    font-size: 1rem;
+  }
+
+  .nav-btn {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .days-view {
+    gap: 3px;
+  }
+
+  .day-number {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 0.85rem;
+  }
+
+  .years-view {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 360px) {
+  .years-view {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

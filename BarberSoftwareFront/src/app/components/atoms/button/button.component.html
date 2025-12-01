@@ -1,0 +1,37 @@
+<button *ngIf="!isLink()" [type]="type" class="c-btn" [ngClass]="{
+    'c-btn-primary': style === 'primary',
+    'c-btn-secondary': style === 'secondary',
+    'c-btn-icon': style === 'icon',
+    'c-btn-primary-on-dark': style === 'primary-on-dark',
+    'c-btn-overlay': style === 'overlay',
+    'c-btn-native-reset': style === 'icon',
+    'c-btn-outline-gold': style === 'outline-gold',
+    'c-btn-primary-login': style === 'primary-login',
+    'c-btn-google-continue': style === 'google-continue',
+    'c-btn-third-login': style === 'third-login',
+  }" [disabled]="disabled">
+  {{ label }}
+  <span class="c-btn__icon-slot">
+    <ng-content></ng-content>
+  </span>
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</button>
+
+<a *ngIf="isLink()" [href]="link" [routerLink]="routerLink" class="c-btn" [ngClass]="{
+    'c-btn-primary': style === 'primary',
+    'c-btn-secondary': style === 'secondary',
+    'c-btn-icon': style === 'icon',
+    'c-btn-primary-on-dark': style === 'primary-on-dark',
+    'c-btn-overlay': style === 'overlay',
+    'c-btn-outline-gold': style === 'outline-gold',
+    'c-btn-primary-login': style === 'primary-login',
+    'c-btn-google-continue': style === 'google-continue',
+    'c-btn-third-login': style === 'third-login',
+    'disabled': disabled
+  }" [attr.aria-disabled]="disabled" (click)="disabled ? $event.preventDefault() : null">
+  {{ label }}
+  <span class="c-btn__icon-slot">
+    <ng-content></ng-content>
+  </span>
+  <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</a>

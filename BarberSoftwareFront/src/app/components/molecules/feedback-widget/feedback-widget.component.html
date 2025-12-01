@@ -1,0 +1,20 @@
+<div class="feedback-container">
+      <div class="header">
+        <h3>Opiniones Recientes</h3>
+        <span class="badge-new">Nuevas</span>
+      </div>
+
+      <div class="reviews-list">
+        <div class="review-item" *ngFor="let review of reviews">
+          <div class="review-header">
+            <span class="author">{{ review.autor }}</span>
+            <div class="stars">
+              <i class="bi bi-star-fill" *ngFor="let s of [1,2,3,4,5]" 
+                 [class.gold]="s <= review.puntuacion"></i>
+            </div>
+          </div>
+          <p class="comment">"{{ review.comentario }}"</p>
+          <small class="date">{{ review.fecha }}</small>
+        </div>
+      </div>
+    </div>

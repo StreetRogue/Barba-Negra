@@ -1,0 +1,84 @@
+<div class="page-container">
+  
+  <div class="header-section">
+    <h1>Historial de Reservas</h1>
+    <p>Supervisión general de citas</p>
+  </div>
+
+  <!-- BARRA DE HERRAMIENTAS -->
+  <div class="toolbar">
+    
+    <!-- Buscador -->
+    <div class="search-box">
+      <i class="fa fa-search"></i>
+      <input type="text" placeholder="Buscar por ID Reserva o Cliente..." 
+             [(ngModel)]="filtro" (input)="aplicarFiltros()">
+    </div>
+
+    <!-- Filtro de Estado -->
+    <div class="filter-box">
+      <select [(ngModel)]="filtroEstado" (change)="aplicarFiltros()" class="select-filter">
+        <option value="TODOS">Todos los estados</option>
+        <option value="PENDIENTE">Pendientes</option>
+        <option value="CONFIRMADA">Confirmadas</option>
+        <option value="EN_PROCESO">En Proceso</option>
+        <option value="COMPLETADA">Completadas</option>
+        <option value="CANCELADA">Canceladas</option>
+        <option value="NO_PRESENTADO">No Show</option>
+      </select>
+    </div>
+
+    <!-- Botón Recargar -->
+    <button class="btn-refresh" (click)="cargarTodasLasReservas()" title="Actualizar lista">
+      <i class="bi bi-arrow-clockwise" [class.fa-spin]="loading"></i>
+    </button>
+
+  </div>
+
+  <!-- TABLA DE DATOS -->
+  <div class="table-container">
+    
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando reservas...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && reservasFiltradas.length === 0" class="empty-state">
+      <i class="fa fa-calendar-o"></i>
+      <p>No se encontraron reservas con los filtros actuales.</p>
+    </div>
+
+    <!-- Tabla Real -->
+    <table *ngIf="!loading && reservasFiltradas.length > 0" class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente (ID)</th>
+          <th>Barbero (ID)</th>
+          <th>Servicio (ID)</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reserva of reservasFiltradas">
+          <td class="col-id">#{{ reserva.idReserva }}</td>
+          <td>{{ reserva.idUsuario }}</td>
+          <td>{{ reserva.idBarbero }}</td>
+          <td>{{ reserva.idServicio }}</td>
+          <td class="col-date">{{ formatDate(reserva.horaInicio) }}</td>
+          <td class="col-time">{{ formatTime(reserva.horaInicio) }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getStatusClass(reserva.estado)">
+              {{ getStatusLabel(reserva.estado) }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

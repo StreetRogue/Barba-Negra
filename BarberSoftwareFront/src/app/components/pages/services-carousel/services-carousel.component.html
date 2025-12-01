@@ -1,0 +1,41 @@
+<div class="services-section">
+  <div class="container text-center">
+
+    <h2 class="display-4 mb-5 service-heading">Por qué elegirnos?</h2>
+
+    <div class="carousel-wrapper">
+      <button class="nav-btn prev-btn" (click)="prevService()">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+
+      <div class="carousel-container">
+
+        <div *ngFor="let service of services; let i = index" class="carousel-card" [ngClass]="getCardClass(i)"
+          (click)="activeIndex = i">
+
+          <div class="card-visual">
+            <img [src]="service.image" [alt]="service.title" class="service-img">
+          </div>
+
+        </div>
+      </div>
+
+      <button class="nav-btn next-btn" (click)="nextService()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+
+    </div>
+
+    <div class="info-control-panel mt-4">
+
+      <div class="active-info text-center">
+        <h3 class="active-title">{{ services[activeIndex].title }}</h3>
+        <p class="active-desc">{{ services[activeIndex].description }}</p>
+      </div>
+
+
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <h1>Iniciar Sesión</h1>
+
+  <app-input controlName="login-email" label="Email" placeholder=" " type="email" formControlName="email">
+  </app-input>
+
+  <a routerLink="/" class="forgot-pass-link">¿Olvidaste tu contraseña?</a>
+
+  <app-button class="login-continue-button" [style]="'primary-login'" type="submit">
+    <ng-template>Continuar</ng-template>
+  </app-button>
+
+  <div class="divider d-flex align-items-center mt-4">
+    <hr class="flex-grow-1" />
+    <b class="px-3">O</b>
+    <hr class="flex-grow-1" />
+  </div>
+
+  <app-button class="login-google-continue-button" [style]="'google-continue'" (click)="googleLogin.emit()">
+    <i class="bi bi-google me-2"></i>
+    <ng-template><i class="bi bi-google me-2"></i> Continuar con Google</ng-template>
+  </app-button>
+
+  <div class="mobile-toggle-link">
+    ¿No tienes cuenta?
+    <a href="#" (click)="$event.preventDefault(); goToRegister.emit()">
+      Regístrate aquí
+    </a>
+  </div>
+</form>

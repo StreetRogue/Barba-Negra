@@ -1,0 +1,53 @@
+server:
+  # Asumo un puerto por defecto si no viene en env, ajusta si es necesario
+  port: ${PORT:5002}
+
+spring:
+  application:
+    name: microReservas
+
+  datasource:
+    url: ${RESERVAS_DB_URL}
+    username: ${RESERVAS_DB_USER}
+    password: ${RESERVAS_DB_PASS}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      # ✅ CORRECCIÓN: naming está al nivel de ddl-auto
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+
+    properties:
+      hibernate:
+        format_sql: true
+
+  # ✅ CORRECCIÓN: Unifiqué la configuración de RabbitMQ en un solo bloque
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+    queue:
+      name: cola.reservas.notificaciones
+
+# ============================
+#  CLIENTES REST (WebClient)
+# ============================
+clients:
+  usuarios:
+    base-url: ${CLIENTS_USUARIOS_BASE_URL}
+  barberos:
+    base-url: ${CLIENTS_BARBEROS_BASE_URL}
+
+# ============================
+#  STRIPE
+# ============================
+stripe:
+  api:
+    key: ${STRIPE_API_KEY}
+  currency: ${STRIPE_CURRENCY}

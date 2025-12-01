@@ -1,0 +1,176 @@
+version: "3.9"
+
+services:
+  # ======================================================
+  # RabbitMQ (Broker de Mensajería)
+  # ======================================================
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - barber_network
+
+  # ======================================================
+  # API GATEWAY
+  # ======================================================
+  api-gateway:
+    build: ./.proxy
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: ${GATEWAY_PORT}
+      TZ: America/Bogota
+
+      # URLs internas
+      USERS_SERVICE_URL: http://micro-usuarios:5000
+      BARBEROS_SERVICE_URL: http://micro-barberos:5001
+      RESERVAS_SERVICE_URL: http://micro-reservas:5002
+      NOTIFICACIONES_SERVICE_URL: http://micro-notificaciones:5003
+      NOTIFICACIONES_WS_URL: http://micro-notificaciones:5003
+
+      # Auth0
+      AUTH0_ISSUER_URI: ${AUTH0_ISSUER_URI}
+      AUTH0_JWKS_URI: ${AUTH0_JWKS_URI}
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
+
+    depends_on:
+      - micro-usuarios
+      - micro-barberos
+      - micro-reservas
+      - micro-notificaciones
+    networks:
+      - barber_network
+
+  # ======================================================
+  # Microservicio Usuarios
+  # ======================================================
+  micro-usuarios:
+    build: ./microUsuarios
+    container_name: micro-usuarios
+    ports:
+      - "5000:5000"
+    environment:
+      SERVER_PORT: 5000
+      TZ: America/Bogota
+
+      # Auth0
+      AUTH0_ISSUER_URI: ${AUTH0_ISSUER_URI}
+      AUTH0_JWKS_URI: ${AUTH0_JWKS_URI}
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE}
+
+      # Base de datos
+      spring.datasource.url: ${USUARIOS_DB_URL}
+      spring.datasource.username: ${USUARIOS_DB_USER}
+      spring.datasource.password: ${USUARIOS_DB_PASS}
+
+      # Cliente REST → Barberos
+      BARBEROS_SERVICE_URL: http://micro-barberos:5001
+
+    networks:
+      - barber_network
+
+  # ======================================================
+  #  Microservicio Barberos
+  # ======================================================
+  micro-barberos:
+    build: ./microBarberos
+    container_name: micro-barberos
+    ports:
+      - "5001:5001"
+    environment:
+      SERVER_PORT: 5001
+      TZ: America/Bogota
+
+      spring.datasource.url: ${BARBEROS_DB_URL}
+      spring.datasource.username: ${BARBEROS_DB_USER}
+      spring.datasource.password: ${BARBEROS_DB_PASS}
+
+    networks:
+      - barber_network
+
+  # ======================================================
+  # Microservicio Reservas
+  # ======================================================
+  micro-reservas:
+    build: ./microReservas
+    container_name: micro-reservas
+    ports:
+      - "5002:5002"
+    environment:
+      SERVER_PORT: 5002
+      TZ: America/Bogota
+
+      # Base de datos
+      spring.datasource.url: ${RESERVAS_DB_URL}
+      spring.datasource.username: ${RESERVAS_DB_USER}
+      spring.datasource.password: ${RESERVAS_DB_PASS}
+
+      # RabbitMQ
+      spring.rabbitmq.host: ${RABBITMQ_HOST}
+      spring.rabbitmq.port: ${RABBITMQ_PORT}
+      spring.rabbitmq.username: ${RABBITMQ_USER}
+      spring.rabbitmq.password: ${RABBITMQ_PASS}
+
+      rabbitmq.queue.name: cola.reservas.notificaciones
+
+      # Clientes REST (WebClient)
+      clients.usuarios.base-url: ${CLIENTS_USUARIOS_BASE_URL}
+      clients.barberos.base-url: ${CLIENTS_BARBEROS_BASE_URL}
+
+      # Stripe
+      STRIPE_API_KEY: ${STRIPE_API_KEY}
+      STRIPE_CURRENCY: ${STRIPE_CURRENCY}
+
+    depends_on:
+      rabbitmq:
+        condition: service_healthy    
+    networks:
+      - barber_network
+
+  # ======================================================
+  # Microservicio Notificaciones
+  # ======================================================
+  micro-notificaciones:
+    build: ./microNotificaciones
+    container_name: micro-notificaciones
+    ports:
+      - "5003:5003"
+    environment:
+      SERVER_PORT: 5003
+      TZ: America/Bogota
+
+      # Base de datos
+      spring.datasource.url: ${NOTIF_DB_URL}
+      spring.datasource.username: ${NOTIF_DB_USER}
+      spring.datasource.password: ${NOTIF_DB_PASS}
+
+      # MicroUsuarios (REST)
+      microservices.usuarios.url: ${CLIENTS_USUARIOS_BASE_URL}
+
+      # RabbitMQ
+      spring.rabbitmq.host: ${RABBITMQ_HOST}
+      spring.rabbitmq.port: ${RABBITMQ_PORT}
+      spring.rabbitmq.username: ${RABBITMQ_USER}
+      spring.rabbitmq.password: ${RABBITMQ_PASS}
+
+    depends_on:
+      - rabbitmq
+      - micro-usuarios
+    networks:
+      - barber_network
+
+# ======================================================
+# Red interna comun
+# ======================================================
+networks:
+  barber_network:
+    driver: bridge

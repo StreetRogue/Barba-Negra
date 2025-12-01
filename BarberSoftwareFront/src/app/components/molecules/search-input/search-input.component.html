@@ -1,0 +1,4 @@
+<div class="search-bar-container" [ngClass]="variant">
+    <i class="bi bi-search"></i>
+    <input type="text" [placeholder]="placeholder" [(ngModel)]="searchQuery" (ngModelChange)="onModelChange($event)">
+</div>

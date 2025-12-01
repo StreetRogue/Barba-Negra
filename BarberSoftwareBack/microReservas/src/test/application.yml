@@ -1,0 +1,49 @@
+server:
+  port: ${SERVER_PORT:5002}
+
+spring:
+  application:
+    name: microReservas
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+          implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+
+rabbitmq:
+  host: ${RABBITMQ_HOST}
+  port: ${RABBITMQ_PORT}
+  username: ${RABBITMQ_USERNAME}
+  password: ${RABBITMQ_PASSWORD}
+  queue:
+    name: ${RABBITMQ_QUEUE_NAME}
+
+stripe:
+  api:
+    key: ${STRIPE_API_KEY}
+  currency: ${STRIPE_CURRENCY:cop}
+
+clients:
+  usuarios:
+    base-url: ${USUARIOS_SERVICE_URL}
+  barberos:
+    base-url: ${BARBEROS_SERVICE_URL}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    co.edu.unicauca.microreservas: DEBUG

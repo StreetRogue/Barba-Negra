@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot WebSocket Notificaciones - Prueba Doble</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; }
+        .panels { display: flex; gap: 20px; margin-top: 20px; }
+        .panel { flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #fcfcfc; }
+        h3 { border-bottom: 2px solid #007bff; padding-bottom: 5px; margin-top: 0; }
+        button { padding: 8px 12px; margin-top: 10px; cursor: pointer; border: none; border-radius: 5px; font-weight: bold; }
+        .connect-btn { background-color: #5cb85c; color: white; }
+        .disconnect-btn { background-color: #f0ad4e; color: white; }
+        .connect-btn:hover { background-color: #4cae4c; }
+        .disconnect-btn:hover { background-color: #ec971f; }
+        #notifications-cliente, #notifications-barbero { border: 1px solid #ccc; padding: 10px; margin-top: 15px; background-color: #e9e9e9; border-radius: 5px; min-height: 150px; overflow-y: auto; }
+        .log-message { padding: 5px 0; border-bottom: 1px dotted #aaa; }
+        /* 🟢 Estilo para notificaciones en tiempo real */
+        .log-message.new { font-weight: bold; color: darkred; background-color: #fff3f3; padding-left: 5px; }
+        /* 🔵 Estilo para notificaciones del historial */
+        .log-message.history { color: #555; background-color: #f0f0f0; border-left: 4px solid #007bff; padding-left: 5px; }
+        .log-message.system { color: #007bff; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔔 Microservicio de Notificaciones (Prueba de Cliente y Barbero)</h1>
+
+    <div class="panels">
+
+        <div class="panel">
+            <h3>👤 Cliente (ID: 123)</h3>
+            <p>Recibirá recordatorios programados.</p>
+
+            <button class="connect-btn" onclick="connectUser('CLIENTE')" id="connect-cliente">Conectar Cliente</button>
+            <button class="disconnect-btn" onclick="disconnectUser('CLIENTE')" id="disconnect-cliente" disabled>Desconectar Cliente</button>
+
+            <h4>Registro:</h4>
+            <div id="notifications-cliente">
+                <p class="log-message system">Estado: Desconectado</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3>✂️ Barbero (ID: 2)</h3>
+            <p>Recibirá confirmación inmediata y avisos de inicio/fin.</p>
+
+            <button class="connect-btn" onclick="connectUser('BARBERO')" id="connect-barbero">Conectar Barbero</button>
+            <button class="disconnect-btn" onclick="disconnectUser('BARBERO')" id="disconnect-barbero" disabled>Desconectar Barbero</button>
+
+            <h4>Registro:</h4>
+            <div id="notifications-barbero">
+                <p class="log-message system">Estado: Desconectado</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // --- CONFIGURACIÓN ---
+    const USER_IDS = {
+        // Asegúrate de que estos IDs coincidan con los que usas en el DataLoader
+        'CLIENTE': 123,
+        'BARBERO': 2
+    };
+    const WS_URL = 'http://localhost:5003/ws';
+    const API_URL = 'http://localhost:5003/api/v1/notificaciones/';
+
+    let stompClients = {
+        'CLIENTE': null,
+        'BARBERO': null
+    };
+    // ---------------------
+
+    /**
+     * Función para agregar un mensaje al registro.
+     */
+    function log(type, message, messageType = 'system', date = new Date()) {
+        const notificationsDiv = document.getElementById(`notifications-${type.toLowerCase()}`);
+        const p = document.createElement('p');
+        p.className = 'log-message ' + messageType;
+        const now = date.toLocaleTimeString();
+        p.innerHTML = `[${now}] ${message}`;
+
+        // El historial va al final, los nuevos van al inicio (prepend)
+        if (messageType === 'history') {
+            notificationsDiv.appendChild(p);
+        } else {
+            notificationsDiv.prepend(p);
+        }
+    }
+
+    /**
+     * NUEVA FUNCIÓN: Llama al endpoint REST para cargar las últimas 5 notificaciones.
+     */
+    async function fetchHistorial(type, userId) {
+        log(type, 'Cargando historial de notificaciones (últimas 5)...', 'system');
+
+        try {
+            const response = await fetch(`${API_URL}${userId}/historial`);
+            if (!response.ok) {
+                throw new Error(`Error ${response.status}: ${response.statusText}`);
+            }
+            const historial = await response.json();
+
+            // Limpia el panel antes de mostrar el historial (opcional, pero ayuda a la claridad)
+            const notificationsDiv = document.getElementById(`notifications-${type.toLowerCase()}`);
+            notificationsDiv.innerHTML = '';
+
+            if (historial.length === 0) {
+                log(type, 'Historial vacío.', 'system');
+                return;
+            }
+
+            log(type, `Historial cargado: ${historial.length} mensajes encontrados.`, 'system');
+
+            // Itera el historial y lo muestra
+            historial.forEach(item => {
+                const fecha = new Date(item.fechaCreacion); // Asume que el modelo tiene fechaCreacion
+                const content = `[${item.tipo}] ${item.mensaje}`;
+                log(type, content, 'history', fecha);
+            });
+
+        } catch (error) {
+            log(type, `Error al cargar historial: ${error.message}`, 'system');
+        }
+    }
+
+
+    /**
+     * Función principal para conectar un usuario.
+     */
+    function connectUser(type) {
+        const userId = USER_IDS[type];
+
+        // 1. CARGAR HISTORIAL PRIMERO (Punto clave)
+        fetchHistorial(type, userId);
+
+        log(type, `Intentando conectar WebSockets como ${type} (ID: ${userId})...`);
+
+        const socket = new SockJS(WS_URL);
+        const stompClient = Stomp.over(socket);
+        stompClients[type] = stompClient;
+
+        stompClient.connect({}, (frame) => {
+            log(type, 'WebSockets Conectados. Recibiendo mensajes FUTUROS.', 'system');
+
+            const subscriptionDestination = `/topic/user-${userId}`;
+
+            stompClient.subscribe(subscriptionDestination, (notification) => {
+                const body = notification.body;
+                // Mensajes NUEVOS se marcan con 'new'
+                log(type, `🔔 NOTIFICACIÓN EN TIEMPO REAL: ${body}`, 'new');
+            });
+
+            document.getElementById(`connect-${type.toLowerCase()}`).disabled = true;
+            document.getElementById(`disconnect-${type.toLowerCase()}`).disabled = false;
+
+        }, (error) => {
+            log(type, 'Error de Conexión o Fallo en el Handshake: ' + error, 'system');
+            document.getElementById(`connect-${type.toLowerCase()}`).disabled = false;
+        });
+    }
+
+    function disconnectUser(type) {
+        const stompClient = stompClients[type];
+        if (stompClient !== null) {
+            stompClient.disconnect(() => {
+                log(type, 'Desconectado con éxito.', 'system');
+                document.getElementById(`connect-${type.toLowerCase()}`).disabled = false;
+                document.getElementById(`disconnect-${type.toLowerCase()}`).disabled = true;
+
+                // Mantiene el historial en pantalla, pero la conexión está cerrada.
+            });
+        }
+    }
+</script>
+
+</body>
+</html>

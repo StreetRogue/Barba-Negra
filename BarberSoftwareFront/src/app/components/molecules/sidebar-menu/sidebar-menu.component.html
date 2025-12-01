@@ -1,0 +1,14 @@
+<div class="sidebar-menu-container" [ngClass]="variant">
+  <app-card [variant]="'sidebar-menu'">
+    <div class="logo-wrapper">
+      <app-logo [variant]="logoVariant"></app-logo>
+      <hr class="logo-divider" />
+    </div>
+
+    <nav class="sidebar-menu">
+      <ng-container *ngFor="let it of menuItems">
+        <app-nav-item [link]="it.link" [iconClass]="it.iconClass">{{ it.label }}</app-nav-item>
+      </ng-container>
+    </nav>
+  </app-card>
+</div>

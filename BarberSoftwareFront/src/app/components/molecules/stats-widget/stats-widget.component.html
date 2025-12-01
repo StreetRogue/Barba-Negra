@@ -1,0 +1,33 @@
+<div class="stats-container">
+  
+  <div class="header">
+    <h3><i class="bi bi-graph-up-arrow"></i> Top Servicios</h3>
+    <small class="subtitle">Lo más solicitado este mes</small>
+  </div>
+
+  <div class="chart-content">
+    
+    <div class="chart-row" *ngFor="let item of data; let i = index">
+      
+      <div class="row-info">
+        <span class="rank">#{{ i + 1 }}</span>
+        <span class="service-name">{{ item.nombreService || ('Servicio #' + item.id) }}</span>
+      </div>
+
+      <div class="bar-wrapper">
+        <div class="bar-track">
+          <div class="bar-fill" [style.width.%]="calcularPorcentaje(item.cantidad)">
+            <div class="glow"></div>
+          </div>
+        </div>
+        <span class="count-value">{{ item.cantidad }}</span>
+      </div>
+
+    </div>
+
+    <div *ngIf="data.length === 0" class="empty-chart">
+      <p>No hay datos suficientes para mostrar estadísticas.</p>
+    </div>
+
+  </div>
+</div>

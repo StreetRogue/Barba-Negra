@@ -1,0 +1,74 @@
+<div class="page-container">
+
+  <h1 class="title">Reportes & Estadísticas</h1>
+  <p class="subtitle">Analítica completa del sistema</p>
+
+  <div class="filter-panel">
+    <div class="filter-row">
+      <div class="field">
+        <label>Fecha Inicio</label>
+        <input type="date" [(ngModel)]="fechaInicio">
+      </div>
+      <div class="field">
+        <label>Fecha Fin</label>
+        <input type="date" [(ngModel)]="fechaFin">
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <div class="field">
+        <label>Barbero (opcional)</label>
+        <select [(ngModel)]="idBarbero">
+          <option [ngValue]="undefined">Todos</option>
+          <option *ngFor="let b of listaBarberos" [value]="b.id">{{ b.nombre }}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Servicio (opcional)</label>
+        <select [(ngModel)]="idServicio">
+          <option [ngValue]="undefined">Todos</option>
+          <option *ngFor="let s of listaServicios" [value]="s.id">{{ s.nombre }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filter-actions">
+      <button class="btn gold" (click)="aplicarFiltros()">Aplicar Filtros</button>
+      <button class="btn gray" (click)="limpiar()">Limpiar</button>
+      <button class="btn border" (click)="exportarPDF()">Exportar PDF</button>
+    </div>
+  </div>
+
+  <div class="kpi-grid" *ngIf="reporte">
+    <div class="kpi-card">
+      <span class="kpi-label">Total Reservas</span>
+      <span class="kpi-value">{{ reporte.totalReservas }}</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Confirmadas</span>
+      <span class="kpi-value">{{ reporte.totalConfirmadas }}</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Canceladas</span>
+      <span class="kpi-value">{{ reporte.totalCanceladas }}</span>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Pendientes</span>
+      <span class="kpi-value">{{ reporte.totalPendientes }}</span>
+    </div>
+  </div>
+
+  <div class="charts-grid" *ngIf="reporte">
+
+    <div class="chart-wrapper">
+      <app-custom-bar-chart title="Top Barberos" icon="bi-scissors" [data]="datosGraficaBarberos">
+      </app-custom-bar-chart>
+    </div>
+
+    <div class="chart-wrapper">
+      <app-custom-bar-chart title="Servicios Populares" icon="bi-stars" [data]="datosGraficaServicios">
+      </app-custom-bar-chart>
+    </div>
+
+  </div>
+</div>

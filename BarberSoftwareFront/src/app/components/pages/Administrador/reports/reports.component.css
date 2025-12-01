@@ -1,0 +1,187 @@
+/* =====================
+   LAYOUT GENERAL
+======================= */
+.page-container {
+    min-height: 100vh;
+    padding: 2rem;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.title {
+    font-size: 2rem;
+    color: #ffffff;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #000000;
+    margin-bottom: 2rem;
+}
+
+/* =====================
+   PANEL DE FILTROS
+======================= */
+.filter-panel {
+    background-color: #4A4A4A;
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    border: 1px solid #333;
+}
+
+.filter-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.field label {
+    font-size: .9rem;
+    color: #D4AF37;
+    /* Etiqueta dorada */
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.field input,
+.field select {
+    padding: .8rem;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background: #222;
+    color: #fff;
+    outline: none;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: #D4AF37;
+}
+
+/* Buttons */
+.filter-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: .7rem 1.4rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: .2s;
+}
+
+.btn.gold {
+    background: #D4AF37;
+    color: #000;
+}
+
+.btn.gold:hover {
+    background: #ffca2c;
+}
+
+.btn.gray {
+    background: #333;
+    color: white;
+}
+
+.btn.gray:hover {
+    background: #444;
+}
+
+.btn.border {
+    border: 1px solid #D4AF37;
+    background: transparent;
+    color: #D4AF37;
+}
+
+.btn.border:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+/* =====================
+   KPI CARDS
+======================= */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.kpi-card {
+    background: #4A4A4A;
+    border: 1px solid #444;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: .3s;
+}
+
+.kpi-card:hover {
+    transform: translateY(-5px);
+    border-color: #D4AF37;
+}
+
+.kpi-label {
+    font-size: 0.9rem;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.kpi-value {
+    font-size: 2.5rem;
+    color: #D4AF37;
+    font-weight: 800;
+}
+
+/* =====================
+   GRÁFICAS (NUEVA GRILLA)
+======================= */
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Dos columnas */
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.chart-wrapper {
+    height: 400px;
+    /* Altura fija para uniformidad */
+}
+
+/* =====================
+   RESPONSIVE
+======================= */
+@media (max-width: 900px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+        /* Una columna en tablet */
+    }
+
+    .filter-row {
+        flex-direction: column;
+    }
+
+    .filter-actions {
+        flex-direction: column;
+    }
+}

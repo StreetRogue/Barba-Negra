@@ -1,0 +1,1538 @@
+/* --- CONFIGURACIÓN GENERAL --- */
+.page-container {
+  min-height: 100vh;
+  padding: 2rem;
+  color: #fff;
+  border-radius: 24px;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+
+
+/* =========================================
+   1. CARRUSEL 3D (CATÁLOGO)
+   ========================================= */
+.carousel-section {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 30px;
+  min-height: 450px;
+}
+
+/* SVG */
+.svg-title-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 80px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  fill: url(#goldGradient);
+}
+
+/* STAGE */
+.custom-carousel-stage {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.cards-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARDS */
+.service-card-wrapper {
+  position: absolute;
+  width: 200px;
+  height: 320px;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.service-card {
+  width: 200px;
+  height: 250px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #222;
+  position: relative;
+  transition: 0.3s;
+
+}
+
+.card-visual {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Overlay de Edición */
+.edit-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 0.3s;
+  z-index: 2;
+  font-weight: 600;
+  gap: 10px;
+}
+
+.service-card:hover .edit-overlay {
+  opacity: 1;
+}
+
+.no-services-admin {
+  width: 100%;
+  text-align: center;
+  padding: 60px 20px;
+  color: #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.no-services-admin i {
+  font-size: 3rem;
+  color: #FFC107;
+}
+
+.no-services-admin p {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+
+/* --- ESTADOS DE POSICIÓN --- */
+
+/* 1. CENTRO (ACTIVO) */
+.card-center {
+    z-index: 10;
+    transform: translateX(0) scale(1.1);
+    opacity: 1;
+}
+
+.card-center .service-card {
+    filter: grayscale(0%) brightness(1);
+    /* Color real */
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    /* Dorado */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+/* 2. IZQUIERDA (ANTERIOR) */
+.card-left {
+    z-index: 5;
+    /* Se mueve a la izquierda y se mete detrás */
+    transform: translateX(-200px) scale(0.85) translateZ(-50px);
+    opacity: 0.7;
+}
+
+.card-left .service-card {
+    filter: grayscale(100%) brightness(0.4);
+    /* Oscuro */
+}
+
+/* 3. DERECHA (SIGUIENTE) */
+.card-right {
+    z-index: 5;
+    /* Se mueve a la derecha y se mete detrás */
+    transform: translateX(200px) scale(0.85) translateZ(-50px);
+    opacity: 0.7;
+}
+
+.card-right .service-card {
+    filter: grayscale(100%) brightness(0.4);
+    /* Oscuro */
+}
+
+/* 4. OCULTOS (DETRÁS) */
+.card-hidden {
+    z-index: 0;
+    transform: scale(0.5);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Info en Carrusel */
+.service-info {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeIn 0.5s ease;
+}
+
+.info-text {
+  text-align: center;
+}
+
+.service-name {
+  color: #fff;
+  font-weight: 700;
+  margin: 0;
+}
+
+.service-price {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #FFD60A;
+  /* Dorado */
+  margin: 0;
+}
+
+.line-deco {
+  width: 30px;
+  height: 1px;
+  background: #ffffff;
+}
+
+/* BOTONES DE NAVEGACIÓN (Posicionamiento exacto) */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #D4AF37;
+  font-size: 2.5rem;
+  cursor: pointer;
+  z-index: 100;
+  padding: 10px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.nav-btn:hover {
+  transform: translateY(-50%) scale(1.2);
+  color: #fff;
+}
+
+.prev-btn {
+  left: calc(35% - 240px);
+}
+
+.next-btn {
+  right: calc(35% - 240px);
+}
+
+/* =========================================
+   2. INSPECTOR DE SERVICIOS (ABAJO)
+   ========================================= */
+.inspector-section {
+  max-width: 900px;
+  margin: 0 auto 3rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.inspector-search-bar {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 25px;
+  font-size: 1.4rem;
+  color: #666;
+}
+
+.btn-clear {
+  position: absolute;
+  right: 25px;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.btn-clear:hover {
+  color: #fff;
+}
+
+.inspector-result-area {
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Placeholder */
+.create-placeholder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #4A4A4A;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.icon-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.dashed-box h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: inherit;
+}
+
+.dashed-box p {
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+  color: #d6d6d6;
+}
+
+/* SUPER CARD */
+.service-super-card {
+  display: flex;
+  width: 100%;
+  background: #1E1E1E;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.super-card-image {
+  width: 40%;
+  background-size: cover;
+  background-position: center;
+  min-height: 300px;
+}
+
+.super-card-content {
+  width: 60%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.super-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.super-title {
+  margin: 0;
+  font-size: 2rem;
+  color: #fff;
+  line-height: 1;
+}
+
+.super-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #D4AF37;
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 12px;
+  background: #333;
+  color: #aaa;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.status-badge.active {
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+}
+
+.super-desc {
+  color: #aaa;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  flex: 1;
+}
+
+.super-stats {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+}
+
+.stat-item i {
+  color: #D4AF37;
+  font-size: 1.2rem;
+}
+
+.stat-item small {
+  color: #666;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.super-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-action {
+  flex: 1;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.2s;
+}
+
+.btn-action.edit {
+  background: #D4AF37;
+  color: #000;
+}
+
+.btn-action.edit:hover {
+  background: #ffca2c;
+}
+
+.btn-action.delete {
+  background: rgba(255, 77, 77, 0.1);
+  color: #ff4d4d;
+  border: 1px solid rgba(255, 77, 77, 0.2);
+}
+
+.btn-action.delete:hover {
+  background: rgba(255, 77, 77, 0.2);
+}
+
+/* Not Found */
+.not-found-state {
+  text-align: center;
+  color: #666;
+  margin-top: 40px;
+}
+
+.not-found-state i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: #ffffff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+/* Animaciones */
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+/* =========================================
+   4. MODAL STEPPER (FIXED TEXTAREA)
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.stepper-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  width: 100%;
+  max-width: 800px;
+  min-height: 500px;
+  background-color: #2b2b2b;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #444;
+}
+
+.stepper-sidebar {
+  background: linear-gradient(180deg, #4b3d0b 0%, #1a1a1a 100%);
+  padding: 40px 20px;
+  border-right: 1px solid #444;
+}
+
+.step-indicator {
+  flex-direction: row;
+  margin-top: 0;
+  gap: 15px;
+  min-width: max-content;
+  /* Para que no se rompa el diseño horizontal */
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #888;
+  margin-bottom: 5px;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.step-item.active,
+.step-item.completed {
+  opacity: 1;
+  color: #fff;
+}
+
+.circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.step-item.active .circle,
+.step-item.completed .circle {
+  background-color: #FFC107;
+  color: #000;
+  border-color: #FFC107;
+}
+
+.step-line {
+  width: 2px;
+  height: 20px;
+  background-color: #444;
+  margin-left: 15px;
+  margin: 5px 0 5px 15px;
+}
+
+.step-line.filled {
+  background-color: #FFC107;
+}
+
+.stepper-body {
+  padding: 40px;
+  background-color: #2b2b2b;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.step-title {
+  margin: 0 0 25px 0;
+  color: #FFC107;
+  font-size: 1.5rem;
+}
+
+/* INPUTS */
+.floating-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+  z-index: 0;
+}
+
+/* Aplicamos estilos tanto a input como a textarea */
+.floating-group input,
+.floating-group textarea {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 12px 15px;
+  background: transparent;
+  border: 1px solid #666;
+  border-radius: 12px;
+  color: #fff;
+  outline: none;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  /* Asegura misma fuente en textarea */
+}
+
+/* Ajuste específico para que el textarea no sea redimensionable si no quieres */
+.floating-group textarea {
+  resize: none;
+  display: block;
+  /* Fix para gaps extraños */
+}
+
+.floating-group label {
+  position: absolute;
+  z-index: 2;
+  left: 15px;
+  top: 12px;
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.3s;
+  background-color: #2b2b2b;
+  /* Fondo del modal para tapar el borde */
+  padding: 0 5px;
+}
+
+/* --- AQUÍ ESTABA EL ERROR --- */
+/* Agregamos las reglas para textarea:focus y textarea:not(:placeholder-shown) */
+
+.floating-group input:focus,
+.floating-group input:not(:placeholder-shown),
+.floating-group textarea:focus,
+.floating-group textarea:not(:placeholder-shown) {
+  border-color: #FFC107;
+}
+
+.floating-group input:focus~label,
+.floating-group input:not(:placeholder-shown)~label,
+.floating-group textarea:focus~label,
+.floating-group textarea:not(:placeholder-shown)~label {
+  top: -10px;
+  font-size: 0.85rem;
+  color: #FFC107;
+  z-index: 3;
+  /* Asegura que quede encima del borde */
+}
+
+/* SELECTOR PERSONALIZADO (NUEVO) */
+.select-input {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #2b2b2b;
+  /* Fondo oscuro */
+  border: 1px solid #666;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  appearance: none;
+  /* Quitar flecha nativa */
+  /* Flecha personalizada SVG blanca */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 1em;
+  cursor: pointer;
+}
+
+.select-input:focus {
+  border-color: #FFC107;
+}
+
+/* Etiqueta del nombre (Opcional, debajo) */
+.file-name-label {
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Etiqueta fija para el select (siempre arriba) */
+.fixed-label {
+  top: -10px !important;
+  font-size: 0.85rem !important;
+  color: #FFC107 !important;
+  background-color: #2b2b2b;
+  padding: 0 5px;
+  pointer-events: none;
+  position: absolute;
+  left: 15px;
+  z-index: 5;
+}
+
+/* Resto del form */
+.row-2-cols {
+  display: flex;
+  gap: 15px;
+}
+
+.row-2-cols .floating-group {
+  flex: 1;
+}
+
+.availability-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.toggle-pill {
+  background-color: #444;
+  border-radius: 30px;
+  padding: 5px 10px 5px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #222;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.slider {
+  background-color: #FFC107;
+}
+
+input:checked+.slider:before {
+  transform: translateX(24px);
+  background-color: #000;
+}
+
+.upload-zone {
+  border: 2px dashed #666;
+  border-radius: 15px;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.02);
+  transition: 0.3s;
+  margin-bottom: 2rem;
+}
+
+.upload-zone:hover {
+  border-color: #D4AF37;
+  background: rgba(212, 175, 55, 0.05);
+}
+
+/* PLACEHOLDER (Texto e icono cuando no hay imagen) */
+.upload-placeholder {
+  text-align: center;
+
+  /* Permite que el click pase al padre */
+  color: #aaa;
+  pointer-events: none;
+}
+
+.upload-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: #666;
+  display: block;
+  transition: 0.3s;
+}
+
+.upload-zone:hover .upload-icon {
+  color: #D4AF37;
+  transform: translateY(-5px);
+}
+
+/* CONTENEDOR DE PREVISUALIZACIÓN */
+.file-preview {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 13px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #000;
+  /* Fondo negro para resaltar la foto */
+}
+
+/* IMAGEN (La magia para que no se deforme) */
+.preview-thumb {
+  width: 100%;
+  height: 100%;
+  /* 'contain' muestra toda la foto sin recortar. 
+     Usa 'cover' si prefieres que llene todo el cuadro aunque se recorte. */
+  object-fit: contain;
+  display: block;
+}
+
+/* NOMBRE DEL ARCHIVO (Overlay sutil abajo) */
+.file-info-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 8px;
+  font-size: 0.8rem;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-delete-file i {
+  font-size: 1.2rem;
+}
+
+/* BOTÓN ELIMINAR (Flotante arriba a la derecha) */
+.btn-delete-file {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 77, 77, 0.5);
+  color: #ff4d4d;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  z-index: 50;
+  /* Asegura que esté encima de la imagen */
+}
+
+.btn-delete-file:hover {
+  background: #ff4d4d;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* --- BOTÓN DE ELIMINAR (FLOTANTE AFUERA) --- */
+.btn-delete-float {
+  position: absolute;
+  top: -15px;
+  /* Se sale por arriba */
+  right: -10px;
+  /* Se sale por la derecha */
+
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #ff4d4d;
+  /* Rojo visible */
+  border: 4px solid #2b2b2b;
+  /* Borde del color del fondo modal para separarlo visualmente */
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s;
+  z-index: 10;
+}
+
+.btn-delete-float:hover {
+  background-color: #ff1a1a;
+  transform: scale(1.1);
+}
+
+.stepper-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+  border-top: 1px solid #444;
+  padding-top: 20px;
+}
+
+.btn-step-cancel {
+  background: transparent;
+  border: 1px solid #FFC107;
+  color: #FFC107;
+  padding: 10px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.btn-step-next {
+  background: #FFC107;
+  border: 1px solid #FFC107;
+  color: #000;
+  padding: 10px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Badge de categoría en la super card */
+.category-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  border: 1px solid #444;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-section h1 {
+  color: #D4AF37;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* =========================================
+   1. ESTRUCTURA CARRUSEL (IGUAL A CLIENTE)
+   ========================================= */
+.services-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.services-section-card {
+  width: 100%;
+  max-width: 1000px;
+  background-color: #323337;
+  /* Fondo oscuro tarjeta */
+  border: 1px solid #333;
+  border-radius: 24px;
+  /* Sombra profunda */
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  /* Para que el SVG no se salga */
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  padding-top: 80px;
+  /* Mismo padding que cliente */
+  padding-bottom: 20px;
+  border-radius: 20px;
+  min-height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  /* Permitir que sombras o elementos salgan */
+}
+
+/* TÍTULO SVG */
+.svg-title-container {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 900px;
+  height: 120px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.svg-title-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 80px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  fill: url(#goldGradient);
+  /* Referencia al gradiente dorado */
+}
+
+/* ESCENARIO 3D */
+.custom-carousel-stage {
+  width: 100%;
+  height: 350px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.cards-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* INDICADOR DE DOBLE CLIC (HINT) */
+.double-click-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 200;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* Animación del dedo o lápiz */
+.double-click-hint i {
+  font-size: 1.1rem;
+  animation: tapAnimation 1.5s infinite;
+}
+
+@keyframes tapAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-15deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.service-card-wrapper:hover .double-click-hint,
+.card-center .double-click-hint {
+  /* En admin mostramos el hint en la carta central siempre, ayuda usabilidad */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+/* =========================================
+   2. ESTILOS DEL INSPECTOR (Buscador abajo)
+   ========================================= */
+.inspector-section {
+  max-width: 900px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.inspector-search-bar {
+  position: relative;
+  width: 100%;
+}
+
+.big-search-input {
+  width: 100%;
+  padding: 18px 50px;
+  background-color: #4A4A4A;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 1.1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.big-search-input:focus {
+  border-color: #D4AF37;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.btn-clear {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* Placeholder Crear Nuevo */
+.create-placeholder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.dashed-box {
+  width: 100%;
+  max-width: 500px;
+  height: 180px;
+  border: 2px dashed #ffffff;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 0 20px;
+}
+
+.dashed-box:hover {
+  border-color: #FFD60A;
+  color: #ffffff;
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.icon-circle {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* --- ESTADO B: CONTENEDOR DE VISTA PREVIA --- */
+.preview-container {
+  position: relative;
+  /* Para posicionar el botón respecto a esto */
+  width: 100%;
+  height: 250px;
+  margin-bottom: 2rem;
+  margin-top: 10px;
+  /* Espacio extra arriba para el botón flotante */
+  border: 1px solid #444;
+  /* Borde sutil sólido, no punteado */
+  border-radius: 15px;
+  background-color: #000;
+  padding: 10px;
+}
+
+/* Envoltura de la imagen */
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .prev-btn {
+    top: 120px;
+    left: 20px;
+  }
+
+  .next-btn {
+    top: 120px;
+    right: 20px;
+  }
+}
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+  .card-center {
+    transform: translateX(0) scale(1.05) !important;
+    /* Reducido de 1.1 */
+    z-index: 20;
+    /* Asegurar que esté bien por encima */
+  }
+
+  /* 1. CONTENEDOR PRINCIPAL */
+  /* Quitamos el overflow hidden aquí para que las sombras y escalas no se corten */
+  .services-section-card {
+    padding: 15px 0;
+    /* Menos padding lateral para ganar ancho */
+    overflow: hidden;
+  }
+
+  .page-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .carousel-container {
+    padding-top: 50px;
+    /* Espacio para el título */
+    min-height: 400px;
+    overflow: visible;
+    /* Importante para no cortar sombras */
+  }
+
+  .custom-carousel-stage {
+    height: 380px;
+    margin-top: 10px;
+  }
+
+  .svg-title-text {
+    font-size: 55px;
+    /* Reducido de 120px a 55px para que quepa */
+    letter-spacing: 2px;
+    font-weight: 900;
+  }
+
+  .svg-title-container {
+    height: 70px;
+    top: -10px;
+    width: 100%;
+  }
+
+  /* --- AJUSTE CRÍTICO DE TARJETAS PARA MÓVIL --- */
+  .service-card-wrapper {
+    width: 180px;
+    /* Reducimos de 200px a 170px para que quepan */
+    height: 280px;
+  }
+
+  .service-card {
+    width: 180px;
+    height: 240px;
+  }
+
+  /* Ajustamos cuánto se mueven las cartas laterales para que se vean un poquito */
+  .card-left {
+    transform: translateX(-100px) scale(0.85) translateZ(-50px);
+    opacity: 0.5;
+    /* Más transparentes para no distraer */
+  }
+
+  .card-right {
+    transform: translateX(100px) scale(0.85) translateZ(-50px);
+    opacity: 0.5;
+  }
+
+
+  /* --- FLECHAS DE NAVEGACIÓN VISIBLES --- */
+  .nav-btn {
+    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 0, 0, 0.7);
+    /* Fondo oscuro para que resalte sobre el brillo */
+    border-radius: 50%;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Las pegamos bien a los bordes */
+  .prev-btn {
+    left: 50px;
+  }
+
+  .next-btn {
+    right: 50px;
+  }
+
+  /* --- INSPECTOR Y OTROS --- */
+  .dashed-box {
+    height: 220px;
+    padding: 1rem;
+  }
+
+
+  .stepper-actions {
+    flex-direction: row;
+    /* Mantenerlos en fila */
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 40px;
+    /* Espacio extra para el scroll del dedo */
+  }
+
+  .stepper-body {
+    padding: 20px 15px;
+    /* Reducimos de 40px a 15px lateral */
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  .step-title {
+    font-size: 1.2rem;
+    /* Título más pequeño */
+    margin-bottom: 15px;
+  }
+
+  .service-super-card {
+    flex-direction: column;
+  }
+
+  .super-card-image {
+    width: 100%;
+    height: 200px;
+    min-height: auto;
+  }
+
+  .super-card-content {
+    width: 100%;
+    padding: 25px;
+  }
+
+  .big-search-input {
+    font-size: 1rem;
+    padding: 15px 40px;
+  }
+
+  .super-title {
+    font-size: 1.5rem;
+  }
+
+  .super-price {
+    font-size: 1.5rem;
+  }
+
+  .stepper-layout {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* Ocupar toda la altura en móvil */
+    max-height: 100vh;
+    border-radius: 0;
+    /* Quitar bordes redondeados en móvil para ganar espacio */
+  }
+
+  .stepper-sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 15px;
+    overflow-x: auto;
+    /* Scroll horizontal si los pasos no caben */
+    border-right: none;
+    border-bottom: 1px solid #444;
+    flex-shrink: 0;
+    /* Que no se encoja */
+  }
+
+  .step-item {
+    margin-bottom: 0;
+  }
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 600px) {
+
+  .custom-carousel-stage {
+    height: 300px;
+    margin-top: 10px;
+  }
+
+  .nav-btn {
+    font-size: 2rem;
+  }
+
+  .prev-btn {
+    top: 100px;
+    left: 15px;
+  }
+
+  .next-btn {
+    top: 100px;
+    right: 15px;
+  }
+
+  .svg-title-container {
+    max-height: 60px;
+    /* Aumentado de 70px a 90px */
+    top: 20px;
+    /* Lo subimos un poco más para compensar */
+  }
+
+  .svg-title-text {
+    font-size: 90px;
+    letter-spacing: 1px;
+    font-weight: 900;
+  }
+}
+
+@media (max-width: 400px) {
+  .prev-btn {
+    top: 100px;
+    left: 10px;
+  }
+
+  .next-btn {
+    top: 100px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 550px) {
+  .prev-btn {
+    top: 100px;
+    left: 25px;
+  }
+
+  .next-btn {
+    top: 100px;
+    right: 25px;
+  }
+}
+
+@media (max-width: 375px) {
+
+  .prev-btn {
+    top: 100px;
+    left: 5px;
+  }
+
+  .next-btn {
+    top: 100px;
+    right: 5px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

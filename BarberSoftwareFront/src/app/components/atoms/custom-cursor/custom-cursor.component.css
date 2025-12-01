@@ -1,0 +1,20 @@
+.cursor-paint {
+  position: fixed;
+  top: -25px; /* Centrado vertical */
+  left: -25px; /* Centrado horizontal */
+  width: 50px;
+  height: 50px;
+  background-color: var(--c-primary-barber, #8a2c3b); /* Color del botón */
+  border-radius: 50%;
+
+  /* El efecto "blush" */
+  filter: blur(15px);
+  opacity: 0.7;
+
+  /* Importante: para que no bloquee clicks */
+  pointer-events: none;
+  z-index: 9999;
+
+  /* Oculto por defecto, lo mostraremos en las secciones que queramos */
+  display: none;
+}

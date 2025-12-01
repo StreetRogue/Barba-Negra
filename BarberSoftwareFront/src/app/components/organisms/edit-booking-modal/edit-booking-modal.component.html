@@ -1,0 +1,118 @@
+<div class="modal-overlay" *ngIf="isVisible" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        
+        <!-- HEADER MODAL -->
+        <div class="modal-header">
+            <button *ngIf="currentView === 'reschedule'" class="btn-back" (click)="goBack()">
+                <i class="bi bi-arrow-left"></i>
+            </button>
+            <h3>{{ currentView === 'options' ? 'Gestionar Reserva' : 'Reprogramar Reserva' }}</h3>
+            <button class="btn-close" (click)="closeModal()"><i class="bi bi-x-lg"></i></button>
+        </div>
+
+        <!-- VISTA 1: OPCIONES (Menú Principal) -->
+        <div class="options-view fade-in" *ngIf="currentView === 'options'">
+            
+            <p class="subtitle">¿Qué deseas hacer con tu reserva de <strong>{{ booking?.serviceName }}</strong>?</p>
+
+            <div class="options-grid">
+                <!-- Opción Reprogramar -->
+                <div class="option-card reschedule" (click)="startReschedule()">
+                    <div class="icon-circle">
+                        <i class="bi bi-calendar-range"></i>
+                    </div>
+                    <h4>Reprogramar</h4>
+                    <p>Cambiar la fecha u hora de tu reserva actual.</p>
+                </div>
+
+                <!-- Opción Cancelar -->
+                <div class="option-card cancel" (click)="confirmCancellation()">
+                    <div class="icon-circle">
+                        <i class="bi bi-trash3"></i>
+                    </div>
+                    <h4>Cancelar Reserva</h4>
+                    <p>La reserva se anulará y no podrás recuperarla.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA 2: REPROGRAMAR (Calendario + Comparativa) -->
+        <div class="reschedule-view fade-in" *ngIf="currentView === 'reschedule'">
+            
+            <!-- TARJETA COMPARATIVA (FEEDBACK VISUAL) -->
+            <div class="comparison-card">
+                <div class="comp-side old">
+                    <span class="comp-label">ACTUAL</span>
+                    <div class="comp-date">{{ booking?.date | date:'dd MMM' }}</div>
+                    <div class="comp-time">{{ booking?.startTime }}</div>
+                </div>
+                
+                <div class="comp-arrow">
+                    <i class="bi bi-arrow-right"></i>
+                </div>
+
+                <div class="comp-side new" [class.active]="newSelectedDate && newSelectedTime">
+                    <span class="comp-label">NUEVA</span>
+                    <div class="comp-date">
+                        {{ newSelectedDate ? (newSelectedDate | date:'dd MMM') : '-- ---' }}
+                    </div>
+                    <div class="comp-time">
+                        {{ newSelectedTime || '--:--' }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- CALENDARIO -->
+            <div class="calendar-section">
+                <!-- Header Mes -->
+                <div class="month-nav">
+                    <button class="nav-btn" (click)="changeMonth(-1)"><i class="bi bi-chevron-left"></i></button>
+                    <span>{{ monthNames[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}</span>
+                    <button class="nav-btn" (click)="changeMonth(1)"><i class="bi bi-chevron-right"></i></button>
+                </div>
+
+                <!-- Tira Días -->
+                <div class="strip-wrapper">
+                    <button class="scroll-arrow" (click)="scrollDays(-1)"><i class="bi bi-caret-left-fill"></i></button>
+                    <div class="days-strip" #daysStrip>
+                        <div *ngFor="let date of daysInMonth" class="day-chip"
+                             [class.selected]="isSelected(date)"
+                             [id]="isSelected(date) ? 'selected-day-edit' : ''"
+                             (click)="selectDate(date)">
+                            <span class="d-name">{{ weekDays[date.getDay()] }}</span>
+                            <span class="d-num">{{ date.getDate() }}</span>
+                        </div>
+                    </div>
+                    <button class="scroll-arrow" (click)="scrollDays(1)"><i class="bi bi-caret-right-fill"></i></button>
+                </div>
+            </div>
+
+            <!-- HORAS -->
+            <div class="time-section">
+                <p class="time-label">Horarios Disponibles</p>
+                <div class="slots-grid">
+                    <button *ngFor="let time of morningSlots" class="time-chip"
+                        [class.active]="newSelectedTime === time" (click)="selectTime(time)">
+                        {{ time }}
+                    </button>
+                    <!-- Agregamos los de la tarde aquí mismo para simplificar visualmente -->
+                    <button *ngFor="let time of afternoonSlots" class="time-chip"
+                        [class.active]="newSelectedTime === time" (click)="selectTime(time)">
+                        {{ time }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- FOOTER ACCIÓN -->
+            <div class="action-footer">
+                <button class="btn-confirm-change" 
+                        [disabled]="!newSelectedDate || !newSelectedTime"
+                        (click)="confirmReschedule()">
+                    Confirmar Cambio
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</div>

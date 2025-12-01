@@ -1,0 +1,98 @@
+<div class="cliente-dashboard-container" *ngIf="!loading && dashboard">
+
+  <section class="top-section">
+    <app-welcome-card variant="client" [userName]="user()?.nombre || 'Cliente'"></app-welcome-card>
+    <app-calendar-widget></app-calendar-widget>
+  </section>
+
+  <section class="bottom-section mt-4">
+
+    <div class="left-column">
+
+      <div class="barber-profile-card">
+        <app-card>
+          <div *ngIf="dashboard.barberoSugerido; else noBarber">
+            <app-barber-profile-widget [name]="dashboard.barberoSugerido.nombre"
+              [photo]="dashboard.barberoSugerido.foto" [rating]="dashboard.barberoSugerido.rating"
+              [specialty]="dashboard.barberoSugerido.especialidad" [status]="dashboard.barberoSugerido.estado">
+            </app-barber-profile-widget>
+          </div>
+          <ng-template #noBarber>
+            <div class="empty-widget">
+              <i class="bi bi-person-x"></i>
+              <p>No hay barberos disponibles por ahora.</p>
+            </div>
+          </ng-template>
+        </app-card>
+      </div>
+
+      <div class="progress-card">
+        <app-card>
+          <div *ngIf="dashboard.reservaActual; else noProgress">
+            <app-progress-widget [startTime]="progressStart" [durationMinutes]="progressDuration">
+            </app-progress-widget>
+          </div>
+          <ng-template #noProgress>
+            <div class="empty-widget">
+              <i class="bi bi-clock"></i>
+              <p>No tienes servicios en curso.</p>
+            </div>
+          </ng-template>
+        </app-card>
+      </div>
+
+      <div class="loyalty-card">
+        <app-card>
+          <div class="loyalty-content">
+            <div class="loyalty-header">
+              <i class="bi bi-trophy-fill gold-icon"></i>
+              <div class="text">
+                <h4>Nivel: {{ getNivelCliente() }}</h4>
+                <small>Te faltan {{ getCortesParaPremio() }} cortes para tu recompensa</small>
+              </div>
+            </div>
+
+            <div class="loyalty-track">
+              <div class="loyalty-bar" [style.width.%]="getPorcentajeFidelidad()"></div>
+            </div>
+
+            <p class="loyalty-footer">
+              Visitas totales: <strong>{{ dashboard.stats.totalCortes || 0 }}</strong>
+            </p>
+          </div>
+        </app-card>
+      </div>
+
+    </div>
+
+    <div class="right-column">
+
+
+
+      <div class="available-card">
+        <app-card>
+          <div *ngIf="dashboard.ultimaVisita; else noHistory">
+            <app-rebooking-widget [lastVisitDate]="dashboard.ultimaVisita.fecha!"
+              [lastService]="dashboard.ultimaVisita.nombreServicio" [barberName]="dashboard.ultimaVisita.nombreBarbero">
+            </app-rebooking-widget>
+          </div>
+          <ng-template #noHistory>
+            <div class="empty-widget">
+              <i class="bi bi-calendar-x"></i>
+              <p>Aún no tienes historial de visitas.</p>
+              <button class="btn btn-sm btn-outline-warning mt-2">Reservar ahora</button>
+            </div>
+          </ng-template>
+        </app-card>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<div *ngIf="loading" class="text-center p-5" style="color:white">
+  <div class="spinner-border text-warning" role="status"></div>
+  <p class="mt-2">Cargando tu experiencia...</p>
+</div>

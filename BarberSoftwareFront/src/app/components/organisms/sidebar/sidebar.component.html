@@ -1,0 +1,13 @@
+<nav class="navigation-menu">
+  <div class="sidebar-complete">
+    <!-- Menu como molécula -->
+    <app-sidebar-menu [variant]="variant" [items]="items"></app-sidebar-menu>
+
+    @if (variant !== 'barber' && variant !== 'admin') {
+    <div class="upgrade-card">
+      <app-upgrade-card></app-upgrade-card>
+    </div>
+    }
+
+  </div>
+</nav>

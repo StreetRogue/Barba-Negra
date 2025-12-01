@@ -1,0 +1,122 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+}
+
+.login-continue-button {
+    --btn-primary-bg: var(--color-yellow-accent);
+    --btn-primary-text: #000;
+    --btn-primary-border: var(--color-yellow-accent);
+    --btn-primary-bg-hover: white;
+    --btn-primary-text-hover: #000;
+    --btn-primary-border-hover: 1px solid #000;
+}
+
+.login-google-continue-button {
+    --btn-secondary-bg: transparent;
+    --btn-secondary-text: #000;
+    --btn-secondary-border: 1px solid #000;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #fff;
+}
+
+form>*:first-child {
+    margin-top: 0;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+
+
+.forgot-pass-link {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #2d6cdf;
+    /* color destacado */
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s, text-decoration 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #e3f0ff 0%, #f7fafd 100%);
+    box-shadow: 0 2px 8px rgba(45, 108, 223, 0.07);
+}
+
+.forgot-pass-link:hover,
+.forgot-pass-link:focus {
+    color: #134aa9;
+    text-decoration: underline;
+    background: #f2f6fc;
+    box-shadow: 0 4px 16px rgba(45, 108, 223, 0.12);
+}
+
+.forgot-pass-link {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+app-button[style="primary"] {
+    color: #FFFFFF;
+    margin-bottom: 2rem;
+}
+
+app-button[style="secondary"] {
+    color: #555;
+    /* Color de texto para el botón secundario */
+}
+
+.divider {
+    width: 100%;
+    /* Asegura que el contenedor ocupe todo el ancho */
+    max-width: 380px;
+    /* Mismo ancho que los inputs para consistencia */
+    color: #ccc;
+    /* Un color gris claro para el texto "O" */
+}
+
+.divider hr {
+    border: none;
+    /* Quitamos el borde por defecto */
+    border-top: 1px solid #ccc;
+    /* Creamos una línea superior de 1px sólida y gris */
+    opacity: 1;
+    /* Aseguramos que no sea transparente (Bootstrap a veces lo hace) */
+}
+
+
+.mobile-toggle-link {
+    display: none;
+    /* Oculto en desktop por defecto */
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #A0A0A0);
+}
+
+.mobile-toggle-link a {
+    color: var(--color-pampas-950);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+@media (max-width: 767.98px) {
+    .mobile-toggle-link {
+        display: block;
+    }
+}

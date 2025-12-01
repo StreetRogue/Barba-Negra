@@ -1,0 +1,129 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.stats-container {
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header h3 i {
+  color: #D4AF37;
+}
+
+.subtitle {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+/* --- CONTENIDO DEL CHART --- */
+.chart-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio entre barras */
+  overflow-y: auto;
+  max-height: 300px; /* Evita que crezca infinito */
+  padding-right: 5px;
+}
+
+/* Scrollbar fina */
+.chart-content::-webkit-scrollbar { width: 4px; }
+.chart-content::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+
+/* --- FILA INDIVIDUAL --- */
+.chart-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.row-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.rank {
+  font-weight: bold;
+  color: #D4AF37;
+  width: 30px;
+}
+
+.service-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- BARRAS DE PROGRESO --- */
+.bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 12px; /* Altura fija pequeña para que no se vea gigante */
+}
+
+.bar-track {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #D4AF37, #FFD700); /* Degradado dorado */
+  border-radius: 6px;
+  position: relative;
+  transition: width 1s ease-out; /* Animación suave al cargar */
+  min-width: 5px; /* Para que siempre se vea algo */
+}
+
+/* Efecto de brillo en la barra */
+.bar-fill .glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px 6px 0 0;
+}
+
+.count-value {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #fff;
+  min-width: 25px;
+  text-align: right;
+}
+
+/* Empty State */
+.empty-chart {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 20px;
+}

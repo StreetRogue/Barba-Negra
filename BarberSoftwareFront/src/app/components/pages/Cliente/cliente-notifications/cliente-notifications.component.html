@@ -1,0 +1,118 @@
+<div class="notifications-container">
+
+    <!-- HEADER: TÍTULO Y CALENDARIO -->
+    <div class="header-section">
+        <h2 class="section-title"><i class="bi bi-calendar-event"></i> Calendario</h2>
+        <button class="btn-refresh" (click)="refreshData()" [disabled]="loading" title="Actualizar lista">
+            <i class="bi bi-arrow-clockwise" [class.spinning]="loading"></i>
+        </button>
+        <!-- CALENDARIO HORIZONTAL -->
+        <div class="calendar-wrapper">
+            <div class="month-nav">
+                <button class="nav-btn" (click)="changeMonth(-1)"><i class="bi bi-arrow-left-short"></i></button>
+                <span class="month-label">{{ monthNames[currentDate.getMonth()] }}, {{ currentDate.getFullYear()
+                    }}</span>
+                <button class="nav-btn" (click)="changeMonth(1)"><i class="bi bi-arrow-right-short"></i></button>
+            </div>
+
+            <div class="strip-container">
+                <button class="strip-arrow left" (click)="scrollDays(-1)"><i class="bi bi-chevron-left"></i></button>
+
+                <div class="days-strip" #daysStrip>
+                    <div *ngFor="let date of daysInMonth" class="day-item" [class.selected]="isSelected(date)"
+                        [id]="isSelected(date) ? 'selected-day-notif' : ''" (click)="selectDate(date)">
+                        <span class="day-name">{{ weekDays[date.getDay()] }}</span>
+                        <span class="day-num">{{ date.getDate() }}</span>
+                    </div>
+                </div>
+
+                <button class="strip-arrow right" (click)="scrollDays(1)"><i class="bi bi-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- BARRA DE BÚSQUEDA -->
+        <div class="search-box">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Buscar reserva..." [(ngModel)]="searchTerm">
+        </div>
+    </div>
+
+    <!-- LISTA DE NOTIFICACIONES / RESERVAS -->
+    <div class="bookings-list">
+
+        <div *ngFor="let booking of filteredBookings" class="booking-card" [ngClass]="booking.status">
+
+            <!-- CABECERA DE TARJETA (Siempre visible) -->
+            <div class="card-header" (click)="toggleExpand(booking.id)">
+                <div class="header-info">
+                    <h3 class="booking-title">Usted tiene una reserva con {{ booking.barberName }}</h3>
+                    <p class="booking-time">{{ booking.startTime }} - {{ booking.endTime }} (UTC)</p>
+                </div>
+                <div class="expand-icon">
+                    <i class="bi" [class.bi-arrow-down-circle-fill]="!booking.expanded"
+                        [class.bi-arrow-up-circle-fill]="booking.expanded"></i>
+                </div>
+            </div>
+
+            <!-- CUERPO DE TARJETA (Expandible) -->
+            <div class="card-body" *ngIf="booking.expanded">
+                <!-- O usa [class.show]="booking.expanded" para animar con CSS puro -->
+
+                <h4 class="details-title">Información</h4>
+
+                <div class="details-grid">
+                    <div class="detail-row">
+                        <span class="label">Código Servicio:</span>
+                        <span class="value">{{ booking.serviceCode }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Servicio:</span>
+                        <span class="value">{{ booking.serviceName }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Barbero:</span>
+                        <span class="value">{{ booking.barberName }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Duración:</span>
+                        <span class="value">{{ booking.duration }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Precio:</span>
+                        <span class="value">{{ booking.price | currency:'COP':'symbol-narrow':'1.0-0' }} COP</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Estado:</span>
+                        <span class="value status-text">{{ getStatusLabel(booking.status) }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Fecha:</span>
+                        <span class="value">{{ booking.date | date:'dd/MM/yyyy' }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Hora:</span>
+                        <span class="value">{{ booking.startTime }} - {{ booking.endTime }}</span>
+                    </div>
+                </div>
+
+                <!-- Footer del cuerpo (Botones) -->
+                <div class="card-footer-actions">
+                    <button class="btn-action edit" (click)="openEditModal(booking)">Editar Reserva</button>
+                    <div class="status-badge-large">{{ getStatusLabel(booking.status) }}</div>
+                </div>
+
+            </div>
+
+            <!-- Footer pequeño (Solo visible si NO está expandido) -->
+            <div class="card-footer-mini" *ngIf="!booking.expanded" (click)="toggleExpand(booking.id)">
+                <span class="company-name">{{ booking.companyName }}</span>
+                <span class="status-badge-mini">{{ getStatusLabel(booking.status) }}</span>
+            </div>
+            <app-edit-booking-modal [isVisible]="showEditModal" [booking]="selectedBookingForEdit"
+                (close)="showEditModal = false" (bookingUpdated)="handleBookingUpdate($event)">
+            </app-edit-booking-modal>
+
+        </div>
+
+    </div>
+</div>

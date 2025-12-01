@@ -1,0 +1,82 @@
+<div class="page-container">
+
+  <div class="services-wrapper">
+    <div class="services-section-card">
+      
+      <div class="svg-title-container">
+        <svg viewBox="0 0 800 150" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style="stop-color:#FFD700; stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#B8860B; stop-opacity:1" />
+            </linearGradient>
+            <filter id="dropShadow">
+              <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="rgba(0,0,0,0.8)" />
+            </filter>
+          </defs>
+          <path id="curvePath" d="M 0,120 Q 400,20 800,120" fill="transparent" />
+          <text filter="url(#dropShadow)">
+            <textPath href="#curvePath" startOffset="50%" text-anchor="middle" class="svg-title-text">
+              SERVICIOS
+            </textPath>
+          </text>
+        </svg>
+      </div>
+
+      <ng-container *ngIf="listaServicios && listaServicios.length > 0; else noServices">
+        
+        <div class="carousel-container">
+          <div class="custom-carousel-stage">
+
+            <button class="nav-btn prev-btn" (click)="prev()">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <div class="cards-stack">
+              <div *ngFor="let service of listaServicios; let i = index" 
+                   class="service-card-wrapper"
+                   [ngClass]="getClass(i)" 
+                   (click)="setActive(i)">
+
+                <div class="service-card">
+                  <div class="card-visual"
+                    [style.background-image]="'url(' + (service.imagenBase64 || 'assets/images/default-service.jpg') + ')'">
+                  </div>
+                </div>
+
+                <div class="service-info" *ngIf="i === activeIndex">
+                  <div class="line-deco"></div>
+                  <div class="info-text">
+                    <h3 class="service-name">{{ service.nombre }}</h3>
+                    <p class="service-price">
+                      {{ service.precio | currency:'COP':'symbol-narrow':'1.0-0' }}
+                    </p>
+                  </div>
+                  <div class="line-deco"></div>
+                </div>
+
+              </div>
+            </div>
+
+            <button class="nav-btn next-btn" (click)="next()">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #noServices>
+        <div class="empty-state-container">
+          <div class="empty-content">
+            <i class="bi bi-scissors"></i>
+            <h3>Sin Servicios Asignados</h3>
+            <p>Aún no tienes servicios registrados en tu perfil.</p>
+            <span class="hint">Contacta al administrador para gestionar tu catálogo.</span>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

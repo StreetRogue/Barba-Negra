@@ -1,0 +1,868 @@
+/* --- ESTILOS EXISTENTES SE MANTIENEN --- */
+
+/* FONDO OSCURO DEL MODAL */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-container {
+    width: 850px;
+    height: 550px;
+    background: #333;
+    border-radius: 20px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.stepper-sidebar {
+    width: 35%;
+    background: linear-gradient(180deg, #7c6a04 0%, #3d3506 100%);
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.step-item {
+    display: flex;
+    gap: 15px;
+    position: relative;
+    height: 80px;
+}
+
+.step-indicator {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    color: #aaa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    z-index: 2;
+    transition: all 0.3s;
+}
+
+.step-label {
+    color: #bbb;
+    font-size: 0.9rem;
+    font-weight: 500;
+    width: 120px;
+    line-height: 1.2;
+    margin-top: 5px;
+}
+
+.step-line {
+    position: absolute;
+    left: 17px;
+    top: 35px;
+    width: 2px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+}
+
+.step-item:last-child .step-line {
+    display: none;
+}
+
+.step-item.active .step-indicator,
+.step-item.completed .step-indicator {
+    background: #FFC107;
+    color: #000;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+
+.step-item.active .step-label {
+    color: #fff;
+    font-weight: 700;
+}
+
+.step-item.completed .step-line {
+    background: #FFC107;
+}
+
+.content-area {
+    flex: 1;
+    background: #444;
+    padding: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.step-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+.step-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.step-content::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 4px;
+}
+
+.custom-field {
+    position: relative;
+    border: 1px solid #999;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.custom-field label {
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    background: #444;
+    padding: 0 5px;
+    color: #aaa;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.custom-field:first-child {
+    border-color: #FFC107;
+}
+
+.custom-field:first-child label {
+    color: #FFC107;
+}
+
+.field-value {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    flex: 1;
+}
+
+.field-value.highlight {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.description {
+    color: #ccc;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.row-fields {
+    display: flex;
+    gap: 20px;
+}
+
+.row-fields .custom-field {
+    flex: 1;
+}
+
+.step-title {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.barber-carousel-card {
+    background-color: #2a2a2a;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.barber-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.barber-avatar {
+    height: 180px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.5));
+    margin-bottom: 15px;
+    transition: transform 0.3s;
+}
+
+.barber-display:hover .barber-avatar {
+    transform: scale(1.05);
+}
+
+.barber-name {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.carousel-arrow {
+    background: transparent;
+    border: none;
+    color: #FFC107;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 0.2s;
+}
+
+.carousel-arrow:hover {
+    transform: scale(1.2);
+    color: #fff;
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-actions {
+    display: flex;
+    width: 100%;
+    margin-top: auto;
+}
+
+.btn-next,
+.btn-prev {
+    background: #FFC107;
+    color: #000;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-next:hover,
+.btn-prev:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
+}
+
+.calendar-box {
+    background-color: #2a2a2a;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+.cal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    margin-bottom: 15px;
+}
+
+.cal-month-title {
+    color: #fff;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.cal-nav-btn {
+    background: #FFC107;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #000;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.cal-nav-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+}
+
+.strip-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.scroll-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #FFC107;
+    width: 30px;
+    height: 60px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.scroll-btn:hover {
+    background: rgba(255, 193, 7, 0.2);
+    transform: scale(1.1);
+}
+
+.days-strip {
+    flex: 1;
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 10px 5px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+.days-strip::-webkit-scrollbar {
+    display: none;
+}
+
+.day-card {
+    min-width: 60px;
+    height: 85px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+.day-card:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.day-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.day-number {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.day-card.selected {
+    background-color: #FFC107;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+    transform: scale(1.05);
+}
+
+.day-card.selected .day-name,
+.day-card.selected .day-number {
+    color: #000;
+}
+
+.time-slots-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+    animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slot-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.slot-label {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #555;
+    padding-bottom: 5px;
+}
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+}
+
+.time-btn {
+    background: transparent;
+    border: 1px solid #666;
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.time-btn:hover {
+    border-color: #FFC107;
+    color: #FFC107;
+}
+
+.time-btn.selected {
+    background: #FFC107;
+    color: #000;
+    border-color: #FFC107;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    transform: scale(1.05);
+}
+
+.no-date-msg {
+    text-align: center;
+    color: #888;
+    padding: 20px;
+    font-style: italic;
+}
+
+.payment-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.payment-card-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #555;
+    border-radius: 12px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #aaa;
+}
+
+.payment-card-btn i {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.payment-card-btn span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.payment-card-btn.active {
+    border-color: #FFC107;
+    background: rgba(255, 193, 7, 0.1);
+    color: #FFC107;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.payment-card-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.section-label {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.payment-detail-box {
+    margin-bottom: 30px;
+    min-height: 120px;
+}
+
+.no-card-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #2a2a2a;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    border: 1px dashed #666;
+    color: #888;
+}
+
+.no-card-placeholder i {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    opacity: 0.5;
+}
+
+.link-btn {
+    background: none;
+    border: none;
+    color: #FFC107;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 5px;
+    text-decoration: underline;
+}
+
+.saved-card-display {
+    display: flex;
+    align-items: center;
+    background: #2a2a2a;
+    border: 1px solid #FFC107;
+    border-radius: 15px;
+    padding: 15px;
+    gap: 15px;
+}
+
+.mini-card-icon {
+    font-size: 2rem;
+    color: #fff;
+}
+
+.saved-card-info {
+    flex: 1;
+}
+
+.card-holder {
+    color: #888;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.card-number {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.change-card-btn {
+    background: transparent;
+    color: #FFC107;
+    border: 1px solid #FFC107;
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.change-card-btn:hover {
+    background: #FFC107;
+    color: #000;
+}
+
+.info-msg {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+.info-msg i {
+    font-size: 1.5rem;
+    color: #FFC107;
+}
+
+.checkout-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #222;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.total-label {
+    color: #aaa;
+    font-size: 1.1rem;
+}
+
+.total-amount {
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.security-note {
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+}
+
+.security-note i {
+    color: #28a745;
+    margin-right: 5px;
+}
+
+.credit-card-visual {
+    background: linear-gradient(135deg, #111 0%, #333 100%);
+    width: 100%;
+    max-width: 320px;
+    height: 190px;
+    border-radius: 15px;
+    margin: 0 auto 25px auto;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.card-chip {
+    width: 45px;
+    height: 35px;
+    background: linear-gradient(135deg, #FFC107 0%, #b38806 100%);
+    border-radius: 5px;
+}
+
+.card-visual-number {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    font-family: monospace;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.card-visual-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.card-visual-footer span {
+    font-size: 0.6rem;
+    color: #aaa;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.contactless-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+.card-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group label {
+    display: block;
+    color: #aaa;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #666;
+    padding: 8px 0;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-bottom-color: #FFC107;
+}
+
+/* --- NUEVO: ESTILO DE ERROR VISUAL --- */
+.form-group input.input-error {
+    border-bottom-color: #dc3545;
+    /* Rojo de error */
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group.half {
+    flex: 1;
+}
+
+.save-card-check {
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.save-card-check i {
+    color: #FFC107;
+}
+
+.btn-save-card {
+    background: #FFC107;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-weight: 700;
+    margin-top: 15px;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.2s;
+}
+
+.btn-save-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+}
+.day-card.disabled {
+    opacity: 0.3;
+    pointer-events: none; /* Esto evita el clic a nivel de CSS también */
+    filter: grayscale(100%);
+}
+
+.btn-today {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 10px; /* Separación de las flechas o título */
+}
+
+.btn-today:hover {
+    background-color: #FFC107; /* Tu color de acento amarillo */
+    color: #000;
+    border-color: #FFC107;
+}
+
+/* Ajuste opcional para el header para que todo quede centrado */
+.cal-header {
+    display: flex;
+    justify-content: space-between; /* O center, según prefieras */
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}

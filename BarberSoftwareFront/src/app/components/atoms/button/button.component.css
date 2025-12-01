@@ -1,0 +1,160 @@
+/* src/app/components/1-atoms/button/button.component.css */
+
+/* 1. CLASE BASE */
+.c-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  min-width: 180px;
+  white-space: nowrap;
+}
+
+/* 2. ESTILO PRIMARIO (Botón Rojo/Burgundy) */
+.c-btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--btn-primary-border);
+}
+
+.c-btn-primary:hover {
+  background-color: var(--color-pampas-700);
+  border-color: var(--color-pampas-600);
+  transform: translateY(-2px);
+}
+
+/* 3. ESTILO SECUNDARIO (Para fondo blanco) */
+.c-btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border-color: var(--btn-secondary-border);
+}
+
+.c-btn-secondary:hover {
+  background-color: #f8f8f8;
+  color: #333;
+  border-color: #bbb;
+}
+
+/* 4. ESTILO OVERLAY (Para fondo oscuro/rojo) */
+.c-btn-overlay {
+  background-color: var(--btn-overlay-bg);
+  color: var(--btn-overlay-text);
+  border-color: var(--btn-overlay-border);
+}
+
+.c-btn-overlay:hover {
+  background-color: var(--color-pampas-0);
+  color: var(--color-pampas-900);
+}
+
+/* 5. ESTILO PRIMARY ON DARK */
+.c-btn-primary-on-dark {
+  background-color: var(--btn-primary-on-dark-bg);
+  color: var(--btn-primary-on-dark-text);
+  border-color: var(--btn-primary-on-dark-border);
+}
+
+.c-btn-primary-on-dark:hover {
+  filter: brightness(0.9);
+  transform: translateY(-2px);
+}
+
+/* 6. ESTILO ICONO (Reset) */
+.c-btn-icon {
+  display: contents;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--color-pampas-950);
+}
+
+.c-btn-icon:hover {
+  color: var(--color-pampas-700);
+  transform: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* 7. RESET DE BOTÓN NATIVO */
+.c-btn-native-reset {
+  background-color: var(--color-pampas-50);
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.c-btn__icon-slot {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 8. ESTILO OUTLINE GOLD (Nuevo para Hero) */
+.c-btn-outline-gold {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #d4af37;
+  /* Color dorado */
+  border-radius: 50px;
+}
+
+.c-btn-outline-gold:hover {
+  background-color: #d4af37;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* 9. ESTILOS LOGIN */
+
+.c-btn-primary-login {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: var(--btn-primary-border);
+}
+
+.c-btn-primary-login:hover {
+  background-color: var(--btn-primary-bg-hover);
+  color: var(--btn-primary-text-hover);
+  border: var(--btn-primary-border-hover);
+}
+
+.c-btn-google-continue {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: var(--btn-secondary-border);
+  border-width: 2px;
+}
+
+.c-btn-google-continue:hover {
+  color: #000;
+  border: 2px solid transparent;
+
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, #4285F4 0%, #DB4437 35%, #F4B400 70%, #0F9D58 100%) border-box;
+}
+
+.c-btn-third-login {
+  background-color: var(--btn-third-bg);
+  color: var(--btn-third-text);
+  border: var(--btn-third-border);
+}
+
+.c-btn-third-login:hover {
+  background-color: var(--btn-third-bg-hover);
+  color: var(--btn-third-text-hover);
+  border: var(--btn-third-border-hover);
+}

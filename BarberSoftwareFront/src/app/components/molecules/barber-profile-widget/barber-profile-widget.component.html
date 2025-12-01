@@ -1,0 +1,27 @@
+<div class="barber-widget">
+
+  <div class="header">
+    <img class="avatar" [src]="photo" alt="Foto del barbero">
+
+    <div class="info">
+      <h2>{{ name }}</h2>
+      <p class="specialty">{{ specialty }}</p>
+
+      <div class="rating">
+        <i class="bi bi-star-fill"
+           *ngFor="let s of [1,2,3,4,5]; let i=index"
+           [class.active]="i < rating"></i>
+        <span class="rating-number">{{ rating }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="status"
+       [class.atendiendo]="status === 'atendiendo'"
+       [class.disponible]="status === 'disponible'"
+       [class.ocupado]="status === 'ocupado'">
+    {{ statusLabel }}
+  </div>
+
+  <button class="profile-btn">Ver Perfil Completo</button>
+</div>

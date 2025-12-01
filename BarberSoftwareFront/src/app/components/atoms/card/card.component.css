@@ -1,0 +1,24 @@
+.card-base {
+  color: var(--text-primary);
+  background-color: var(--bg-card, #E1D4C7);
+  border-radius: 40px; /* Tal vez reducir a 24px en móvil si deseas */
+  padding: 1.25rem;    /* Un poco más de aire */
+  
+  width: 100%;
+  height: 100%;        /* Intenta llenar al padre */
+  min-height: 0;       /* Fix para flexbox */
+  
+  display: flex;       /* Nuevo: ayuda a organizar contenido interno */
+  flex-direction: column;
+  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;    /* Para respetar el border-radius */
+}
+
+/* Ajuste responsive para móviles */
+@media (max-width: 768px) {
+  .card-base {
+    border-radius: 28px; /* Bordes menos agresivos en pantallas chicas */
+    padding: 1rem;
+  }
+}

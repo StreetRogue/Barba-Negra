@@ -1,0 +1,68 @@
+.footer-bar {
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea superior */
+  padding: 20px 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #eee;
+}
+
+/* IZQUIERDA */
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo {
+  width: 32px;
+  height: 32px;
+  opacity: 0.7;
+}
+
+.footer-brand {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+/* CENTRO */
+.footer-center {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* DERECHA */
+.footer-right {
+  display: flex;
+  gap: 18px;
+}
+
+.footer-right a {
+  color: #999;
+  font-size: 1.4rem;
+  transition: 0.3s ease;
+}
+
+.footer-right a:hover {
+  color: #fff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .footer-right {
+    justify-content: center;
+  }
+}

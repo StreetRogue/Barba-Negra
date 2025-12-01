@@ -1,0 +1,136 @@
+:host {
+  color: var(--text-welcome-card);
+  display: block;
+  background: var(--bg-welcome-card);
+  border-radius: 40px;
+  /* Eliminamos height fijo para que crezca con el contenido */
+  min-height: 220px; 
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.welcome-card-container {
+  display: flex;
+  flex-direction: row; /* Por defecto en escritorio: lado a lado */
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  z-index: 2;
+  position: relative;
+  height: 100%;
+}
+
+/* --- TEXTO --- */
+.text-content {
+  flex: 1; /* Ocupa el espacio disponible */
+  max-width: 55%; /* En escritorio limitamos el ancho para que no choque con la imagen */
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text-content h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem); /* Tipografía fluida */
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.text-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap; /* Evita que los botones se salgan si hay poco espacio */
+}
+
+/* --- IMAGEN --- */
+.image-content {
+  /* Usamos Flex para controlar el tamaño, no position absolute */
+  flex: 0 0 40%; /* Base del 40% del ancho */
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.image-content img {
+  width: 100%;
+  height: auto;
+  max-width: 400px; /* Límite máximo para pantallas gigantes */
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+  /* Animación sutil opcional para efecto 3D */
+  transition: transform 0.3s ease;
+}
+
+/* --- BREAKPOINT TABLET Y MÓVIL (Combinados) --- */
+/* Cambiamos el diseño a vertical desde 1024px para evitar la imagen pequeña */
+@media (max-width: 1024px) {
+  :host {
+    padding: 2rem 1.5rem;
+    height: auto; /* Altura automática */
+  }
+
+  .welcome-card-container {
+    /* AQUÍ ESTÁ LA CLAVE: Columna invertida desde Tablet */
+    flex-direction: column-reverse; 
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  /* Ajustes del Texto en Tablet/Móvil */
+  .text-content {
+    max-width: 100%; /* Texto ancho completo */
+    flex: auto;
+    width: 100%;
+    align-items: center; /* Centrar botones */
+  }
+
+  .actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Ajustes de la Imagen en Tablet/Móvil */
+  .image-content {
+    width: 100%;
+    flex: auto; /* Reseteamos el flex base */
+    margin-bottom: 0.5rem;
+    justify-content: center;
+  }
+
+  .image-content img {
+    /* Hacemos la imagen más grande en tablet */
+    max-width: 320px; 
+    width: 80%; 
+  }
+}
+
+/* --- AJUSTES FINOS PARA MÓVIL PEQUEÑO --- */
+@media (max-width: 480px) {
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .actions app-button {
+    width: 100%;
+  }
+
+  .image-content img {
+    max-width: 250px; /* Un poco más pequeña en móviles muy estrechos */
+  }
+}

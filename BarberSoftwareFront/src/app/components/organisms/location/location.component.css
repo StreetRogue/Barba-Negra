@@ -1,0 +1,52 @@
+/* 1. Fondo gris oscuro para toda la sección */
+.location-section {
+  background-color: #000000;
+  /* Un gris oscuro (Bootstrap dark) */
+  color: #f8f9fa;
+  /* Texto claro por defecto */
+}
+
+/* 2. Títulos y texto ahora claros */
+.location-section h2 {
+  color: #564848;
+  /* Título principal blanco */
+}
+
+.location-section .lead,
+.location-section .list-unstyled {
+  color: #787e83 !important;
+  /* Texto secundario gris claro */
+}
+
+/* 3. Estilos del mapa y contenedor (sin cambios) */
+.map-container {
+  border-radius: 12px;
+  overflow: hidden;
+  /* Para que el iframe respete el borde redondeado */
+  line-height: 0;
+  /* Corrige espacios extra del iframe */
+}
+
+.list-unstyled i {
+  width: 20px;
+  /* Alinea los iconos */
+  /* El color rojo ya está puesto inline en tu HTML, lo cual está perfecto */
+}
+
+/* 4. Nuevo filtro para el mapa, versión "dark mode" */
+.map-iframe {
+  /*
+    Este filtro invierte los colores del mapa para un look "dark mode".
+    1. grayscale(100%): Lo vuelve blanco y negro.
+    2. invert(90%): Invierte los colores (blanco se vuelve casi negro, negro casi blanco).
+    3. brightness(80%): Reduce el brillo general.
+  */
+  filter: grayscale(100%) invert(90%) brightness(80%);
+
+  transition: filter 0.3s ease-in-out;
+}
+
+.map-container:hover .map-iframe {
+  /* Al pasar el mouse, se restaura el color original */
+  filter: none;
+}

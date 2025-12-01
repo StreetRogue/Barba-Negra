@@ -1,0 +1,368 @@
+/* ============================
+   SECCIÓN PRINCIPAL
+============================ */
+.services-section {
+    background-color: #000;
+    color: #ffffff;
+    padding: 80px 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.service-heading {
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+/* ============================
+   CARRUSEL & CONTENEDORES
+============================ */
+.carousel-wrapper {
+    position: relative;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1600px;
+    margin-bottom: 20px;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+}
+
+/* ============================
+   TARJETAS
+============================ */
+.carousel-card {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    padding: 25px;
+    /* <-- para separar imagen del borde */
+    background: #1A1A1A;
+    /* <-- Fondo sólido */
+    border-radius: 4px;
+    transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.card-visual {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.service-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 1;
+    /* sin transparencias */
+    transform: none;
+    /* sin zoom */
+}
+
+/* ============================
+   ESTADOS COVERFLOW
+============================ */
+.card-active {
+    z-index: 20;
+    transform:
+        translateX(0) translateZ(-80px) rotateY(0deg) rotateX(4deg);
+}
+
+.card-prev {
+    z-index: 12;
+    transform:
+        translateX(-360px) translateZ(40px) rotateY(35deg) rotateX(0deg);
+    opacity: 1;
+    pointer-events: none;
+}
+
+.card-next {
+    z-index: 12;
+    transform:
+        translateX(360px) translateZ(40px) rotateY(-35deg) rotateX(0deg);
+    opacity: 1;
+    pointer-events: none;
+}
+
+.card-hidden {
+    opacity: 0;
+    transform: translateZ(-300px) scale(0.5);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================
+   TEXTOS & CONTROLES
+============================ */
+.info-control-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.active-info {
+    flex: 1;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.active-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0;
+    background: linear-gradient(135deg, #fff 30%, #888383 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.active-desc {
+    color: #999;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+.nav-btn {
+    position: relative;
+    transform: translateY(-50%);
+    z-index: 100;
+    background: transparent;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.prev-btn {
+    left: -10px;
+}
+
+/* O -20px si los quieres fuera */
+.next-btn {
+    right: -10px;
+}
+
+.nav-btn:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+.nav-btn i {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+    .services-section .container {
+        position: relative;
+    }
+
+    .nav-btn {
+        position: absolute;
+        top: 400px;
+        /* Altura aproximada del centro del carrusel */
+        margin-top: 0;
+
+        transform: translateY(-50%);
+    }
+
+    .prev-btn {
+        left: 250px;
+        /* Pegado a la izquierda */
+    }
+
+    .next-btn {
+        right: 250px;
+        /* Pegado a la derecha */
+    }
+
+    .active-info {
+        width: 100%;
+        padding: 70px 0 0 0;
+    }
+}
+
+@media (max-width: 820px) {
+    .services-section .container {
+        position: relative;
+    }
+
+    .nav-btn {
+        position: absolute;
+        top: 400px;
+        /* Altura aproximada del centro del carrusel */
+        margin-top: 0;
+
+        transform: translateY(-50%);
+    }
+
+    .prev-btn {
+        left: 220px;
+        /* Pegado a la izquierda */
+    }
+
+    .next-btn {
+        right: 220px;
+        /* Pegado a la derecha */
+    }
+
+    .active-info {
+        width: 100%;
+        padding: 70px 0 0 0;
+    }
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 768px) {
+
+    /* 1. Convertimos el contenedor padre en relativo para posicionar botones */
+    .services-section .container {
+        position: relative;
+    }
+
+    /* 2. Sacamos los botones del flujo normal y los pegamos a los lados */
+    .nav-btn {
+        position: absolute;
+        top: 400px;
+        /* Altura aproximada del centro del carrusel */
+        margin-top: 0;
+
+        transform: translateY(-50%);
+    }
+
+    .prev-btn {
+        left: 200px;
+        /* Pegado a la izquierda */
+    }
+
+    .next-btn {
+        right: 200px;
+        /* Pegado a la derecha */
+    }
+
+    /* 3. Ajustamos el panel de texto para que no extrañe a los botones */
+    .info-control-panel {
+        display: block;
+        /* Ya no flex, para centrar el texto solo */
+        margin-top: 20px;
+    }
+
+    .active-info {
+        width: 100%;
+        padding: 80px 0 0 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .services-section .container {
+        position: relative;
+    }
+
+    .nav-btn {
+        position: absolute;
+        top: 400px;
+        /* Altura aproximada del centro del carrusel */
+        margin-top: 0;
+
+        transform: translateY(-50%);
+    }
+
+    .prev-btn {
+        left: 200px;
+        /* Pegado a la izquierda */
+    }
+
+    .next-btn {
+        right: 200px;
+        /* Pegado a la derecha */
+    }
+
+    .active-info {
+        width: 100%;
+        padding: 80px 0 0 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-wrapper {
+        height: 240px;
+    }
+
+    .carousel-card {
+        width: 160px;
+        height: 160px;
+        padding: 18px;
+    }
+
+    .card-prev {
+        transform: translateX(-160px) translateZ(15px) rotateY(45deg);
+    }
+
+    .card-next {
+        transform: translateX(160px) translateZ(15px) rotateY(-45deg);
+    }
+
+    .active-title {
+        font-size: 1.6rem;
+    }
+
+    .active-desc {
+        font-size: 0.95rem;
+    }
+
+    .prev-btn {
+        left: 100px;
+    }
+
+    .next-btn {
+        right: 100px;
+    }
+
+    .nav-btn {
+        position: absolute;
+        top: 240px;
+        /* Altura aproximada del centro del carrusel */
+        margin-top: 0;
+
+        transform: translateY(-50%);
+    }
+
+    .active-info {
+        width: 100%;
+        padding: 20px 0 0 0;
+        /* Un poco de aire */
+    }
+}

@@ -1,0 +1,289 @@
+<div class="modal-overlay" *ngIf="isVisible" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+
+        <!-- SIDEBAR (STEPPER) -->
+        <div class="stepper-sidebar">
+            <div class="step-item" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
+                <div class="step-indicator">
+                    <i class="bi bi-check-lg" *ngIf="currentStep > 1"></i>
+                    <span *ngIf="currentStep <= 1">1</span>
+                </div>
+                <div class="step-label">Información General</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-item" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
+                <div class="step-indicator"><span *ngIf="currentStep <= 2">2</span><i class="bi bi-check-lg"
+                        *ngIf="currentStep > 2"></i></div>
+                <div class="step-label">Selección de barbero</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-item" [class.active]="currentStep === 3" [class.completed]="currentStep > 3">
+                <div class="step-indicator"><span *ngIf="currentStep <= 3">3</span><i class="bi bi-check-lg"
+                        *ngIf="currentStep > 3"></i></div>
+                <div class="step-label">Selección de horario</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step-item" [class.active]="currentStep === 4">
+                <div class="step-indicator"><span>4</span></div>
+                <div class="step-label">Confirmar pago</div>
+            </div>
+        </div>
+
+        <!-- AREA DE CONTENIDO -->
+        <div class="content-area">
+
+            <!-- PASO 1: INFO -->
+            <div class="step-content fade-in" *ngIf="currentStep === 1">
+                <h2 class="step-title">Detalles del Servicio</h2>
+
+                <div class="custom-field">
+                    <label>Nombre</label>
+                    <div class="field-value highlight">{{ servicioDisplay.nombre }}</div>
+                </div>
+
+                <div class="row-fields">
+                    <div class="custom-field">
+                        <label>Duración</label>
+                        <div class="field-value">{{ servicioDisplay.duracion }} min</div>
+                    </div>
+
+                    <div class="custom-field">
+                        <label>Precio</label>
+                        <div class="field-value">
+                            {{ servicioDisplay.precio | currency:'COP':'symbol-narrow':'1.0-0' }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="custom-field">
+                    <label>Descripción</label>
+                    <div class="field-value description">{{ servicioDisplay.descripcion }}</div>
+                </div>
+            </div>
+            <!-- PASO 2: BARBERO -->
+            <div class="step-content fade-in centered-content" *ngIf="currentStep === 2">
+                <h2 class="step-title">Escoja su barbero</h2>
+
+                <!-- Spinner de carga (Opcional, buena práctica) -->
+                <div *ngIf="loadingBarbers" style="color: #FFC107;">Cargando barberos...</div>
+
+                <!-- Carrusel -->
+                <div class="barber-carousel-card" *ngIf="!loadingBarbers && barbersFromBack.length > 0">
+
+                    <button class="carousel-arrow left" (click)="prevBarber()">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+
+                    <div class="barber-display">
+                        <!-- 1. CORREGIDO: getBarberImage solo recibe el index -->
+                        <img [src]="getBarberImage(currentBarberIndex)" class="barber-avatar">
+
+                        <!-- 2. CORREGIDO: Usamos .nombreBarbero (propiedad del DTO) -->
+                        <div class="barber-name">
+                            {{ barbersFromBack[currentBarberIndex].nombreBarbero }}
+                        </div>
+                    </div>
+
+                    <button class="carousel-arrow right" (click)="nextBarber()">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+
+                </div>
+
+                <!-- Mensaje si no hay barberos -->
+                <div *ngIf="!loadingBarbers && barbersFromBack.length === 0" style="color: #aaa;">
+                    <i class="bi bi-emoji-frown"></i> No hay barberos disponibles para este servicio.
+                </div>
+            </div>
+
+            <!-- PASO 3: FECHA Y HORA -->
+            <div class="step-content fade-in" *ngIf="currentStep === 3">
+                <h2 class="step-title">Selecciona fecha y hora</h2>
+                <div class="calendar-box">
+                    <div class="cal-header">
+                        <button class="cal-nav-btn" (click)="changeMonth(-1)">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+
+                        <span class="cal-month-title">
+                            {{ monthNames[currentDate.getMonth()] }}, {{ currentDate.getFullYear() }}
+                        </span>
+
+                        <button class="btn-today" (click)="goToToday()" title="Ir a hoy">
+                            Hoy
+                        </button>
+
+                        <button class="cal-nav-btn" (click)="changeMonth(1)">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="strip-wrapper">
+                        <button class="scroll-btn left" (click)="scrollDays(-1)"><i
+                                class="bi bi-chevron-left"></i></button>
+                        <div class="days-strip" #daysStrip>
+                            <div *ngFor="let date of daysInMonth" class="day-card" [class.selected]="isSelected(date)"
+                                [class.disabled]="isPastDate(date)" [id]="isSelected(date) ? 'selected-day-card' : ''"
+                                (click)="selectDate(date)">
+                                <span class="day-name">{{ weekDays[date.getDay()] }}</span>
+                                <span class="day-number">{{ date.getDate() }}</span>
+                            </div>
+                        </div>
+                        <button class="scroll-btn right" (click)="scrollDays(1)"><i
+                                class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="time-slots-section" *ngIf="selectedDateObj">
+                    <div class="slot-group">
+                        <h4 class="slot-label"><i class="bi bi-brightness-high"></i> Mañana</h4>
+                        <div class="slots-grid">
+                            <button *ngFor="let time of morningSlots" class="time-btn"
+                                [class.selected]="selectedTime === time" (click)="selectTime(time)">
+                                {{ time }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="slot-group">
+                        <h4 class="slot-label"><i class="bi bi-moon"></i> Tarde</h4>
+                        <div class="slots-grid">
+                            <button *ngFor="let time of afternoonSlots" class="time-btn"
+                                [class.selected]="selectedTime === time" (click)="selectTime(time)">
+                                {{ time }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="no-date-msg" *ngIf="!selectedDateObj">
+                    <p>Selecciona un día para ver los horarios.</p>
+                </div>
+            </div>
+
+            <!-- PASO 4: CHECKOUT -->
+            <div class="step-content fade-in" *ngIf="currentStep === 4">
+
+                <h2 class="step-title">{{ showAddCardForm ? 'Nueva Tarjeta' : 'Checkout' }}</h2>
+
+                <!-- VISTA PRINCIPAL -->
+                <div *ngIf="!showAddCardForm" class="payment-main-view fade-in">
+
+                    <p class="section-label">Selecciona método de pago</p>
+                    <div class="payment-methods-grid">
+                        <div class="payment-card-btn" [class.active]="selectedPaymentMethod === 'cash'"
+                            (click)="selectPayment('cash')">
+                            <i class="bi bi-cash-coin"></i><span>Efectivo</span>
+                        </div>
+                        <div class="payment-card-btn" [class.active]="selectedPaymentMethod === 'card'"
+                            (click)="selectPayment('card')">
+                            <i class="bi bi-credit-card-2-front"></i><span>Tarjeta</span>
+                        </div>
+                        <div class="payment-card-btn" [class.active]="selectedPaymentMethod === 'paypal'"
+                            (click)="selectPayment('paypal')">
+                            <i class="bi bi-paypal"></i><span>PayPal</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-detail-box">
+                        <div *ngIf="selectedPaymentMethod === 'card'" class="card-section">
+                            <p class="section-label">Selecciona tu tarjeta</p>
+                            <div class="no-card-placeholder" *ngIf="!savedCard">
+                                <i class="bi bi-terminal-x"></i>
+                                <p>No tienes una tarjeta registrada</p>
+                                <button class="link-btn" (click)="toggleAddCard()">Agregar una tarjeta</button>
+                            </div>
+                            <div class="saved-card-display" *ngIf="savedCard">
+                                <div class="mini-card-icon"><i class="bi bi-credit-card-2-front-fill"></i></div>
+                                <div class="saved-card-info">
+                                    <div class="card-holder">{{ savedCard.holder }}</div>
+                                    <div class="card-number">**** **** **** {{ savedCard.last4 }}</div>
+                                </div>
+                                <button class="change-card-btn" (click)="toggleAddCard()">Cambiar</button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="selectedPaymentMethod === 'cash'" class="info-msg">
+                            <i class="bi bi-info-circle"></i>
+                            <p>Pagarás directamente en el local al finalizar el servicio.</p>
+                        </div>
+
+                        <div *ngIf="selectedPaymentMethod === 'paypal'" class="info-msg">
+                            <i class="bi bi-paypal"></i>
+                            <p>Serás redirigido a PayPal para completar la transacción segura.</p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-summary">
+                        <span class="total-label">Total a pagar:</span>
+                        <span class="total-amount">{{ serviceData?.price || '$0.00' }}</span>
+                    </div>
+
+                    <div class="security-note">
+                        <i class="bi bi-shield-check"></i> Tus pagos se realizan de forma segura.
+                    </div>
+                </div>
+
+                <!-- FORMULARIO TARJETA (VALIDADO) -->
+                <div *ngIf="showAddCardForm" class="add-card-view fade-in">
+
+                    <div class="credit-card-visual">
+                        <div class="card-chip"></div>
+                        <div class="card-visual-number">{{ newCard.number || '•••• •••• •••• ••••' }}</div>
+                        <div class="card-visual-footer">
+                            <div class="card-visual-holder">
+                                <span>Titular</span>
+                                <div>{{ newCard.holder || 'NOMBRE APELLIDO' }}</div>
+                            </div>
+                            <div class="card-visual-expiry">
+                                <span>Expira</span>
+                                <div>{{ newCard.expiry || 'MM/AA' }}</div>
+                            </div>
+                        </div>
+                        <i class="bi bi-wifi contactless-icon"></i>
+                    </div>
+
+                    <div class="card-form">
+                        <div class="form-group">
+                            <label>Nombre del titular</label>
+                            <input type="text" [(ngModel)]="newCard.holder" [class.input-error]="cardErrors.holder"
+                                placeholder="Como aparece en la tarjeta">
+                        </div>
+                        <div class="form-group">
+                            <label>Número de la tarjeta</label>
+                            <input type="text" [ngModel]="newCard.number" (input)="formatCardNumber($event)"
+                                [class.input-error]="cardErrors.number" placeholder="0000 0000 0000 0000"
+                                maxlength="19">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Fecha de expiración</label>
+                                <input type="text" [ngModel]="newCard.expiry" (input)="formatExpiry($event)"
+                                    [class.input-error]="cardErrors.expiry" placeholder="MM/AA" maxlength="5">
+                            </div>
+                            <div class="form-group half">
+                                <label>CVC</label>
+                                <input type="text" [ngModel]="newCard.cvc" (input)="formatCvc($event)"
+                                    [class.input-error]="cardErrors.cvc" placeholder="123" maxlength="4">
+                            </div>
+                        </div>
+                        <div class="save-card-check">
+                            <i class="bi bi-check-square-fill"></i> Guardar información para futuros pagos
+                        </div>
+
+                        <button class="btn-save-card" (click)="validateAndSaveCard()">Guardar Tarjeta</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FOOTER BOTONES -->
+            <div class="modal-actions" [style.justify-content]="currentStep > 1 ? 'space-between' : 'flex-end'">
+                <button class="btn-prev" (click)="prevStep()" *ngIf="currentStep > 1">
+                    {{ (currentStep === 4 && showAddCardForm) ? 'Volver' : 'Anterior' }}
+                </button>
+                <button class="btn-next" (click)="nextStep()" *ngIf="!showAddCardForm">
+                    {{ currentStep === 4 ? 'Pagar ahora' : 'Siguiente' }}
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

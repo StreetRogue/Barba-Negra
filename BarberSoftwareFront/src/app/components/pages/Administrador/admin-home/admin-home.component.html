@@ -1,0 +1,124 @@
+<div class="admin-dashboard-container">
+
+  <div *ngIf="loading" class="loading-box fade-in">
+    <div class="spinner"></div> <p>Sincronizando datos...</p>
+  </div>
+
+  <div *ngIf="error" class="error-box fade-in">
+    <i class="bi bi-exclamation-triangle"></i>
+    <p>Hubo un problema de conexión. Intenta recargar.</p>
+    <button (click)="cargarDashboard()">Recargar</button>
+  </div>
+
+  <ng-container *ngIf="dashboard && !loading && !error">
+
+    <section class="top-section fade-in-up">
+      <app-welcome-card
+        variant="admin"
+        [title]="'Panel Administrativo'"
+        [subtitle]="'Control total de la barbería.'"
+        [userName]="'Administrador'"
+      ></app-welcome-card>
+
+      <app-calendar-widget></app-calendar-widget>
+    </section>
+
+    <section class="bottom-section fade-in-up">
+
+      <div class="left-column">
+
+        <app-card>
+          <div *ngIf="dashboard.barberoTop; else noTopBarber">
+            <app-barber-profile-widget
+              variant="admin"
+              [name]="dashboard.barberoTop.nombre"
+              [photo]="dashboard.barberoTop.imagenUrl"
+              [specialty]="'Top barbero del mes'"
+              [rating]="4.8"
+              [status]="$any(dashboard.barberoTop.estado)"
+            ></app-barber-profile-widget>
+          </div>
+          <ng-template #noTopBarber>
+            <div class="empty-state-card">
+              <i class="bi bi-person-badge"></i>
+              <h4>Sin datos suficientes</h4>
+              <p>Aún no hay reservas finalizadas este mes para calcular el Top Barbero.</p>
+            </div>
+          </ng-template>
+        </app-card>
+
+        <app-card>
+          <div *ngIf="dashboard.reservaActual; else noProgress">
+            <app-progress-widget
+              [startTime]="progressStartTime"
+              [durationMinutes]="progressDuration"
+            ></app-progress-widget>
+          </div>
+          <ng-template #noProgress>
+            <div class="empty-state-card">
+              <i class="bi bi-clock-history"></i>
+              <h4>Todo tranquilo</h4>
+              <p>No hay servicios en curso en este momento.</p>
+            </div>
+          </ng-template>
+        </app-card>
+
+        <app-card>
+          <div *ngIf="dashboard.rankingServicios.length > 0; else noStats">
+            <app-stats-widget
+              variant="admin"
+              [data]="dashboard.rankingServicios"
+            ></app-stats-widget>
+          </div>
+          <ng-template #noStats>
+            <div class="empty-state-card">
+              <i class="bi bi-bar-chart"></i>
+              <h4>Sin estadísticas</h4>
+              <p>No hay datos de servicios realizados este mes.</p>
+            </div>
+          </ng-template>
+        </app-card>
+
+      </div>
+
+      <div class="right-column">
+
+        <app-card>
+          <h3>Próximas Reservas</h3>
+          <div *ngIf="dashboard.reservasFuturas.length > 0; else noUpcoming">
+            <app-events-list
+              variant="admin"
+              [events]="dashboard.reservasFuturas"
+            ></app-events-list>
+          </div>
+          <ng-template #noUpcoming>
+            <div class="empty-state-minimal">
+              <p class="text-muted">No hay reservas pendientes próximas.</p>
+            </div>
+          </ng-template>
+        </app-card>
+
+        <app-card class="mt-3">
+          <div *ngIf="dashboard.ultimaReservaFinalizada; else noLast">
+            <div class="last-reservation">
+              <h3>Última Finalizada</h3>
+              <div class="last-res-detail">
+                <span class="service-highlight">{{ dashboard.ultimaReservaFinalizada.nombreServicio }}</span>
+                <span class="client-name">Cliente: {{ dashboard.ultimaReservaFinalizada.nombreCliente }}</span>
+                <span class="time-ago">Finalizó: {{ dashboard.ultimaReservaFinalizada.horaFin | date:'shortTime' }}</span>
+              </div>
+            </div>
+          </div>
+          <ng-template #noLast>
+            <div class="empty-state-minimal">
+              <p class="text-muted">Aún no se ha completado ningún servicio.</p>
+            </div>
+          </ng-template>
+        </app-card>
+
+      </div>
+    </section>
+
+  </ng-container>
+
+</div>

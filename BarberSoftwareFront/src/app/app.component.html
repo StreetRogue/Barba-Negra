@@ -1,0 +1,9 @@
+<app-toast-notification #toastNotifier />
+<app-header *ngIf="showMainLayout"></app-header>
+
+<app-toast-notification #toast></app-toast-notification>
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<app-footer *ngIf="showMainLayout"></app-footer>

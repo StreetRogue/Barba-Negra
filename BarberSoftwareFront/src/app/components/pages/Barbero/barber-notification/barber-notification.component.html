@@ -1,0 +1,171 @@
+<div class="notifications-container">
+
+    <!-- HEADER -->
+    <div class="header-section">
+
+        <h2 class="section-title">
+            <i class="bi bi-calendar-event"></i> Mis Reservas
+        </h2>
+        <button class="btn-refresh" (click)="refreshData()" [disabled]="loading" title="Actualizar lista">
+            <i class="bi bi-arrow-clockwise" [class.spinning]="loading"></i>
+        </button>
+
+        <!-- CALENDARIO -->
+        <div class="calendar-wrapper">
+
+            <div class="month-nav">
+                <button class="nav-btn" (click)="changeMonth(-1)">
+                    <i class="bi bi-arrow-left-short"></i>
+                </button>
+
+                <span class="month-label">
+                    {{ monthNames[currentDate.getMonth()] }},
+                    {{ currentDate.getFullYear() }}
+                </span>
+
+                <button class="nav-btn" (click)="changeMonth(1)">
+                    <i class="bi bi-arrow-right-short"></i>
+                </button>
+            </div>
+
+            <div class="strip-container">
+                <button class="strip-arrow left" (click)="scrollDays(-1)">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+
+                <div class="days-strip" #daysStrip>
+                    <div *ngFor="let date of daysInMonth" class="day-item" [class.selected]="isSelected(date)"
+                        [id]="isSelected(date) ? 'selected-day-notif' : ''" (click)="selectDate(date)">
+
+                        <span class="day-name">{{ weekDays[date.getDay()] }}</span>
+                        <span class="day-num">{{ date.getDate() }}</span>
+                    </div>
+                </div>
+
+                <button class="strip-arrow right" (click)="scrollDays(1)">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- BUSCADOR -->
+        <div class="search-box">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Buscar reserva..." [(ngModel)]="searchTerm">
+        </div>
+    </div>
+
+    <!-- LISTA DE RESERVAS -->
+    <div class="bookings-list">
+
+        <div *ngFor="let booking of filteredBookings" class="booking-card" [ngClass]="booking.status">
+
+            <div class="card-header" (click)="toggleExpand(booking.id)">
+
+                <div>
+                    <h3 class="booking-title">
+                        {{ booking.serviceName }}
+                    </h3>
+                    <p class="booking-time">
+                        {{ booking.startTime }} – {{ booking.endTime }}
+                    </p>
+                </div>
+
+                <div class="expand-icon">
+                    <i class="bi" [class.bi-arrow-down-circle-fill]="!booking.expanded"
+                        [class.bi-arrow-up-circle-fill]="booking.expanded"></i>
+                </div>
+            </div>
+
+            <!-- DETALLES EXPANDIDOS -->
+            <div class="card-body" *ngIf="booking.expanded">
+
+                <h4 class="details-title">Detalles:</h4>
+
+                <div class="details-grid">
+
+                    <div class="detail-row">
+                        <span class="label">Servicio:</span>
+                        <span class="value">{{ booking.serviceName }}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Código:</span>
+                        <span class="value">{{ booking.serviceCode }}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Duración:</span>
+                        <span class="value">{{ booking.duration }}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Precio:</span>
+                        <span class="value">
+                            {{ booking.price | currency:'COP':'symbol-narrow':'1.0-0' }}
+                        </span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Fecha:</span>
+                        <span class="value">
+                            {{ booking.date | date:'dd/MM/yyyy' }}
+                        </span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Horario:</span>
+                        <span class="value">
+                            {{ booking.startTime }} – {{ booking.endTime }}
+                        </span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="label">Estado:</span>
+                        <span class="value status-text">
+                            {{ getStatusLabel(booking.status) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- ACCIONES BARBERO -->
+                <div class="card-footer-actions">
+
+                    <!-- INICIAR -->
+                    <button class="btn-action start" *ngIf="puedeIniciar(booking)" (click)="iniciarReserva(booking.id)">
+                        Iniciar
+                    </button>
+
+                    <!-- COMPLETAR -->
+                    <button class="btn-action complete" *ngIf="puedeCompletar(booking)"
+                        (click)="completarReserva(booking.id)">
+                        Completar
+                    </button>
+
+                    <!-- NO PRESENTADO -->
+                    <button class="btn-action nopresent" *ngIf="puedeMarcarNoPresentado(booking)"
+                        (click)="marcarNoPresentado(booking.id)">
+                        No presentado
+                    </button>
+
+                    <div class="status-badge-large">
+                        {{ getStatusLabel(booking.status) }}
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FOOTER MINI -->
+            <div class="card-footer-mini" *ngIf="!booking.expanded" (click)="toggleExpand(booking.id)">
+
+                <span class="company-name">Barbería</span>
+                <span class="status-badge-mini">
+                    {{ getStatusLabel(booking.status) }}
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

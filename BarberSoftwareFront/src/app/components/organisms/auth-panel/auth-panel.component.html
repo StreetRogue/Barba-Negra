@@ -1,0 +1,33 @@
+<div class="auth-container" [class.right-panel-active]="isRightPanelActive">
+  <div class="form-container sign-up-container">
+    <app-register-form [isLoading]="isLoading" (registerSubmit)="registerSubmit.emit($event)"
+      (goToLogin)="isRightPanelActive = false">
+    </app-register-form>
+  </div>
+
+  <div class="form-container sign-in-container">
+    <app-login-form [isLoading]="isLoading" (loginSubmit)="loginSubmit.emit($event)" (googleLogin)="googleLogin.emit()"
+      (goToRegister)="isRightPanelActive = true">
+    </app-login-form>
+  </div>
+
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>¡Bienvenido de vuelta!</h1>
+        <p>Inicia sesión con tu cuenta para continuar.</p>
+        <app-button class="third-login" (click)="isRightPanelActive = false">
+          <ng-template>Iniciar Sesión</ng-template>
+        </app-button>
+      </div>
+
+      <div class="overlay-panel overlay-right">
+        <h1>¡Hola, Colega!</h1>
+        <p>Regístrate y empieza tu experiencia con nosotros.</p>
+        <app-button class="third-login" (click)="isRightPanelActive = true">
+          <ng-template>Registrarse</ng-template>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,340 @@
+/* =========================================
+   1. CONTENEDOR PRINCIPAL
+   ========================================= */
+.notifications-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    font-family: 'Inter', sans-serif;
+    min-height: 80vh;
+}
+
+/* =========================================
+   2. HEADER Y BOTÓN REFRESCAR
+   ========================================= */
+.header-section {
+    background-color: #e6e6e6;
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    position: relative; /* Necesario para el botón absoluto */
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+}
+
+/* --- BOTÓN NEGRO (ESTILO COMPARTIDO) --- */
+.btn-refresh {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+
+
+.btn-refresh:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+/* Animación de rotación */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+/* =========================================
+   3. CALENDARIO Y BÚSQUEDA
+   ========================================= */
+.month-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ccc;
+    border-radius: 12px;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.nav-btn {
+    background: #FFC107;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #000;
+}
+
+.month-label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Tira de días */
+.strip-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.days-strip {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.days-strip::-webkit-scrollbar { display: none; }
+
+.day-item {
+    min-width: 50px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.day-name { font-size: 0.7rem; color: #666; text-transform: uppercase; }
+.day-num { font-size: 1.2rem; font-weight: 700; color: #333; }
+
+.day-item.selected {
+    background-color: #FFC107;
+    box-shadow: 0 4px 10px rgba(255,193,7,0.4);
+}
+.day-item.selected .day-num { color: #000; }
+
+.strip-arrow {
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 25px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+.search-box {
+    margin-top: 15px;
+    position: relative;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: rgba(255,255,255,0.5);
+    outline: none;
+    color: #333;
+}
+
+/* =========================================
+   4. TARJETAS DE RESERVA
+   ========================================= */
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.booking-card {
+    border-radius: 20px;
+    padding: 20px;
+    color: #333;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    background: #fff;
+}
+
+/* --- ESTADOS DE COLOR (Semáforo) --- */
+.booking-card.PENDIENTE { border-left: 5px solid #FFC107; background: #ffffff; }
+.booking-card.REPROGRAMADA { border-left: 5px solid #FFC107; background: #ffffff; } /* Igual a pendiente */
+.booking-card.EN_PROCESO { border-left: 5px solid #3498db; background: #ffffff; }
+.booking-card.COMPLETADA { border-left: 5px solid #2ecc71; background: #ffffff; }
+.booking-card.CANCELADA { border-left: 5px solid #e74c3c; background: #ffffff; opacity: 0.8; }
+.booking-card.NO_PRESENTADO { border-left: 5px solid #95a5a6; background: #ffffff; opacity: 0.8; }
+
+/* Header Tarjeta */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.booking-time {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin: 0;
+}
+
+.expand-icon {
+    font-size: 1.3rem;
+    opacity: 0.7;
+    color: #333;
+}
+
+/* =========================================
+   5. DETALLES (EXPANDIDO)
+   ========================================= */
+.card-body {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed rgba(0,0,0,0.1);
+    animation: show 0.3s ease-out;
+}
+
+@keyframes show {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.details-title {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 20px;
+}
+
+.detail-row {
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-row .label { font-weight: 700; color: #555; }
+.detail-row .value { color: #111; font-weight: 500; }
+
+.status-text {
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+/* =========================================
+   6. ACCIONES (BOTONES)
+   ========================================= */
+.card-footer-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn-action {
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 700;
+    border: 1px solid;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.2s;
+}
+
+/* Estilos Específicos de Botones */
+.btn-action.start { border-color: #3498db; color: #3498db; }
+.btn-action.start:hover { background: #3498db; color: white; }
+
+.btn-action.complete { border-color: #2ecc71; color: #2ecc71; }
+.btn-action.complete:hover { background: #2ecc71; color: white; }
+
+.btn-action.nopresent { border-color: #e67e22; color: #e67e22; }
+.btn-action.nopresent:hover { background: #e67e22; color: white; }
+
+/* Badges */
+.status-badge-large {
+    padding: 6px 15px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.05);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-left: auto;
+    color: #333;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.card-footer-mini {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+}
+
+.company-name { font-weight: 600; opacity: 0.6; }
+
+.status-badge-mini {
+    padding: 3px 8px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.05);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #555;
+}

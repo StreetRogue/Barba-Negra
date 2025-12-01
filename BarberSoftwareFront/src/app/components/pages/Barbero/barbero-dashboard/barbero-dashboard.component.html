@@ -1,0 +1,25 @@
+<div class="layout-container theme-barber">
+
+    <!-- BACKDROP OSCURO (Para cerrar menú en móvil) -->
+    <div class="sidebar-backdrop" [class.show]="isMobileSidebarOpen()" (click)="closeSidebar()">
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" [class.active]="isMobileSidebarOpen()">
+        <app-sidebar-nav [variant]="'barber'" (click)="closeSidebar()"></app-sidebar-nav>
+    </aside>
+
+    <div class="layout-main">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <app-topbar variant="barber" [userImage]="user()?.imagenUrl" [userName]="user()?.nombre"
+                (logoutAction)="handleLogout()" (toggleMenu)="toggleSidebar()">
+            </app-topbar>
+        </header>
+
+        <div class="layout-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</div>

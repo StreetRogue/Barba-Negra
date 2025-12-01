@@ -1,0 +1,25 @@
+
+
+<div class="login-page-container">
+  
+  <!-- Se muestra si Auth0 está cargando o si ya está autenticado (mientras redirige) -->
+  <div *ngIf="(auth0Loading$ | async) || (isAuthenticated$ | async)" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>
+      {{ (isAuthenticated$ | async) ? 'Entrando a BarbaNegra...' : 'Procesando...' }}
+    </p>
+  </div>
+
+
+  <!-- CASO 2: FORMULARIO -->
+  <!-- Solo se muestra si NO está cargando Y NO está autenticado -->
+  <ng-container *ngIf="!(auth0Loading$ | async) && !(isAuthenticated$ | async)">
+    <app-auth-panel 
+      [isLoading]="isInternalLoading"
+      (loginSubmit)="handleLoginSubmit($event)"
+      (registerSubmit)="handleRegisterSubmit($event)"
+      (googleLogin)="handleLoginGoogleSubmit()">
+    </app-auth-panel>
+  </ng-container>
+
+</div>

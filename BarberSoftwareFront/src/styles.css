@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+/* Tema por defecto */
+:root {
+  /* ===== PALETA DE COLORES PRIMARIOS ===== */
+  --color-dark-primary: #252628;
+  /* Fondo principal oscuro */
+  --color-gold-dark: #756003;
+  /* Dorado oscuro, lujo */
+  --color-yellow-accent: #FFD60A;
+  /* Amarillo intenso, CTA */
+
+  /* ===== NEUTROS ===== */
+  --color-white: #ffffff;
+  --color-light-bg: #F5F5F5;
+  /* Fondo claro general */
+  --color-card-bg: #E5E5E5;
+  /* Fondo de tarjetas */
+  --color-text-primary: #1C1C1E;
+  /* Texto principal */
+  --color-text-secondary: #4A4A4A;
+  /* Texto secundario */
+  --color-border: #D1D1D6;
+  /* Bordes y líneas divisorias */
+
+  /* ===== ACENTOS ===== */
+  --color-wine: #8B2F35;
+  /* Acento vino: sofisticación */
+  --color-copper: #A66A3F;
+  /* Cobre/marrón cálido */
+
+  /* ===== ESTADOS (UI / FORMULARIOS) ===== */
+  --color-success: #2E7D32;
+  /* Confirmaciones */
+  --color-error: #C62828;
+  /* Errores */
+  --color-warning: #EF6C00;
+  /* Advertencias */
+  --color-info: #0277BD;
+  /* Información */
+
+  /* ===== VARIABLES SEMÁNTICAS (Default/Base Theme) ===== */
+  --bg-dashboard: var(--color-light-bg);
+  --bg-sidebar: #ffffff;
+  --text-main: var(--color-text-primary);
+  --bg-card: var(--color-card-bg);
+  --bg-welcome-card: var(--color-card-bg);
+  --bg-progress-widget: transparent;
+
+  /* ===== BUTTON VARIABLES (Default) ===== */
+  --btn-primary-bg: var(--color-dark-primary);
+  --btn-primary-text: var(--color-light-bg);
+  --btn-primary-border: var(--color-dark-primary);
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: var(--color-dark-primary);
+  --btn-secondary-border: var(--color-gold-dark);
+
+  --btn-overlay-bg: transparent;
+  --btn-overlay-text: var(--color-light-bg);
+  --btn-overlay-border: var(--color-yellow-accent);
+
+  --btn-primary-on-dark-bg: var(--color-yellow-accent);
+  --btn-primary-on-dark-text: var(--color-dark-primary);
+  --btn-primary-on-dark-border: var(--color-yellow-accent);
+}
+
+/* Tema Cliente */
+.theme-client {
+  --text-primary: var(--color-white);
+  --bg-card-principal: #252628;
+  --bg-dashboard: radial-gradient(circle at center, #626367 40%, #000000 100%);
+
+  --logo-divider: var(--color-yellow-accent);
+  --text-main: var(--color-white);
+  --bg-card: var(--bg-card-principal);
+  --bg-welcome-card: linear-gradient(315deg, #121212 7%, #3F4045 94%);
+  --text-welcome-card: #ffffff;
+  --bg-topbar: var(--bg-card-principal);
+
+  /* Search Input */
+  --bg-search-topbar: #121212;
+  --border-color-search-topbar: transparent;
+  --text-search-topbar: var(--text-primary);
+
+  /* Sidebar */
+  --bg-sidebar: var(--bg-card-principal);
+  --sidebar-activeElement: var(--color-yellow-accent);
+
+  /* Estilo botón perfil*/
+  --bg-perfil: #000000;
+  --person-color: #FFD60A;
+
+  /* Estilos para botones */
+  --btn-primary-on-dark-bg: #FFD60A;
+  --btn-primary-on-dark-text: #000000;
+  --btn-primary-on-dark-border: #FFD60A;
+
+  --btn-overlay-bg: transparent;
+  --btn-overlay-text: #ffffff;
+  --btn-overlay-border: #FFD60A;
+}
+
+/* Tema Barbero */
+.theme-barber {
+  --text-primary: var(--color-white);
+  --bg-card-principal: #4A4A4A;
+  --bg-dashboard: radial-gradient(circle at center, #FFFFFF 0%, #999999 100%);
+
+
+  --logo-divider: var(--color-yellow-accent);
+  --text-main: var(--color-white);
+  --bg-card: var(--bg-card-principal);
+  --bg-welcome-card: linear-gradient(315deg, #3F4045 7%, #B7B7B7 94%);
+  --text-welcome-card: #000;
+  --bg-topbar: var(--bg-card-principal);
+
+  /* Search Input */
+  --bg-search-topbar: #ffffff;
+  --border-color-search-topbar: transparent;
+  --text-search-topbar: #000;
+
+  /* Sidebar */
+  --bg-sidebar: var(--bg-card-principal);
+  --sidebar-activeElement: var(--color-yellow-accent);
+
+  /* Estilo botón perfil*/
+  --bg-perfil: #000000;
+  --person-color: #FFD60A;
+
+  /* Estilos para botones */
+  --btn-primary-on-dark-bg: #FFD60A;
+  --btn-primary-on-dark-text: #000000;
+  --btn-primary-on-dark-border: #FFD60A;
+
+  --btn-overlay-bg: transparent;
+  --btn-overlay-text: #000000;
+  --btn-overlay-border: #000000;
+}
+
+/* Tema Administrador */
+.theme-admin {
+  --text-primary: var(--color-white);
+  --bg-card-principal: #4A4A4A;
+  --bg-dashboard: radial-gradient(circle at center, #FFD60A 20%, #756003 50%);
+
+  --logo-divider: var(--color-white);
+  --text-main: var(--color-white);
+  --bg-card: var(--bg-card-principal);
+  --bg-welcome-card: linear-gradient(315deg, #000000 7%, #3F4045 94%);
+  --text-welcome-card: var(--color-white);
+  --bg-topbar: var(--bg-card-principal);
+
+  /* Search Input */
+  --bg-search-topbar: #000000;
+  --border-color-search-topbar: transparent;
+  --text-search-topbar: var(--color-white);
+
+  /* Sidebar */
+  --bg-sidebar: var(--bg-card-principal);
+  --sidebar-activeElement: var(--color-yellow-accent);
+
+  /* Estilo botón perfil*/
+  --bg-perfil: #ffd60a;
+  --person-color: #000000;
+
+  /* Estilos para botones */
+  --btn-primary-on-dark-bg: #FFD60A;
+  --btn-primary-on-dark-text: #000000;
+  --btn-primary-on-dark-border: #FFD60A;
+
+  --btn-overlay-bg: transparent;
+  --btn-overlay-text: var(--color-white);
+  --btn-overlay-border: var(--color-yellow-accent);
+}
+
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-4,
+.hero-text-elegant {
+  /* Fuente "clásica" para todos los títulos */
+  font-family: 'Inter', serif;
+  font-weight: 700;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+@media (max-width: 991.98px) {
+  body {
+    /* 100px es un valor seguro, ajústalo si es necesario */
+    padding-bottom: 10px;
+  }
+}

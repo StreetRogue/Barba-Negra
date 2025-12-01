@@ -1,0 +1,18 @@
+# Ignorar la carpeta de compilación excepto el jar
+target/*
+!target/*.jar
+
+# Ignorar IDEs y configuraciones
+.idea/
+.vscode/
+*.iml
+
+# Ignorar variables locales
+*.env
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar archivos del sistema
+*.DS_Store
+Thumbs.db

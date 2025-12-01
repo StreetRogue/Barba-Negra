@@ -1,0 +1,272 @@
+<div class="page-container">
+
+  <div class="services-wrapper">
+    <div class="services-section-card">
+      <div class="carousel-container">
+        <!-- Título SVG -->
+        <div class="svg-title-container">
+          <svg viewBox="0 0 800 150" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#FFD700; stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#B8860B; stop-opacity:1" />
+              </linearGradient>
+              <filter id="dropShadow">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="rgba(0,0,0,0.8)" />
+              </filter>
+            </defs>
+            <path id="curvePath" d="M 0,120 Q 400,20 800,120" fill="transparent" />
+            <text filter="url(#dropShadow)">
+              <textPath href="#curvePath" startOffset="50%" text-anchor="middle" class="svg-title-text">
+                SERVICIOS
+              </textPath>
+            </text>
+          </svg>
+          <div *ngIf="listaServicios.length === 0" class="no-services-admin">
+            <i class="bi bi-exclamation-triangle"></i>
+            <p>No hay servicios registrados actualmente.</p>
+          </div>
+        </div>
+
+        <!-- Escenario 3D -->
+        <div class="custom-carousel-stage">
+
+          <button class="nav-btn prev-btn" (click)="prev()">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+
+          <div class="cards-stack">
+            <div *ngFor="let service of listaServicios; let i = index" class="service-card-wrapper"
+              [ngClass]="getClass(i)" (click)="setActive(i)">
+
+              <div class="service-card" (dblclick)="abrirModalEditar(service)">
+                <div class="card-visual"
+                  [style.background-image]="'url(' + (service.imagenUrl || 'assets/images/default-service.jpg') + ')'">
+                </div>
+
+                <div class="double-click-hint" *ngIf="i === activeIndex">
+                  <i class="bi bi-pencil-square"></i>
+                  <span>Doble clic para editar</span>
+                </div>
+              </div>
+
+              <div class="service-info" *ngIf="i === activeIndex">
+                <div class="line-deco"></div>
+                <div class="info-text">
+                  <h3 class="service-name">{{ service.nombre }}</h3>
+                  <p class="service-price">${{ service.precio | number }}</p>
+                </div>
+                <div class="line-deco"></div>
+              </div>
+
+            </div>
+          </div>
+
+          <button class="nav-btn next-btn" (click)="next()">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: INSPECTOR (BUSCADOR) -->
+  <div class="inspector-section fade-in-up">
+
+    <div class="inspector-search-bar">
+      <i class="fa fa-search search-icon"></i>
+      <input type="text" placeholder="Escribe para buscar un servicio específico..." [(ngModel)]="filtroBusqueda"
+        (input)="buscarServicio()" class="big-search-input">
+
+      <button *ngIf="filtroBusqueda" class="btn-clear" (click)="limpiarBusqueda()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+
+    <div class="inspector-result-area">
+
+      <!-- Crear Nuevo -->
+      <div *ngIf="!filtroBusqueda && !servicioEncontrado" class="create-placeholder fade-in">
+        <div class="dashed-box" (click)="abrirModalNuevo()">
+          <div class="icon-circle"><i class="bi bi-plus-lg"></i></div>
+          <h3>Registrar Nuevo Servicio</h3>
+          <p>Agrega un nuevo corte o tratamiento al catálogo</p>
+        </div>
+      </div>
+
+      <!-- Resultado Encontrado -->
+      <div *ngIf="servicioEncontrado" class="service-super-card fade-in">
+        <div class="super-card-image"
+          [style.background-image]="'url(' + (servicioEncontrado.imagenUrl || 'assets/images/default-service.jpg') + ')'">
+        </div>
+        <div class="super-card-content">
+          <div class="super-header">
+            <div>
+              <h2 class="super-title">{{ servicioEncontrado.nombre }}</h2>
+              <span class="status-badge" [class.active]="servicioEncontrado.activo">
+                {{ servicioEncontrado.activo ? 'Activo' : 'Oculto' }}
+              </span>
+              <!-- Mostrar Categoría si existe -->
+              <span class="category-badge" *ngIf="servicioEncontrado.nombreCategoria">
+                {{ servicioEncontrado.nombreCategoria }}
+              </span>
+            </div>
+            <div class="super-price">${{ servicioEncontrado.precio | number }}</div>
+          </div>
+          <p class="super-desc">{{ servicioEncontrado.descripcion }}</p>
+          <div class="super-stats">
+            <div class="stat-item">
+              <i class="fa fa-clock-o"></i>
+              <span>{{ servicioEncontrado.duracion }} min</span>
+              <small>Duración</small>
+            </div>
+          </div>
+          <div class="super-actions">
+            <button class="btn-action edit" (click)="abrirModalEditar(servicioEncontrado)">
+              <i class="fa fa-pencil"></i> Editar
+            </button>
+            <button class="btn-action delete" (click)="eliminarServicio(servicioEncontrado)">
+              <i class="fa fa-trash"></i> Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- No encontrado -->
+      <div *ngIf="filtroBusqueda && !servicioEncontrado" class="not-found-state">
+        <i class="fa fa-frown-o"></i>
+        <p>No encontramos "{{ filtroBusqueda }}"</p>
+        <button class="btn-text" (click)="abrirModalNuevo()">¿Quieres crearlo?</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL STEPPER (CON SELECTOR DE CATEGORÍA)  -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" *ngIf="mostrarModal">
+    <div class="modal-content stepper-layout">
+
+      <div class="stepper-sidebar">
+        <div class="step-indicator">
+          <div class="step-item" [class.active]="stepActual === 1" [class.completed]="stepActual > 1">
+            <div class="circle">
+              <i class="fa fa-check" *ngIf="stepActual > 1"></i>
+              <span *ngIf="stepActual <= 1">1</span>
+            </div>
+            <span class="step-label">Información General</span>
+          </div>
+          <div class="step-line" [class.filled]="stepActual > 1"></div>
+          <div class="step-item" [class.active]="stepActual === 2">
+            <div class="circle">2</div>
+            <span class="step-label">Cargar Imagen</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stepper-body">
+
+        <!-- PASO 1 -->
+        <div *ngIf="stepActual === 1" class="step-content fade-in">
+          <h3 class="step-title">
+            {{ servicioEdicion.id === 0 ? 'Nuevo Servicio' : 'Editar Servicio' }}
+          </h3>
+
+          <form>
+            <!-- Nombre -->
+            <div class="floating-group">
+              <input type="text" [(ngModel)]="servicioEdicion.nombre" name="nombre" required placeholder=" ">
+              <label>Nombre del servicio</label>
+            </div>
+
+            <!-- 👇 AQUÍ ESTÁ EL SELECTOR DE CATEGORÍA 👇 -->
+            <div class="floating-group">
+              <select [(ngModel)]="servicioEdicion.idCategoria" name="categoria" required class="select-input">
+                <option [ngValue]="undefined" disabled selected>Selecciona una opción</option>
+                <!-- Iteramos sobre las categorías cargadas del back -->
+                <option *ngFor="let cat of listaCategorias" [ngValue]="cat.id">
+                  {{ cat.nombre }}
+                </option>
+              </select>
+              <label class="fixed-label">Categoría</label>
+            </div>
+
+            <!-- Precio y Duración -->
+            <div class="row-2-cols">
+              <div class="floating-group">
+                <input type="number" [(ngModel)]="servicioEdicion.duracion" name="duracion" required placeholder=" ">
+                <label>Duración (min)</label>
+              </div>
+              <div class="floating-group">
+                <input type="number" [(ngModel)]="servicioEdicion.precio" name="precio" required placeholder=" ">
+                <label>Precio (COP)</label>
+              </div>
+            </div>
+
+            <!-- Descripción -->
+            <div class="floating-group">
+              <textarea [(ngModel)]="servicioEdicion.descripcion" name="descripcion" rows="3"
+                placeholder=" "></textarea>
+              <label>Descripción</label>
+            </div>
+
+            <!-- Switch Activo -->
+            <div class="availability-section">
+              <span class="avail-label">Disponibilidad</span>
+              <div class="toggle-pill">
+                <span class="toggle-text">{{ servicioEdicion.activo ? 'Activo' : 'Inactivo' }}</span>
+                <label class="switch">
+                  <input type="checkbox" [(ngModel)]="servicioEdicion.activo" name="activo">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="stepper-actions">
+              <button type="button" class="btn-step-cancel" (click)="cerrarModal()">Cancelar</button>
+              <button type="button" class="btn-step-next" (click)="siguientePaso()">Siguiente</button>
+            </div>
+          </form>
+        </div>
+
+        <div *ngIf="stepActual === 2" class="step-content fade-in">
+          <h3 class="step-title">Multimedia</h3>
+          <p class="step-subtitle">Imagen representativa del servicio</p>
+
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" hidden>
+
+          <div class="upload-zone" *ngIf="!archivoSeleccionado && !imagenPrevia" (click)="fileInput.click()">
+            <div class="upload-placeholder">
+              <i class="bi bi-cloud-arrow-up upload-icon"></i>
+              <p>Clic para subir imagen</p>
+            </div>
+          </div>
+
+          <div class="preview-container" *ngIf="archivoSeleccionado || imagenPrevia">
+
+            <div class="image-wrapper">
+              <img [src]="imagenPrevia" class="preview-thumb">
+            </div>
+
+            <button type="button" class="btn-delete-float" (click)="eliminarImagen()">
+              <i class="bi bi-trash"></i>
+            </button>
+
+            <p class="file-name-label" *ngIf="nombreArchivo">{{ nombreArchivo }}</p>
+          </div>
+
+          <div class="stepper-actions">
+            <button type="button" class="btn-step-cancel" (click)="pasoAnterior()">Atrás</button>
+            <button type="button" class="btn-step-next" (click)="guardarServicio()">
+              {{ servicioEdicion.id === 0 ? 'Crear' : 'Guardar Cambios' }}
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

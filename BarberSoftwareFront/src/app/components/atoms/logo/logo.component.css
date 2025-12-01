@@ -1,0 +1,27 @@
+.logo-link {
+  display: block; /* Mantiene tu clase d-block */
+  line-height: 0; /* Evita espacios extra de la imagen */
+}
+
+.logo-image {
+  height: 80px; /* Define el tamaño base */
+}
+
+.logo-container {
+  text-align: center;
+  padding: 1rem 0;
+}
+.logo-container img {
+  width: 80%;
+  max-width: 130px;
+}
+
+
+/* Podemos incluso manejar el tamaño móvil aquí 
+  para que el Header no tenga que hacerlo.
+*/
+@media (max-width: 991.98px) { /* breakpoint 'lg' de Bootstrap */
+  .logo-image {
+    height: 50px;
+  }
+}

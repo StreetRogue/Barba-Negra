@@ -1,0 +1,41 @@
+/* sidebar-nav.component.css */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.sidebar-menu-container {
+  width: 100%;
+}
+
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  /* Más aire al logo */
+}
+
+.logo-divider {
+  width: 80%;
+  height: 1px;
+  border: none;
+  background: var(--color-yellow-accent);
+  margin: 15px 0 20px 0;
+}
+
+/* Estilo del Menú */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Espacio entre items */
+  padding: 0 1.5rem;
+  /* Padding lateral para que los botones no toquen el borde */
+}
+
+:host ::ng-deep .card-base.sidebar-menu {
+  background-color: transparent;
+}

@@ -1,0 +1,295 @@
+/* (Asegúrate de que tus colores de paleta estén definidos en styles.css) */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* Cambiamos center por flex-start para que respete el padding del global */
+  width: 100%;
+  padding-bottom: 40px;
+  padding-top: 140px;
+}
+
+.third-login {
+  --btn-primary-bg: transparent;
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: var(--color-yellow-accent);
+  --btn-primary-bg-hover: white;
+  --btn-primary-text-hover: #000;
+  --btn-primary-border-hover: 1px solid #000;
+}
+
+.auth-container {
+  background-color: var(--background-secondary, #fff);
+  border-radius: 12px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 520px;
+}
+
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+  padding: 2rem;
+
+  isolation: isolate;
+}
+
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.sign-up-container {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.overlay-container {
+  background-color: #000;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+
+  isolation: isolate;
+}
+
+.overlay {
+  background: var(--color-pampas-950);
+  color: var(--color-pampas-50);
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+  isolation: isolate;
+}
+
+
+
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.overlay-left {
+  transform: translateX(-20%);
+}
+
+/* --- (Animación) --- */
+
+/* Mueve el panel de Login */
+.auth-container.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Mueve el Overlay */
+.auth-container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+
+/* Mueve el panel de Registro */
+.auth-container.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: show 0.6s;
+}
+
+/* Mueve los paneles de Overlay */
+.auth-container.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+
+.auth-container.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+
+.auth-container.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}
+
+.social-login-container {
+  width: 100%;
+  max-width: 380px;
+  /* Mismo ancho máximo que los inputs para consistencia */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  /* Lo posicionamos absolutamente */
+  bottom: 50px;
+  /* A una distancia de la parte inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  /* Lo centramos horizontalmente */
+}
+
+@keyframes show {
+
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+
+
+@media (max-width: 767.98px) {
+
+  /* 1. EL CONTENEDOR PRINCIPAL */
+  .auth-container {
+    width: 100%;
+    /* Ocupa todo el ancho */
+    max-width: 100vw;
+    /* Asegura que no exceda la ventana */
+    min-height: auto;
+    height: auto;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Ocultamos el overlay rojo de escritorio */
+  .overlay-container {
+    display: none;
+  }
+
+  /* 2. LA TARJETA BLANCA DEL FORMULARIO */
+  .form-container {
+    width: 100%;
+    /* Ocupa el 100% de su padre */
+    height: auto;
+    position: relative;
+    /* Ya no es absolute */
+    top: 0;
+    left: 0;
+    /* Reseteamos posiciones */
+
+    /* El padding interno de la tarjeta */
+    padding: 2rem 1.5rem 5rem 1.5rem;
+
+    background-color: var(--background-secondary, #fff);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+    /* Asegura que el padding no aumente el ancho total */
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* 3. LOS PANELES DE LOGIN Y REGISTRO */
+  .sign-in-container,
+  .sign-up-container {
+    width: 100%;
+    /* ¡IMPORTANTE! Deben ocupar el 100% */
+    left: 0;
+    top: 0;
+    padding: 0;
+    /* Quitamos padding extra que puedan tener de desktop */
+    position: relative;
+    /* Por defecto son relativos */
+    transition: all 0.4s ease-in-out;
+    /* Animación más rápida para móvil */
+  }
+
+  /* --- ESTADO INICIAL (Login visible) --- */
+  .sign-in-container {
+    transform: translateX(0);
+    /* En su sitio */
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .sign-up-container {
+    position: absolute;
+    /* Lo sacamos del flujo */
+    transform: translateX(100%);
+    /* Lo movemos a la derecha, fuera de la vista */
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+    /* Evita clicks fantasma */
+  }
+
+  /* --- ESTADO ACTIVO (Registro visible) --- */
+  .auth-container.right-panel-active .sign-in-container {
+    position: absolute;
+    /* Lo sacamos del flujo */
+    transform: translateX(-100%);
+    /* Lo movemos a la izquierda */
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .auth-container.right-panel-active .sign-up-container {
+    position: relative;
+    /* Vuelve al flujo */
+    transform: translateX(0);
+    /* En su sitio */
+    opacity: 1;
+    z-index: 2;
+    pointer-events: all;
+  }
+
+  /* Ajuste para el formulario interno */
+  form {
+    width: 100%;
+  }
+
+  /* BOTONES SOCIALES */
+  .social-login-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    /* Un poco menos del 100% para margen seguro */
+    z-index: 10;
+  }
+}

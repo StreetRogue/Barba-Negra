@@ -1,0 +1,29 @@
+<div class="welcome-card-container" [ngClass]="variant">
+  <div class="text-content">
+    <h1 *ngIf="variant === 'client'">Bienvenido, {{ userName }}!</h1>
+    <h1 *ngIf="variant === 'barber'">Bienvenido, {{ userName }}!</h1>
+    <h1 *ngIf="variant === 'admin'">{{ title || 'Panel de Administrador' }}</h1>
+
+    <p *ngIf="variant === 'client'">¿Qué quieres para hoy?</p>
+    <p *ngIf="variant === 'barber'">¿Listo para atender a tus clientes con lo mejor de ti?</p>
+    <p *ngIf="variant === 'admin'">{{ subtitle || 'Gestión de la barbería.' }}</p>
+
+    <div class="actions" *ngIf="variant === 'client'">
+      <app-button routerLink="/cliente/servicios" [style]="'primary-on-dark'" [label]="'Reservar +'"></app-button>
+    </div>
+
+    <div class="actions" *ngIf="variant === 'barber'">
+      <app-button routerLink="/barbero/servicios" [style]="'primary-on-dark'" [label]="'Mis servicios'"></app-button>
+    </div>
+
+  </div>
+
+  <div class="image-content">
+    <img *ngIf="variant === 'client'" src="assets/images/isometric-clienteDashboard.png"
+      alt="Imagen Isométrica de la barbería Barba Negra">
+    <img *ngIf="variant === 'admin'" src="assets/images/isometric-adminDashboard.png"
+      alt="Imagen Isométrica de la barbería Barba Negra">
+    <img *ngIf="variant === 'barber'" src="assets/images/ImageWelcomeCardBarberDashboard.png"
+      alt="Imagen Isométrica de la barbería Barba Negra">
+  </div>
+</div>

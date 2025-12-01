@@ -1,0 +1,90 @@
+/* Fondo del header */
+.app-header {
+  padding: 18px 0;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+
+  background-color: #000;
+
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.app-header.scrolled {
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* EXCEPCIÓN PARA LOGIN: Bloqueo en Negro Puro */
+/* Usamos !important solo si es estrictamente necesario para sobrescribir 'scrolled' */
+.app-header.force-black {
+  background-color: #000000 !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  border-bottom: none !important;
+}
+
+/* Asegura que si por error se mezcla con 'scrolled', force-black gane */
+.app-header.force-black.scrolled {
+  background-color: #000000 !important;
+}
+
+.app-header.header-overlay {
+  background: transparent !important;
+}
+
+/* Layout */
+.header-desktop {
+  padding: 0 60px;
+}
+
+.header-logo img {
+  height: 70px;
+  opacity: 0.12;
+  /* similar al de la imagen */
+}
+
+/* Menú */
+.header-nav {
+  display: flex;
+  gap: 80px;
+}
+
+.header-nav a {
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.header-nav a:hover {
+  opacity: 0.6;
+}
+
+.header-nav a.active {
+  opacity: 1;
+}
+
+/* Icono usuario */
+.header-user i {
+  color: #fff;
+}
+
+/* Mobile */
+.header-mobile {
+  padding: 0 16px;
+}
+
+.header-mobile app-logo img {
+  height: 55px;
+}
+
+.header-mobile i {
+  color: #fff;
+}

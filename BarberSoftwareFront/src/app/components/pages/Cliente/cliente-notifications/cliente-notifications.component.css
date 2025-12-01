@@ -1,0 +1,341 @@
+/* CONTENEDOR PRINCIPAL */
+.notifications-container {
+    width: 100%;
+    max-width: 500px; /* Ancho tipo móvil/widget */
+    margin: 0 auto;
+    background-color: #f0f0f0; /* Fondo gris claro general */
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    font-family: 'Inter', sans-serif;
+    min-height: 80vh;
+}
+
+/* --- HEADER Y CALENDARIO --- */
+.header-section {
+    background-color: #e6e6e6;
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    position: relative; /* Para posicionar el botón refresh */
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+}
+
+/* --- BOTÓN DE REFRESCAR (NUEVO) --- */
+.btn-refresh {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+
+
+.btn-refresh:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+/* Animación de rotación */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+/* --- CALENDARIO (ESTILOS ORIGINALES RESPETADOS) --- */
+.month-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ccc;
+    border-radius: 12px;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.nav-btn {
+    background: #FFC107;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #000;
+}
+
+.month-label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Tira de Días */
+.strip-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.days-strip {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.days-strip::-webkit-scrollbar { display: none; }
+
+.day-item {
+    min-width: 50px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.day-name { font-size: 0.7rem; color: #666; text-transform: uppercase; margin-bottom: 4px; }
+.day-num { font-size: 1.2rem; font-weight: 700; color: #333; }
+
+.day-item.selected {
+    background-color: #FFC107;
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
+}
+.day-item.selected .day-num { color: #000; }
+
+.strip-arrow {
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 25px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+/* Buscador */
+.search-box {
+    margin-top: 15px;
+    position: relative;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: rgba(255,255,255,0.5);
+    outline: none;
+    color: #333;
+}
+
+/* --- TARJETAS DE RESERVA --- */
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.booking-card {
+    border-radius: 20px;
+    padding: 20px;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative; /* Para el borde izquierdo */
+    background: #fff; /* Fondo base por defecto */
+}
+
+/* ESTADOS DE COLOR (Bordes Laterales) */
+.booking-card.PENDIENTE { border-left: 5px solid #FFC107; background: #ffffff; }
+.booking-card.CONFIRMADA { border-left: 5px solid #2ecc71; background: #f0fff4; }
+.booking-card.REPROGRAMADA { border-left: 5px solid #3498db; background: #ffffff; }
+.booking-card.EN_PROCESO { border-left: 5px solid #9b59b6; background: #fdf0ff; }
+.booking-card.COMPLETADA { border-left: 5px solid #27ae60; background: #ffffff; opacity: 0.8; }
+.booking-card.CANCELADA { border-left: 5px solid #e74c3c; background: #ffffff; opacity: 0.7; }
+.booking-card.NO_PRESENTADO { border-left: 5px solid #7f8c8d; background: #ffffff; opacity: 0.7; }
+
+
+/* HEADER TARJETA */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.header-info {
+    flex: 1;
+}
+
+.booking-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin: 0 0 5px 0;
+    color: #1a1a1a;
+}
+
+.booking-time {
+    font-size: 0.8rem;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.expand-icon {
+    font-size: 1.2rem;
+    color: #333;
+    margin-left: 10px;
+}
+
+/* CUERPO EXPANDIDO */
+.card-body {
+    margin-top: 20px;
+    animation: slideDown 0.3s ease-out;
+    border-top: 1px dashed rgba(0,0,0,0.1);
+    padding-top: 15px;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.details-title {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #222;
+}
+
+.details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.detail-row {
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between; /* Alinear etiqueta y valor */
+}
+
+.detail-row .label {
+    font-weight: 700;
+    color: #555;
+}
+
+.detail-row .value {
+    color: #111;
+    font-weight: 500;
+}
+
+.value.status-text {
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+/* FOOTER EXPANDIDO */
+.card-footer-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-action {
+    background: transparent;
+    border: 1px solid #333;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #333;
+    transition: all 0.2s;
+}
+
+.btn-action:hover {
+    background: #333;
+    color: #fff;
+}
+
+.status-badge-large {
+    padding: 6px 15px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.05);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #333;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* FOOTER MINI (Colapsado) */
+.card-footer-mini {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed rgba(0,0,0,0.1);
+    padding-top: 10px;
+}
+
+.company-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+.status-badge-mini {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.05);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #555;
+}

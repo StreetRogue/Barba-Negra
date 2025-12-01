@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.nav-item-container {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  position: relative;
+
+  i {
+    font-size: 1.2rem;
+    margin-right: 16px;
+    margin-left: 4px;
+  }
+
+  &:hover {
+    background-color: var(--accent-primary-light, #fbeeee);
+    color: var(--accent-primary, #000000);
+  }
+
+  &.active {
+    background-color: transparent;
+    font-weight: 700;
+  }
+
+  &.active:hover {
+    background-color: transparent;
+    color: #ffffff;
+  }
+
+  &.active i {
+    color: #ffffff;
+  }
+
+  /* Left marker when active */
+  &.active::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 60%;
+    background: var(--sidebar-activeElement);
+    border-radius: 3px;
+  }
+}

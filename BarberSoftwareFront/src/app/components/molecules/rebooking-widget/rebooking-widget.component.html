@@ -1,0 +1,21 @@
+<div class="rebook-container" [ngClass]="variant">
+
+    <div class="header">
+        <span class="subtitle">Última visita: {{ lastVisitDate | date:'d MMM' }}</span>
+        <div class="service-tag">{{ lastService }}</div>
+    </div>
+
+    <div class="counter-section">
+        <div class="days-display" [ngClass]="urgencyLevel">
+            <span class="number">{{ daysPassed }}</span>
+            <span class="label">días</span>
+        </div>
+        <p class="message">{{ statusMessage }}</p>
+    </div>
+
+    <button class="action-btn" (click)="onRebook()">
+        <span class="btn-text">Reservar Mismo Servicio</span>
+        <i class="arrow-icon">→</i>
+    </button>
+
+</div>

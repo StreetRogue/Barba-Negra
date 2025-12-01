@@ -1,0 +1,118 @@
+.barber-widget {
+  background: var(--bg-progress-widget);
+  color: white;
+  border-radius: 22px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #FFD60A;
+  box-shadow: 0 0 12px rgba(255, 214, 10, 0.4);
+}
+
+.info h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.specialty {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+/* RATING */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 6px;
+}
+
+.rating i {
+  font-size: 1rem;
+  color: #444;
+  transition: color 0.2s;
+}
+
+.rating i.active {
+  color: #FFD60A;
+}
+
+.rating-number {
+  margin-left: 6px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* STATUS */
+.status {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.status.atendiendo {
+  background: rgba(255, 214, 10, 0.15);
+  color: #FFD60A;
+}
+
+.status.disponible {
+  background: rgba(0, 255, 139, 0.12);
+  color: #00FF8B;
+}
+
+.status.ocupado {
+  background: rgba(255, 73, 73, 0.14);
+  color: #ff4949;
+}
+
+/* Button */
+.profile-btn {
+  margin-top: auto;
+  background: #FFD60A;
+  color: #1f1f1f;
+  padding: 0.8rem;
+  text-align: center;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.25s ease, transform 0.25s;
+}
+
+.profile-btn:hover {
+  background: #ffdf45;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .barber-widget {
+    padding: 1rem;
+  }
+
+  .avatar {
+    width: 58px;
+    height: 58px;
+  }
+}

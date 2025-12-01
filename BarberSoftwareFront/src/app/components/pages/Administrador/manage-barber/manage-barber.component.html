@@ -1,0 +1,256 @@
+<div class="page-container">
+
+  <div class="form-container">
+    <div class="card form-card">
+      <div class="card-header">
+        <h2>Crear Nuevo Barbero</h2>
+        <p class="subtitle">El barbero recibirá acceso al registrarse con este correo.</p>
+      </div>
+
+      <form (ngSubmit)="registrarBarbero()" #barberForm="ngForm">
+        <div class="form-group-wrapper">
+          <label class="input-label">Correo Electrónico</label>
+          <div class="custom-input-group">
+            <div class="icon-box">
+              <i class="bi bi-envelope"></i>
+            </div>
+
+            <input type="email" class="input-field" [(ngModel)]="nuevoBarbero.email" name="email" required
+              placeholder="ejemplo@barberia.com" class="transparent-input" />
+          </div>
+        </div>
+
+        <div class="form-group-wrapper">
+          <label class="input-label">Nombre Completo</label>
+          <div class="custom-input-group">
+            <div class="icon-box">
+              <i class="bi bi-person"></i>
+            </div>
+            <input type="text" class="input-field" [(ngModel)]="nuevoBarbero.nombre" name="nombre" required
+              placeholder="Juan Pérez" class="transparent-input" />
+          </div>
+        </div>
+
+        <div class="form-group-wrapper">
+          <label class="input-label">Teléfono</label>
+          <div class="custom-input-group">
+            <div class="icon-box">
+              <i class="bi bi-telephone"></i>
+            </div>
+            <input type="tel" class="input-field" [(ngModel)]="nuevoBarbero.telefono" name="telefono" required
+              placeholder="+57 300 123 4567" class="transparent-input" />
+          </div>
+        </div>
+
+        <div class="form-separator"></div>
+
+        <div class="form-buttons">
+          <button type="button" class="btn btn-outline-yellow" (click)="limpiarFormulario()">Limpiar</button>
+          <button type="submit" class="btn btn-outline-green" [disabled]="!barberForm.form.valid">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="list-container">
+
+    <div class="list-header">
+      <h3>Barberos</h3>
+      <div class="search-box">
+        <input type="text" placeholder="Buscar barbero..." [(ngModel)]="filtroBusqueda" />
+        <i class="bi bi-search search-icon"></i>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="barber-card" *ngFor="let barbero of barberosFiltrados">
+
+        <div class="card-top">
+
+          <div class="avatar-section">
+
+            <div class="avatar-container">
+              <img src="assets/images/avatar.png" alt="Avatar">
+            </div>
+
+            <span class="status-badge" [ngClass]="{ 'active': barbero.estado === 'ACTIVO' || barbero.estado === 'Activo',
+                'inactive': barbero.estado !== 'ACTIVO' && barbero.estado !== 'Activo'}">
+              {{ barbero.estado }}
+            </span>
+          </div>
+          <div class="info-container">
+            <h4>{{ barbero.nombre }}</h4>
+            <span class="email-text">{{ barbero.email }}</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="action-card-btn btn-update" (click)="abrirModalEditar(barbero)">
+            <i class="bi bi-pencil-square"></i> <span>Actualizar info</span>
+          </button>
+
+          <button class="action-card-btn btn-schedule" (click)="abrirModalHorario(barbero)">
+            <i class="bi bi-calendar-week"></i> <span>Establecer horarios</span>
+          </button>
+
+          <button class="action-card-btn btn-services" (click)="abrirModalServicios(barbero)">
+            <i class="bi bi-scissors"></i> <span>Servicios</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="mostrarModal">
+    <div class="modal-content">
+
+      <h2>Actualizar Información</h2>
+
+      <form (ngSubmit)="actualizarBarbero()">
+
+        <div class="input-group">
+          <i class="bi bi-envelope"></i>
+          <input type="email" [(ngModel)]="barberoEdicion.email" name="editEmail" readonly
+            style="opacity: 0.6; cursor: not-allowed;">
+        </div>
+
+        <div class="input-group">
+          <i class="bi bi-person"></i>
+          <input type="text" [(ngModel)]="barberoEdicion.nombre" name="editNombre" placeholder="Nombre Completo">
+        </div>
+
+        <div class="input-group">
+          <i class="bi bi-telephone"></i>
+          <input type="tel" [(ngModel)]="barberoEdicion.telefono" name="editTelefono" placeholder="Teléfono">
+        </div>
+
+        <div class="status-control">
+          <span class="label">Estado</span>
+
+          <div class="toggle-wrapper">
+            <span class="status-text" [class.active]="estadoActivo">
+              {{ estadoActivo ? 'Activo' : 'Inactivo' }}
+            </span>
+
+            <label class="switch">
+              <input type="checkbox" [(ngModel)]="estadoActivo" name="editEstado">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-modal btn-cancel-modal" (click)="cerrarModal()">Cancelar</button>
+          <button type="submit" class="btn-modal btn-save-modal">Guardar</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="mostrarModalHorario">
+    <div class="modal-content modal-lg">
+
+      <h2>Horario Laboral</h2>
+      <p style="color: #888; margin-bottom: 20px;">Configura la disponibilidad para <br><strong
+          style="color: #D4AF37;">{{ nombreBarberoSeleccionado }}</strong></p>
+
+      <form (ngSubmit)="guardarHorarios()">
+
+        <div class="schedule-grid">
+          <div class="schedule-row header">
+            <span>Día</span>
+            <span>Descanso</span>
+            <span>Entrada</span>
+            <span>Salida</span>
+          </div>
+
+          <div class="schedule-row" *ngFor="let item of formularioHorarios; let i = index">
+
+            <span class="day-name">{{ diasSemana[i].nombre }}</span>
+
+            <div class="toggle-wrapper small">
+              <label class="switch">
+                <input type="checkbox" [(ngModel)]="item.esDiaLibre" [name]="'libre'+i">
+                <span class="slider round"></span>
+              </label>
+            </div>
+
+            <div class="time-input">
+              <input type="time" [(ngModel)]="item.horaInicio" [name]="'inicio'+i" [disabled]="item.esDiaLibre">
+            </div>
+
+            <div class="time-input">
+              <input type="time" [(ngModel)]="item.horaFin" [name]="'fin'+i" [disabled]="item.esDiaLibre">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 2rem;">
+          <button type="button" class="btn-modal btn-cancel-modal" (click)="cerrarModalHorario()">Cancelar</button>
+          <button type="submit" class="btn-modal btn-save-modal">Guardar Horario</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL 3: GESTIÓN DE SERVICIOS (SKILLS)   -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" *ngIf="mostrarModalServicios">
+    <div class="modal-content modal-skills">
+
+      <div class="skills-header">
+        <h2>Especialidades</h2>
+        <p>Administra los servicios que realiza <strong class="gold-text">{{ nombreBarberoSeleccionado }}</strong></p>
+      </div>
+
+      <!-- SECCIÓN A: AGREGAR NUEVO -->
+      <div class="add-skill-box">
+        <label>Asignar Nuevo Servicio</label>
+        <div class="add-skill-row">
+          <select [(ngModel)]="servicioSeleccionadoId" class="select-input-dark">
+            <option [ngValue]="null" disabled selected>Selecciona del catálogo...</option>
+            <option *ngFor="let serv of catalogoServicios" [ngValue]="serv.id">
+              {{ serv.nombre }}
+            </option>
+          </select>
+          <button class="btn-add-skill" (click)="asignarServicio()" [disabled]="!servicioSeleccionadoId">
+            <i class="bi bi-check-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- SECCIÓN B: LISTA DE HABILIDADES (CHIPS) -->
+      <div class="skills-list-container">
+        <label>Servicios Asignados ({{ serviciosAsignados.length }})</label>
+
+        <div class="skills-grid" *ngIf="serviciosAsignados.length > 0; else noSkills">
+          <div class="skill-chip" *ngFor="let item of serviciosAsignados">
+            <div class="chip-icon"><i class="fa fa-check"></i></div>
+            <span class="chip-text">{{ item.nombreServicio }}</span>
+            <button class="chip-remove" (click)="desasignarServicio(item)" title="Eliminar servicio">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </div>
+
+        <ng-template #noSkills>
+          <div class="empty-skills">
+            <i class="bi bi-inbox"></i>
+            <p>Este barbero aún no tiene servicios asignados.</p>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-modal btn-save-modal" (click)="cerrarModalServicios()">Listo</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

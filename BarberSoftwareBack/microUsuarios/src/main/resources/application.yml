@@ -1,0 +1,39 @@
+server:
+  port: ${PORT:5000}
+
+spring:
+  application:
+    name: microUsuarios
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${AUTH0_ISSUER_URI}
+          audiences: ${AUTH0_AUDIENCE}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    co.edu.unicauca.microUsuarios: DEBUG
+
+# URL dinámica del microBarberos (llamado desde WebClient)
+clients:
+  barberos:
+    base-url: ${BARBEROS_SERVICE_URL}

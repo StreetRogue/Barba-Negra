@@ -1,0 +1,51 @@
+<!-- 
+  Esta sección combina el grid de Bootstrap (.row, .col-md-6) 
+  para ser responsiva.
+-->
+<section class="location-section">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+
+      <!-- Columna de Texto -->
+      <div class="col-md-6 text-center text-md-start">
+        <h2 class="display-4 fw-bold mb-3">Encuéntranos</h2>
+        <p class="lead text-muted mb-4">
+          Visítanos en nuestra sede principal. Disfruta de un ambiente
+          creado para tu comodidad mientras nuestros expertos se encargan de tu estilo.
+        </p>
+        <ul class="list-unstyled text-muted">
+          <li class="mb-2">
+            <i class="bi bi-geo-alt-fill me-2" style="color: var(--c-primary-barber, #8a2c3b);"></i>
+            {{ address }}
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-clock-fill me-2" style="color: var(--c-primary-barber, #8a2c3b);"></i>
+            {{ schedule }}
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-telephone-fill me-2" style="color: var(--c-primary-barber, #8a2c3b);"></i>
+            {{ phone }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna del Mapa -->
+      <div class="col-md-6">
+        <div class="map-container shadow-lg">
+          <!-- 
+            Este es un iframe de Google Maps. 
+            Puedes reemplazar el 'src' con la URL de 'Compartir > Insertar un mapa' 
+            de la ubicación real de tu negocio.
+          -->
+
+          <iframe class="map-iframe"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.1833747883115!2d-76.6264325226272!3d2.4459242507369194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30033c3106f833%3A0x73ed2f71d7e7ede8!2sCra.%2023a%20%23%206A-23%2C%20Popay%C3%A1n%2C%20Cauca!5e0!3m2!1ses-419!2sco!4v1761441277585!5m2!1ses-419!2sco"
+            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,87 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* --- CONTENEDOR GENERAL --- */
+.custom-input-container {
+  position: relative;
+  width: 100%;
+  margin-top: 1.2rem;
+}
+
+/* --- INPUT --- */
+.custom-input {
+  width: 100%;
+  padding: 1.2rem 1rem 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+  background: #fff;
+  color: #333;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+/* Focus */
+.custom-input:focus {
+  border-color: var(--accent-primary, #9A3434);
+  box-shadow: 0 0 0 0.19rem rgba(154, 52, 52, 0.16);
+  outline: none;
+}
+
+/* --- LABEL FLOTANTE --- */
+.floating-label {
+  position: absolute;
+  left: 1rem;
+  top: 1.05rem;
+  font-size: 1rem;
+  color: #8a8a8a;
+  pointer-events: none;
+  transition: all 0.22s ease;
+  background: white;
+  padding: 0 4px;
+}
+
+/* --- EFECTO FLOATING LABEL --- */
+.custom-input:focus + .floating-label,
+.custom-input:not(:placeholder-shown) + .floating-label {
+  top: -0.65rem;
+  font-size: 0.78rem;
+  color: var(--accent-primary, #9A3434);
+}
+
+.custom-input-container.invalid .custom-input {
+    border-color: #dc3545; /* Rojo Bootstrap */
+}
+
+.custom-input-container.invalid .floating-label {
+    color: #dc3545;
+}
+
+/* MENSAJE DE TEXTO */
+.error-message {
+    position: absolute;
+    bottom: -20px; /* Ajusta según tu layout */
+    left: 0;
+    font-size: 0.75rem;
+    color: #dc3545;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividad móvil */
+@media (max-width: 600px) {
+  :host {
+    max-width: 100vw;
+  }
+  .custom-input {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+}

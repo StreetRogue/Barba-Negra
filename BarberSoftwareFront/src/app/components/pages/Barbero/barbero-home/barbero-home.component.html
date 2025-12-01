@@ -1,0 +1,122 @@
+<div class="barber-dashboard-container">
+
+    <div *ngIf="loading" class="loading-box fade-in">
+        <div class="spinner"></div>
+        <p>Preparando tu agenda...</p>
+    </div>
+
+    <ng-container *ngIf="dashboard && !loading">
+
+        <section class="top-section fade-in-up">
+            <app-welcome-card 
+                variant="barber" 
+                [userName]="dashboard.perfil.nombre">
+            </app-welcome-card>
+            <app-calendar-widget></app-calendar-widget>
+        </section>
+
+        <section class="bottom-section mt-4 fade-in-up">
+
+            <div class="left-column">
+
+                <div class="barber-profile-card">
+                    <app-card>
+                        <app-barber-profile-widget 
+                            [name]="dashboard.perfil.nombre" 
+                            [photo]="dashboard.perfil.foto"
+                            [rating]="dashboard.perfil.rating" 
+                            [specialty]="'Tu Agenda Hoy'" 
+                            [status]="dashboard.perfil.estado">
+                        </app-barber-profile-widget>
+                    </app-card>
+                </div>
+
+                <div class="progress-card">
+                    <app-card>
+                        <div *ngIf="dashboard.reservaActual; else noService">
+                            <app-progress-widget 
+                                [startTime]="progressStart" 
+                                [durationMinutes]="progressDuration">
+                            </app-progress-widget>
+                            <div class="text-center mt-3 text-white">
+                                <small class="text-muted">Cliente:</small> <strong> {{ dashboard.reservaActual.cliente }}</strong><br>
+                                <small class="text-muted">Servicio:</small> {{ dashboard.reservaActual.servicio }}
+                            </div>
+                        </div>
+                        <ng-template #noService>
+                            <div class="empty-state">
+                                <i class="bi bi-cup-hot"></i>
+                                <p>Descanso o tiempo libre.<br><span class="text-muted small">No tienes cliente en la silla.</span></p>
+                            </div>
+                        </ng-template>
+                    </app-card>
+                </div>
+
+                <div class="kpi-card">
+                    <app-card>
+                        <div class="kpi-content">
+                            <div class="kpi-item">
+                                <span class="label">Ganancia Est.</span>
+                                <span class="value gold">
+                                    {{ dashboard.resumenDia.gananciaEstimada | currency:'COP':'symbol-narrow':'1.0-0' }}
+                                </span>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="kpi-item">
+                                <span class="label">Cortes Hoy</span>
+                                <span class="value">
+                                    {{ dashboard.resumenDia.citasCompletadas }} / {{ dashboard.resumenDia.totalCitas }}
+                                </span>
+                            </div>
+                        </div>
+                    </app-card>
+                </div>
+
+            </div>
+
+            <div class="right-column">
+
+                <div class="feedback-card">
+                    <app-card>
+                        <div *ngIf="dashboard.ultimasResenas && dashboard.ultimasResenas.length > 0; else noReviews">
+                            <app-feedback-widget [reviews]="dashboard.ultimasResenas"></app-feedback-widget>
+                        </div>
+                        <ng-template #noReviews>
+                            <div class="empty-state-small">
+                                <i class="bi bi-chat-square-quote"></i>
+                                <p>Aún no tienes reseñas recientes.</p>
+                            </div>
+                        </ng-template>
+                    </app-card>
+                </div>
+
+                <div class="next-client-card">
+                    <app-card>
+                        <div *ngIf="dashboard.proximoCliente; else noNext">
+                            <div class="next-client-box">
+                                <div class="icon-pulse">
+                                    <i class="bi bi-person-walking"></i>
+                                </div>
+                                <div class="info">
+                                    <h4>Siguiente: {{ dashboard.proximoCliente.hora }}</h4>
+                                    <p class="highlight">{{ dashboard.proximoCliente.nombre }}</p>
+                                    <small class="text-muted">{{ dashboard.proximoCliente.servicio }}</small>
+                                </div>
+                                <div class="badge-time">
+                                    En {{ dashboard.proximoCliente.minutosFaltantes }} min
+                                </div>
+                            </div>
+                        </div>
+                        <ng-template #noNext>
+                            <div class="empty-state-small">
+                                <p class="text-muted">No tienes más citas programadas por hoy.</p>
+                            </div>
+                        </ng-template>
+                    </app-card>
+                </div>
+
+            </div>
+
+        </section>
+    </ng-container>
+</div>

@@ -1,0 +1,1470 @@
+* {
+  box-sizing: border-box;
+  /* Obligatorio para que el padding no sume ancho */
+}
+
+html,
+body {
+  overflow-x: hidden;
+  /* Cortar cualquier desbordamiento a nivel raíz */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================================
+   1. CONFIGURACIÓN GENERAL Y LAYOUT
+   ========================================= */
+.page-container {
+  min-height: 100vh;
+  width: 100%;
+  /* Fondo casi negro */
+  padding: 1rem;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+.header-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header-section h1 {
+  color: #ffffff;
+  /* Dorado */
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* =========================================
+   2. FORMULARIO DE CREACIÓN (SUPERIOR)
+   ========================================= */
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.card {
+  /*background: linear-gradient(315deg, #000000 7%, #3F4045 94%);*/
+  background-color: #4A4A4A;
+  /* Gris oscuro mate */
+  width: 100%;
+  max-width: 450px;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: none;
+}
+
+.card-header {
+  text-align: left;
+  /* Alineado a la izquierda como la imagen */
+  margin-bottom: 2rem;
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
+.card-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.subtitle {
+  color: #888;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+
+  padding-top: 10px;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #D4AF37;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Wrapper para separar verticalmente cada bloque */
+.form-group-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #2D2D2D;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+/* ETIQUETA ARRIBA DEL INPUT */
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  /* Espacio entre label y caja */
+  color: #D4AF37;
+  /* Dorado */
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.input-field:focus {
+  border-color: #D4AF37;
+}
+
+/* --- SEPARADOR --- */
+.form-separator {
+  height: 1px;
+  background-color: #aaaaaa;
+  /* Línea muy sutil */
+  margin: 2rem 0 1.5rem 0;
+  width: 100%;
+}
+
+/* Botones Generales */
+.form-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.btn {
+  padding: 10px 30px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+/* Botón LIMPIAR (Amarillo borde) */
+.btn-outline-yellow {
+  border: 1px solid #D4AF37;
+  /* Dorado */
+  color: #fff;
+}
+
+.btn-outline-yellow:hover {
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+/* Botón GUARDAR (Verde borde) */
+.btn-outline-green {
+  border: 1px solid #2ecc71;
+  /* Verde */
+  color: #fff;
+}
+
+.btn-outline-green:hover {
+  background: rgba(46, 204, 113, 0.1);
+  box-shadow: 0 0 15px rgba(46, 204, 113, 0.2);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #b0f3b4;
+}
+
+.btn-cancel {
+  background: transparent;
+  border: 1px solid #666;
+  color: #ccc;
+}
+
+.btn-cancel:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.btn-save {
+  background: #D4AF37;
+  border: 1px solid #D4AF37;
+  color: #121212;
+}
+
+.btn-save:hover {
+  background: #b5952f;
+}
+
+
+/* =========================================
+   3. LISTA DE BARBEROS (INFERIOR)
+   ========================================= */
+.list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  border-top: 1px solid #333;
+  padding-top: 2rem;
+}
+
+.list-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.list-header h3 {
+  color: #fff;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+/* Buscador */
+.search-box {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 45px 12px 20px;
+  border-radius: 30px;
+  border: none;
+  background-color: #fff;
+  color: #121212;
+  font-size: 1rem;
+}
+
+.search-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #121212;
+}
+
+/* Grid de Tarjetas */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+  gap: 1.5rem;
+}
+
+/* Tarjeta Individual */
+.barber-card {
+  /*background: linear-gradient(315deg, #000000 7%, #3F4045 94%);*/
+  background-color: #4A4A4A;
+  /*border-radius: 16px;*/
+  border-radius: 32px;
+  /*padding: 1.5rem;*/
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  /*gap: 1.5rem;*/
+  gap: 20px;
+  /*border: 1px solid #333;*/
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  /* Borde sutil */
+  /*transition: transform 0.2s, border-color 0.2s;*/
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+
+  overflow: hidden;
+  height: 100%;
+}
+
+.barber-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-top {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Nueva clase para agrupar Foto y Badge verticalmente */
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  /* Espacio entre la foto y el badge */
+  min-width: 80px;
+  /* Asegura que el badge tenga espacio */
+}
+
+.avatar-container img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #fce5cd;
+  border: 2px solid #2A2A2A;
+  object-fit: cover;
+
+  box-shadow: 0 0 0 2px #444;
+  /* Anillo exterior */
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.info-container h4 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.email-text {
+  color: #999;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  font-weight: 400;
+  /*display: block;*/
+}
+
+/* Status Dot (Minimalista) */
+.status-dot {
+  display: inline-block;
+
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #444;
+  margin-top: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.status-dot.active {
+  background-color: #00E676;
+  /* Verde brillante */
+  box-shadow: 0 0 8px #00E676, 0 0 15px rgba(0, 230, 118, 0.4);
+  border: 1px solid #ccffdd;
+  /* Borde sutil para definición */
+}
+
+/* Nuevo estilo tipo 'Badge' (Pastilla) */
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  /* Bordes muy redondos */
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  border: 1px solid transparent;
+}
+
+/* Estado ACTIVO (Verde Neón) */
+.status-badge.active {
+  background-color: rgba(0, 230, 118, 0.1);
+  /* Fondo verde muy suave */
+  color: #00E676;
+  /* Texto verde brillante */
+  border-color: rgba(0, 230, 118, 0.3);
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.1);
+}
+
+/* Estado INACTIVO (Rojo o Gris) */
+.status-badge.inactive {
+  background-color: rgba(255, 82, 82, 0.1);
+  /* Fondo rojo suave */
+  color: #FF5252;
+  /* Texto rojo */
+  border-color: rgba(255, 82, 82, 0.3);
+}
+
+/* Botones de Acción en Tarjeta */
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin-top: auto;
+}
+
+
+/* ESTILO DE LOS BOTONES GRANDES */
+.action-card-btn {
+  background: rgba(255, 255, 255, 0.03);
+  /* Casi transparente */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  /* Bordes internos redondeados */
+  padding: 12px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: auto;
+  /* Altura fija para uniformidad */
+  color: #aaa;
+  min-height: 90px;
+}
+
+/* 1. FORZAR TAMAÑO DEL ICONO 
+   Apuntamos directamente al 'i' dentro del botón */
+.action-card-btn i {
+  font-size: 30px !important;
+  /* !important rompe la herencia del botón padre */
+  margin-bottom: 8px;
+  display: inline-block;
+  /* Necesario para que transform funcione bien */
+
+  /* Sombra para que resalten sobre el fondo oscuro */
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+  transition: transform 0.2s ease;
+}
+
+.action-card-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: scale(-2px);
+}
+
+/* ICONOS */
+.icon-wrapper {
+  font-size: 2.8rem;
+  /* Aumentado de 1.8rem a 2rem */
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Sombra suave por defecto */
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+  transition: transform 0.2s ease;
+}
+
+.action-card-btn span {
+  font-size: 0.7rem;
+  /* Texto pequeño pero legible */
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/*
+.action-btn {
+  background: transparent;
+  border: 1px solid #555;
+  border-radius: 12px;
+  padding: 10px;
+  color: #aaa;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s;
+}
+*/
+
+.action-btn i {
+  font-size: 1.2rem;
+}
+
+.action-btn span {
+  font-size: 0.75rem;
+}
+
+.action-btn:hover {
+  border-color: #D4AF37;
+  color: #D4AF37;
+  background: rgba(212, 175, 55, 0.05);
+}
+
+/* =========================================
+   4. MODALES (OVERLAY Y ESTRUCTURA)
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  /* Fondo muy oscuro */
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: #1a1a1a;
+  border-radius: 20px;
+  border: 1px solid #333;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  width: 100%;
+  max-width: 450px;
+  /* Ancho por defecto */
+
+  /* Altura y Scroll Inteligente */
+  max-height: 90vh;
+  /* Nunca supera el 90% de la pantalla */
+  display: flex;
+  flex-direction: column;
+  /* Para usar Flexbox en hijos */
+  overflow: hidden;
+  /* Oculta scroll global */
+}
+
+/* Modal más ancho para horarios */
+.modal-lg {
+  max-width: 700px;
+}
+
+/* Títulos y Header Sticky */
+.modal-content h2 {
+  color: #fff;
+  margin: 0;
+  padding: 25px 30px 5px 30px;
+  font-size: 1.5rem;
+  background-color: #1a1a1a;
+  flex-shrink: 0;
+}
+
+.modal-content p {
+  margin: 0;
+  padding: 0 30px 20px 30px;
+  color: #888;
+  border-bottom: 1px solid #333;
+  background-color: #1a1a1a;
+  flex-shrink: 0;
+}
+
+/* Cuerpo del Formulario (con Scroll) */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Contiene el scroll interno */
+  height: 100%;
+}
+
+/* Inputs del Modal Normal */
+.input-group {
+  position: relative;
+  margin-bottom: 1.2rem;
+  padding: 0 30px;
+  /* Padding lateral */
+}
+
+/* Agregamos padding superior al primer elemento del form */
+.input-group:first-child {
+  margin-top: 25px;
+}
+
+.input-group i {
+  position: absolute;
+  left: 45px;
+  /* 30px padding + 15px */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.modal-content input:not([type="checkbox"]):not([type="time"]) {
+  width: 100%;
+  padding: 12px 15px 12px 40px;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.modal-content input:focus {
+  border-color: #D4AF37;
+}
+
+
+/* =========================================
+   5. SECCIÓN DE HORARIOS (TABLA CORREGIDA)
+   ========================================= */
+.schedule-grid {
+  /* Altura máxima para permitir el scroll si hay muchos elementos */
+  max-height: 400px;
+  padding: 0 20px 20px 20px;
+  /* Quitamos padding top para que el sticky pegue arriba */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* Quitamos gap para que el borde se vea continuo */
+  position: relative;
+}
+
+/* Estilización del Scrollbar (Dark Mode) */
+.schedule-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.schedule-grid::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.schedule-grid::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 3px;
+}
+
+.schedule-grid::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* DEFINICIÓN MAESTRA DE LAS COLUMNAS 
+   Esto asegura que el encabezado y las filas midan EXACTAMENTE lo mismo */
+.schedule-row {
+  display: grid;
+  /* Col 1: 100px (Día) | Col 2: 80px (Switch) | Col 3: 1fr (Entrada) | Col 4: 1fr (Salida) */
+  grid-template-columns: 100px 80px 1fr 1fr;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 15px;
+  border-bottom: 1px solid #333;
+  background-color: #222;
+  /* Fondo de las filas */
+}
+
+/* --- ENCABEZADO STICKY (SOLUCIÓN DEL SCROLL) --- */
+.schedule-row.header {
+  position: sticky;
+  /* Magia para que se quede fijo */
+  top: 0;
+  z-index: 10;
+
+  /* IMPORTANTE: Color de fondo sólido para tapar el contenido al hacer scroll */
+  background-color: #1a1a1a;
+
+  border-bottom: 2px solid #D4AF37;
+  /* Borde dorado para separar */
+  border-radius: 0;
+  margin-bottom: 0;
+
+  /* Tipografía del encabezado */
+  color: #D4AF37;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Alineación de textos en el encabezado */
+.schedule-row.header span {
+  display: flex;
+  align-items: center;
+}
+
+/* Centrar las columnas de Hora Entrada y Salida en el encabezado */
+.schedule-row.header span:nth-child(3),
+.schedule-row.header span:nth-child(4) {
+  justify-content: center;
+  /* Centrado horizontal */
+}
+
+/* Centrar la columna de Descanso (Switch) en el encabezado */
+.schedule-row.header span:nth-child(2) {
+  justify-content: center;
+}
+
+/* Estilo del nombre del día en las filas */
+.day-name {
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* Ajuste del Toggle Wrapper para centrarlo en su columna */
+.toggle-wrapper.small {
+  justify-content: center;
+  /* Centrar el switch en su celda */
+  display: flex;
+}
+
+/* Inputs de Tiempo */
+.time-input {
+  display: flex;
+  justify-content: center;
+  /* Centrar el input en su celda */
+}
+
+.time-input input {
+  width: 100%;
+  padding: 8px;
+  background: #333;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #fff;
+  color-scheme: dark;
+  text-align: center;
+  /* Texto de la hora centrado */
+}
+
+.time-input input:disabled {
+  opacity: 0.3;
+  background: #1a1a1a;
+  border-color: #333;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   6. TOGGLE SWITCH
+   ========================================= */
+.status-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  margin: 1rem 0;
+}
+
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #444;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.slider {
+  background-color: #D4AF37;
+}
+
+input:checked+.slider:before {
+  transform: translateX(24px);
+  background-color: #121212;
+}
+
+/* Switch Pequeño para la Tabla */
+.toggle-wrapper.small .switch {
+  width: 40px;
+  height: 22px;
+}
+
+.toggle-wrapper.small .slider:before {
+  width: 16px;
+  height: 16px;
+}
+
+.toggle-wrapper.small input:checked+.slider:before {
+  transform: translateX(18px);
+}
+
+/* =========================================
+   7. BOTONES DEL MODAL (FOOTER FIX)
+   ========================================= */
+.modal-actions {
+  padding: 20px 30px 25px 30px;
+  background-color: #1a1a1a;
+  border-top: 1px solid #333;
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+  /* Empuja al fondo si sobra espacio */
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.btn-modal {
+  flex: 1;
+  padding: 12px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.btn-cancel-modal {
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+}
+
+.btn-cancel-modal:hover {
+  background: rgba(255, 77, 77, 0.1);
+}
+
+.btn-save-modal {
+  border: 1px solid #2ecc71;
+  color: #2ecc71;
+}
+
+.btn-save-modal:hover {
+  background: rgba(46, 204, 113, 0.1);
+}
+
+
+
+
+/* AJUSTE PARA 3 BOTONES EN LA TARJETA */
+.card-actions.three-buttons {
+  grid-template-columns: 1fr 1fr 1fr;
+  /* 3 columnas iguales */
+  gap: 8px;
+}
+
+.action-btn i {
+  font-size: 1.1rem;
+}
+
+.action-btn span {
+  font-size: 0.7rem;
+}
+
+/* --- ESTILOS DEL MODAL SKILLS (SERVICIOS) --- */
+.modal-skills {
+  max-width: 500px;
+  background-color: #1a1a1a;
+  padding: 0;
+  overflow: hidden;
+}
+
+.skills-header {
+  padding: 25px 30px;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.skills-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.skills-header p {
+  margin: 5px 0 0 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.gold-text {
+  color: #D4AF37;
+}
+
+/* CAJA DE AGREGAR */
+.add-skill-box {
+  padding: 20px 30px;
+  background-color: #222;
+  border-bottom: 1px solid #333;
+}
+
+.add-skill-box label,
+.skills-list-container label {
+  display: block;
+  font-size: 0.8rem;
+  color: #D4AF37;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.add-skill-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+
+/* FIX: Agregamos la flecha personalizada al select */
+.select-input-dark {
+  flex: 1;
+  padding: 12px 40px 12px 15px;
+  background-color: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 10px;
+  color: #fff;
+  outline: none;
+  font-size: 0.95rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 1em;
+  cursor: pointer;
+  height: 45px;
+  /* Altura fija para alinear con el botón */
+  box-sizing: border-box;
+}
+
+.select-input-dark:focus {
+  border-color: #D4AF37;
+}
+
+.btn-add-skill {
+  background: #D4AF37;
+  border: none;
+  border-radius: 10px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-add-skill:hover {
+  background: #ffca2c;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+
+.btn-add-skill:disabled {
+  opacity: 1;
+  cursor: not-allowed;
+  background: #333;
+  color: #666;
+  border: 1px solid #444;
+}
+
+/* LISTA DE SKILLS (CHIPS) */
+.skills-list-container {
+  padding: 20px 30px;
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.skill-chip:hover {
+  border-color: #666;
+  background: #333;
+}
+
+.chip-icon {
+  color: #2ecc71;
+  /* Verde check */
+  font-size: 0.9rem;
+  display: flex;
+}
+
+.chip-text {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.chip-remove {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-left: 5px;
+  transition: 0.2s;
+  font-size: 0.8rem;
+}
+
+.chip-remove:hover {
+  color: #fff;
+  background: #ff4d4d;
+  /* Rojo al pasar el mouse */
+  transform: scale(1.1);
+}
+
+
+/* ESTADO VACÍO */
+.empty-skills {
+  text-align: center;
+  color: #555;
+  margin-top: 40px;
+}
+
+.empty-skills i {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  opacity: 0.5;
+}
+
+/* --- COLORES ESPECÍFICOS PARA LOS ÍCONOS (NO EL FONDO) --- */
+
+/* 1. ACTUALIZAR INFO (Amarillo) */
+.btn-update {
+  border-color: rgba(212, 175, 55, 0.3);
+  color: #D4AF37;
+}
+
+.btn-update:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: #D4AF37;
+  transform: translateY(-3px);
+}
+
+.btn-update .icon-wrapper i {
+  color: #D4AF37;
+}
+
+/* 2. HORARIOS (Cyan/Azul) */
+.btn-schedule {
+  border-color: rgba(0, 229, 255, 0.3);
+  color: #00E5FF;
+}
+
+.btn-schedule:hover {
+  background: rgba(0, 229, 255, 0.1);
+  border-color: #00E5FF;
+  transform: translateY(-3px);
+}
+
+.btn-schedule .icon-wrapper i {
+  color: #00E5FF;
+}
+
+/* 3. SERVICIOS (NARANJA #E8710A - PEDIDO EXPLÍCITO) */
+.btn-services {
+  border-color: #638466;
+  color: #76fb83;
+  /* Texto naranja */
+}
+
+.btn-services:hover {
+  background: rgba(232, 113, 10, 0.1);
+  border-color: #30a83c;
+  transform: translateY(-3px);
+}
+
+.btn-services .icon-wrapper i {
+  color: #ff00f2;
+  /* Icono Tijeras Naranja */
+  filter: drop-shadow(0 0 5px rgba(197, 0, 86, 0.4));
+}
+
+/* Ajustamos el hover del botón para que el icono crezca un poco */
+.action-card-btn:hover .icon-wrapper {
+  transform: scale(1.1);
+  /* Efecto pop */
+}
+
+/* --- NUEVOS INPUTS (ESTILO CONTENEDOR) --- */
+.custom-input-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid #aaaaaa;
+  /* Borde gris claro/blanco sutil */
+  border-radius: 12px;
+  /* Bordes redondeados */
+  padding: 8px 15px;
+  background-color: transparent;
+  transition: border-color 0.3s ease;
+}
+
+.custom-input-group:focus-within {
+  border-color: #D4AF37;
+  /* Se pone blanco puro al escribir */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* LA CAJITA DEL ÍCONO */
+.icon-box {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #aaaaaa;
+  /* Borde de la cajita interna */
+  border-radius: 8px;
+  /* Redondeado suave */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  color: #fff;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* EL INPUT TEXTO TRANSPARENTE */
+.transparent-input {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  width: 100%;
+  font-size: 1rem;
+  outline: none;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  height: 100%;
+}
+
+.transparent-input::placeholder {
+  color: #bbbbbb;
+  /* Color del texto de ayuda */
+}
+
+/* =========================================
+   8. RESPONSIVE MOBILE
+   ========================================= */
+/* =========================================
+   CORRECCIÓN TOTAL RESPONSIVE (MÓVIL + FOLD)
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  /* 1. Ocultamos el encabezado de tabla viejo */
+  .schedule-row.header {
+    display: none;
+  }
+
+  /* 2. Estructura Base de la Tarjeta (Móviles Normales) */
+  .schedule-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Por defecto 2 columnas */
+    gap: 15px;
+    padding: 20px;
+    background: #252525;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #333;
+  }
+
+  /* Título del Día */
+  .day-name {
+    grid-column: 1 / -1;
+    /* Ocupa todo el ancho arriba */
+    font-size: 1.1rem;
+    color: #D4AF37;
+    border-bottom: 1px solid #444;
+    padding-bottom: 8px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Switch de Descanso */
+  .toggle-wrapper.small {
+    grid-column: 1 / -1;
+    /* Ocupa todo el ancho */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  /* Etiqueta para el Switch */
+  .toggle-wrapper.small::before {
+    content: "Marcar como Descanso";
+    color: #aaa;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  /* Estilos Base Inputs de Tiempo */
+  .time-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .time-input input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  /* ETIQUETAS FANTASMA (UX) */
+  /* Asumiendo orden en HTML: Switch -> Input Entrada -> Input Salida */
+
+  .time-input:nth-of-type(2)::before {
+    content: "Entrada";
+    color: #D4AF37;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .time-input:nth-of-type(3)::before {
+    content: "Salida";
+    color: #D4AF37;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+/* --- CORRECCIÓN BOTONES FORMULARIO --- */
+@media (max-width: 500px) {
+  .form-buttons {
+    flex-direction: column;
+    /* Apilar verticalmente */
+    gap: 15px;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    /* Ancho completo */
+    padding: 15px;
+    /* Más alto para dedos gordos */
+    font-size: 1.1rem;
+  }
+
+  /* Ajuste para que el botón secundario (Limpiar) no robe atención visual */
+  .btn-outline-yellow {
+    order: 2;
+    /* Ponerlo abajo */
+  }
+
+  .btn-outline-green {
+    order: 1;
+    /* El botón de acción principal (Guardar) va primero arriba */
+  }
+
+  .modal-skills {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* El cuerpo de la lista debe crecer para ocupar el espacio sobrante */
+  .skills-list-container {
+    flex: 1;
+    min-height: 0;
+    /* Importante para que el scroll funcione dentro de flex */
+  }
+
+  /* Chips un poco más compactos para que quepan más */
+  .skill-chip {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    width: 100%;
+    /* En móvil, que ocupen todo el ancho para leer bien el servicio */
+    justify-content: space-between;
+    /* Texto a la izq, X a la derecha */
+  }
+
+  /* Mover el icono de check al inicio */
+  .chip-icon {
+    margin-right: 10px;
+  }
+}
+
+
+/* 3. LA REGLA DEL "FOLD" (Pantallas Ultra-Estrechas < 400px) */
+@media (max-width: 400px) {
+
+  .schedule-row {
+    display: flex;
+    /* Rompemos el grid */
+    flex-direction: column;
+    /* Apilamos todo verticalmente */
+    gap: 15px;
+  }
+
+  /* Los inputs toman el 100% del ancho disponible */
+  .time-input {
+    width: 100%;
+  }
+
+  /* Ajuste visual para que no se vea tan apretado */
+  .time-input input {
+    padding: 14px;
+    /* Un poco más fácil de tocar */
+    background-color: #151515;
+    /* Fondo ligeramente más oscuro para contraste */
+  }
+
+  .day-name {
+    text-align: center;
+    /* Centramos el día en pantallas muy angostas */
+  }
+}
+
+/* --- AJUSTES ESPECÍFICOS PARA GALAXY FOLD / IPHONE SE --- */
+@media (max-width: 380px) {
+
+  /* 1. Ganar espacio lateral desesperadamente */
+  .page-container {
+    padding: 10px;
+    /* Mínimo padding posible */
+  }
+
+  .card.form-card {
+    padding: 20px 15px;
+    /* Reducir padding interno de la tarjeta */
+  }
+
+  /* 2. Grid de tarjetas a una sola columna forzada */
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* 3. Ajuste de Inputs del Formulario */
+  .custom-input-group {
+    padding: 8px 10px;
+    /* Menos aire interno */
+  }
+
+  .icon-box {
+    width: 30px;
+    /* Iconos un poco más pequeños */
+    height: 30px;
+    font-size: 0.9rem;
+  }
+
+  .input-field,
+  .transparent-input {
+    font-size: 0.95rem;
+    /* Texto un pelín más pequeño para que quepa más */
+  }
+
+  /* 4. Modales a pantalla completa real */
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    /* Sin bordes redondos en ultra-móvil */
+    border: none;
+  }
+}
+
+/* 2. Ajuste CRÍTICO para Galaxy Fold y pantallas < 360px */
+@media (max-width: 360px) {
+
+  /* Romper la fila de "Select + Botón" */
+  .add-skill-row {
+    flex-direction: column;
+    /* Uno debajo del otro */
+    gap: 10px;
+    width: 100%;
+  }
+
+  /* El select ocupa todo el ancho */
+  .select-input-dark {
+    width: 100%;
+    height: 50px;
+    /* Más alto para dedos */
+  }
+
+  /* El botón de agregar se convierte en una barra completa */
+  .btn-add-skill {
+    width: 100%;
+    height: 45px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    /* Añadir texto para que no sea solo un icono en una barra grande */
+  }
+
+  /* Truco CSS: Añadir texto al botón solo en móvil usando ::after */
+  .btn-add-skill::after {
+    content: " Agregar";
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-left: 5px;
+  }
+
+  /* Reducir paddings del modal para ganar espacio */
+  .skills-header,
+  .add-skill-box,
+  .skills-list-container {
+    padding: 20px 15px;
+    /* Menos padding lateral */
+  }
+}
