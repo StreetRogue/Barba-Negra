@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
-  apiGatewayUrl: 'https://API_GATEWAY_URL_REPLACE.up.railway.app',
-  websocketsUrl: 'wss://API_GATEWAY_URL_REPLACE.up.railway.app/ws'
+  production: false,
+  apiGatewayUrl: 'http://localhost:8080',
+  websocketsUrl: 'ws://localhost:8080/ws'
 };
