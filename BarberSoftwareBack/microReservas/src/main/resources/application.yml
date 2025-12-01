@@ -1,5 +1,4 @@
 server:
-  # Asumo un puerto por defecto si no viene en env, ajusta si es necesario
   port: ${PORT:5002}
 
 spring:
@@ -17,26 +16,31 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-      # ✅ CORRECCIÓN: naming está al nivel de ddl-auto
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-
     properties:
       hibernate:
         format_sql: true
 
-  # ✅ CORRECCIÓN: Unifiqué la configuración de RabbitMQ en un solo bloque
+  # ============================
+  # 🐰 RABBITMQ CONFIG
+  # ============================
   rabbitmq:
-    host: rabbitmq
-    port: 5672
-    username: guest
-    password: guest
+    # Ahora lee las variables de entorno, o usa 'rabbitmq' si estás en local
+    host: ${RABBITMQ_HOST:rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    # Virtual host suele ser '/' por defecto, útil agregarlo por si acaso
+    virtual-host: ${RABBITMQ_VHOST:/}
+    
+    # Esta sección de 'queue' parece ser custom tuya, también la parametrizamos
     queue:
-      name: cola.reservas.notificaciones
+      name: ${RABBITMQ_QUEUE_NAME:cola.reservas.notificaciones}
 
 # ============================
-#  CLIENTES REST (WebClient)
+# 🔗 CLIENTES REST (WebClient)
 # ============================
 clients:
   usuarios:
@@ -45,7 +49,7 @@ clients:
     base-url: ${CLIENTS_BARBEROS_BASE_URL}
 
 # ============================
-#  STRIPE
+# 💳 STRIPE
 # ============================
 stripe:
   api:
