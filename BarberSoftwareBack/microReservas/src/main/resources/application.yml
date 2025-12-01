@@ -23,24 +23,29 @@ spring:
       hibernate:
         format_sql: true
 
-  # ============================
-  # 🐰 RABBITMQ CONFIG
-  # ============================
+  # ==========================================
+  # 🔌 1. CONFIGURACIÓN DE CONEXIÓN (Estándar)
+  # Esto DEBE ir dentro de 'spring' para que
+  # ConnectionFactory funcione automáticamente.
+  # ==========================================
   rabbitmq:
-    # Ahora lee las variables de entorno, o usa 'rabbitmq' si estás en local
-    host: ${RABBITMQ_HOST:rabbitmq}
-    port: ${RABBITMQ_PORT:5672}
-    username: ${RABBITMQ_USERNAME:guest}
-    password: ${RABBITMQ_PASSWORD:guest}
-    # Virtual host suele ser '/' por defecto, útil agregarlo por si acaso
-    virtual-host: ${RABBITMQ_VHOST:/}
-    
-    # Esta sección de 'queue' parece ser custom tuya, también la parametrizamos
-    queue:
-      name: ${RABBITMQ_QUEUE_NAME:cola.reservas.notificaciones}
+    host: ${SPRING_RABBITMQ_HOST:rabbitmq.railway.internal}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+    virtual-host: /
+
+# ==========================================
+# 🐰 2. CONFIGURACIÓN PERSONALIZADA (Tu Java)
+# Esto va FUERA de 'spring' (a la izquierda)
+# para que coincida con @Value("${rabbitmq.queue.name}")
+# ==========================================
+rabbitmq:
+  queue:
+    name: ${RABBITMQ_QUEUE_NAME:cola.reservas.notificaciones}
 
 # ============================
-# 🔗 CLIENTES REST (WebClient)
+# 🔗 CLIENTES REST
 # ============================
 clients:
   usuarios:
@@ -48,9 +53,6 @@ clients:
   barberos:
     base-url: ${CLIENTS_BARBEROS_BASE_URL}
 
-# ============================
-# 💳 STRIPE
-# ============================
 stripe:
   api:
     key: ${STRIPE_API_KEY}
