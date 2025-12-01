@@ -25,7 +25,7 @@ public class UsuarioClient {
                     // Asumiendo que tienes este endpoint en microUsuarios: GET /buscar?email=...
                     // O GET /email/{email}
                     .uri(uriBuilder -> uriBuilder
-                            .path("/buscar")
+                            .path("/api/v1/usuarios/buscar")
                             .queryParam("email", email)
                             .build())
                     .retrieve()
