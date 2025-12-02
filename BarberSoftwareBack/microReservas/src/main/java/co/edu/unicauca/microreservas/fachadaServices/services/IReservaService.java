@@ -28,4 +28,6 @@ public interface IReservaService {
     List<ReservaDTORespuesta> listarAgendaBarbero(String emailBarbero);
 
     List<ReservaDTORespuesta> listarAgendaHoyBarbero(Integer idBarbero);
+
+
 }

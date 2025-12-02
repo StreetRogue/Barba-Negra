@@ -83,10 +83,14 @@ public class ReservaServiceImpl implements IReservaService {
                     return agendaRepository.save(nueva);
                 });
 
+        // Concurrencia
+        AgendaDiariaEntity agendaN = agendaRepository.findByIdWithLock(agenda.getIdAgenda())
+                .orElseThrow(() -> new RuntimeException("CONFLICT"));
+
         // 5. Validar Disponibilidad (Cruces de Horario)
         List<ReservaEntity> cruces = reservaRepository
                 .findByAgenda_IdAgendaAndHoraInicioLessThanAndHoraFinGreaterThan(
-                        agenda.getIdAgenda(), fin, inicio
+                        agendaN.getIdAgenda(), fin, inicio
                 );
 
         // Filtramos: Solo nos importan los cruces que NO estén cancelados
@@ -108,7 +112,7 @@ public class ReservaServiceImpl implements IReservaService {
         // 6. Mapeo Manual / Construcción de la Entidad
         // Nota: No uso modelMapper para la Peticion->Entidad completo porque hay lógica calculada
         ReservaEntity reserva = new ReservaEntity();
-        reserva.setAgenda(agenda);             // Relación con el padre
+        reserva.setAgenda(agendaN);             // Relación con el padre
         reserva.setIdUsuario(usuarioReal.getId());       // ID del Token
         reserva.setIdServicio(peticion.getIdServicio());
         reserva.setHoraInicio(inicio);
@@ -288,10 +292,13 @@ public class ReservaServiceImpl implements IReservaService {
                     return agendaRepository.save(nueva);
                 });
 
+        AgendaDiariaEntity agendaN = agendaRepository.findByIdWithLock(nuevaAgenda.getIdAgenda())
+                .orElseThrow(() -> new RuntimeException("CONFLICT"));
+
         // Validar Disponibilidad
         List<ReservaEntity> cruces = reservaRepository
                 .findByAgenda_IdAgendaAndHoraInicioLessThanAndHoraFinGreaterThan(
-                        nuevaAgenda.getIdAgenda(), nuevoFin, nuevoInicio
+                        agendaN.getIdAgenda(), nuevoFin, nuevoInicio
                 );
 
         // Validar que no choque con otras (excluyendo a sí misma si es el mismo día)
@@ -302,7 +309,7 @@ public class ReservaServiceImpl implements IReservaService {
             throw new RuntimeException("CONFLICT");
         }
 
-        reserva.setAgenda(nuevaAgenda);
+        reserva.setAgenda(agendaN);
         reserva.setHoraInicio(nuevoInicio);
         reserva.setHoraFin(nuevoFin);
         reserva.setEstado(EstadoReservaEnum.REPROGRAMADA);
