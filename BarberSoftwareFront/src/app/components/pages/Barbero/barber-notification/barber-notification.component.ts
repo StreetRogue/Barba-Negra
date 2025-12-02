@@ -72,10 +72,21 @@ export class BarberNotificationComponent implements OnInit {
 
     this.reservaFacade.listarReservasPorBarbero().subscribe({
       next: reservas => {
+        // 🛡️ PROTECCIÓN: Si es null o undefined, usamos un array vacío []
+        const listaReservas = reservas || [];
+
+        // Si la lista está vacía, no necesitamos llamar a servicios
+        if (listaReservas.length === 0) {
+          this.bookings = [];
+          this.loading = false;
+          return;
+        }
+
         this.servicioFacade.listar().subscribe(servicios => {
           servicios.forEach(s => this.serviciosMap.set(s.id, s));
 
-          this.bookings = reservas.map(r => {
+          // Usamos la variable segura 'listaReservas'
+          this.bookings = listaReservas.map(r => {
             const serv = this.serviciosMap.get(r.idServicio);
             const inicio = new Date(r.horaInicio);
             const fin = new Date(r.horaFin);
@@ -89,7 +100,7 @@ export class BarberNotificationComponent implements OnInit {
               endTime: this.formatTime(fin),
               status: r.estado,
               price: serv?.precio ?? 0,
-              duration: serv?.duracionMinutos + ' Min',
+              duration: (serv?.duracionMinutos || 0) + ' Min',
               serviceCode: `SVC-${r.idServicio}`,
               expanded: false,
               idServicio: r.idServicio,
@@ -101,7 +112,10 @@ export class BarberNotificationComponent implements OnInit {
           this.loading = false;
         });
       },
-      error: () => this.loading = false
+      error: () => {
+        this.bookings = []; // En caso de error, limpiamos
+        this.loading = false;
+      }
     });
   }
 

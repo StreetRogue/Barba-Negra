@@ -1,6 +1,5 @@
 <div class="notifications-container">
 
-    <!-- HEADER -->
     <div class="header-section">
 
         <h2 class="section-title">
@@ -10,7 +9,6 @@
             <i class="bi bi-arrow-clockwise" [class.spinning]="loading"></i>
         </button>
 
-        <!-- CALENDARIO -->
         <div class="calendar-wrapper">
 
             <div class="month-nav">
@@ -48,15 +46,32 @@
             </div>
         </div>
 
-        <!-- BUSCADOR -->
         <div class="search-box">
             <i class="bi bi-search"></i>
             <input type="text" placeholder="Buscar reserva..." [(ngModel)]="searchTerm">
         </div>
     </div>
+    
+    <div class="loading-state" *ngIf="loading">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p>Cargando tu agenda...</p>
+    </div>
 
-    <!-- LISTA DE RESERVAS -->
-    <div class="bookings-list">
+    <div class="empty-state" *ngIf="!loading && bookings.length === 0">
+        <div class="empty-icon">
+            <i class="bi bi-calendar-x"></i>
+        </div>
+        <h3>No tienes reservas asignadas</h3>
+        <p>Cuando los clientes agenden contigo, aparecerán aquí.</p>
+        <button class="btn-refresh-empty" (click)="refreshData()">
+            <i class="bi bi-arrow-clockwise"></i> Recargar
+        </button>
+    </div>
+
+
+    <div class="bookings-list" *ngIf="!loading && bookings.length > 0">
 
         <div *ngFor="let booking of filteredBookings" class="booking-card" [ngClass]="booking.status">
 
@@ -77,7 +92,6 @@
                 </div>
             </div>
 
-            <!-- DETALLES EXPANDIDOS -->
             <div class="card-body" *ngIf="booking.expanded">
 
                 <h4 class="details-title">Detalles:</h4>
@@ -128,21 +142,17 @@
                     </div>
                 </div>
 
-                <!-- ACCIONES BARBERO -->
                 <div class="card-footer-actions">
 
-                    <!-- INICIAR -->
                     <button class="btn-action start" *ngIf="puedeIniciar(booking)" (click)="iniciarReserva(booking.id)">
                         Iniciar
                     </button>
 
-                    <!-- COMPLETAR -->
                     <button class="btn-action complete" *ngIf="puedeCompletar(booking)"
                         (click)="completarReserva(booking.id)">
                         Completar
                     </button>
 
-                    <!-- NO PRESENTADO -->
                     <button class="btn-action nopresent" *ngIf="puedeMarcarNoPresentado(booking)"
                         (click)="marcarNoPresentado(booking.id)">
                         No presentado
@@ -155,7 +165,6 @@
 
             </div>
 
-            <!-- FOOTER MINI -->
             <div class="card-footer-mini" *ngIf="!booking.expanded" (click)="toggleExpand(booking.id)">
 
                 <span class="company-name">Barbería</span>

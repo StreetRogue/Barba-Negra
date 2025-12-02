@@ -274,6 +274,66 @@
     font-weight: 800;
 }
 
+
+/* ESTADO VACÍO */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    color: #888;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    color: #444;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-refresh-empty {
+    background: transparent;
+    border: 1px solid #FFC107;
+    color: #FFC107;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-refresh-empty:hover {
+    background: #FFC107;
+    color: #000;
+}
+
+/* CARGANDO */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: #aaa;
+}
+
+.loading-state .spinner-border {
+    margin-bottom: 1rem;
+    color: #FFC107 !important; /* Amarillo Barba Negra */
+}
+
 /* =========================================
    6. ACCIONES (BOTONES)
    ========================================= */
