@@ -1,6 +1,6 @@
 import { Component, computed, HostListener } from '@angular/core';
 import { AuthFacade } from '../../../core/facade/AuthFacade';
-import { RouterLink, Router, NavigationEnd, Event as RouterEvent } from '@angular/router';
+import { RouterLink, Router, NavigationEnd, Event as RouterEvent, RouterLinkActive } from '@angular/router';
 import { filter } from 'rxjs';
 import { ButtonComponent } from '../../atoms/button/button.component';
 import { LogoComponent } from '../../atoms/logo/logo.component';
@@ -8,7 +8,7 @@ import { LogoComponent } from '../../atoms/logo/logo.component';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, ButtonComponent, LogoComponent],
+  imports: [RouterLink, ButtonComponent, LogoComponent, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   host: { 'ngSkipHydration': 'true' }

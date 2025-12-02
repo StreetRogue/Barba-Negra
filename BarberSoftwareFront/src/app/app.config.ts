@@ -1,13 +1,11 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
-
 import { provideAuth0, authHttpInterceptorFn } from '@auth0/auth0-angular';
-
 import { AuthRepository } from './core/domain/repositories/AuthRepository';
 import { AuthRepositoryImpl } from './core/infraestructure/serviceRepository/AuthRepositoryImpl';
 import { AuthFacade } from './core/facade/AuthFacade';
@@ -34,7 +32,13 @@ import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        anchorScrolling: 'enabled',
+        scrollPositionRestoration: 'enabled'
+      })
+    ),
     provideAnimations(),
     provideHttpClient(withFetch(),
     withInterceptors([authHttpInterceptorFn])),

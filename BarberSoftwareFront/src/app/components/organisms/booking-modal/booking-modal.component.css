@@ -1,4 +1,4 @@
-/* --- ESTILOS EXISTENTES SE MANTIENEN --- */
+/* --- ESTILOS EXISTENTES (BASE) --- */
 
 /* FONDO OSCURO DEL MODAL */
 .modal-overlay {
@@ -13,16 +13,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px; /* Agregado para que no pegue a los bordes en móviles */
+    box-sizing: border-box;
 }
 
 .modal-container {
-    width: 850px;
+    width: 100%; /* Cambiado de 850px a 100% */
+    max-width: 850px; /* Límite original */
     height: 550px;
+    max-height: 90vh; /* Para pantallas muy bajitas */
     background: #333;
     border-radius: 20px;
     display: flex;
     overflow: hidden;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    flex-direction: row; /* Explícito para luego cambiarlo en móvil */
 }
 
 .stepper-sidebar {
@@ -34,6 +39,8 @@
     gap: 10px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+    /* Aseguramos que el contenido no se desborde */
+    overflow-y: auto; 
 }
 
 .step-item {
@@ -41,6 +48,7 @@
     gap: 15px;
     position: relative;
     height: 80px;
+    flex-shrink: 0; /* Evita que se aplasten */
 }
 
 .step-indicator {
@@ -55,6 +63,7 @@
     font-weight: bold;
     z-index: 2;
     transition: all 0.3s;
+    flex-shrink: 0;
 }
 
 .step-label {
@@ -104,6 +113,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    min-width: 0; /* Corrección flexbox para evitar desbordes */
 }
 
 .step-content {
@@ -159,6 +169,7 @@
     font-size: 1rem;
     font-weight: 500;
     flex: 1;
+    word-break: break-word; /* Evita que textos largos rompan el layout */
 }
 
 .field-value.highlight {
@@ -176,10 +187,12 @@
 .row-fields {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap; /* Permite que bajen si no hay espacio */
 }
 
 .row-fields .custom-field {
     flex: 1;
+    min-width: 200px; /* Mínimo ancho antes de hacer wrap */
 }
 
 .step-title {
@@ -195,6 +208,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
 }
 
 .barber-carousel-card {
@@ -202,11 +216,12 @@
     border-radius: 20px;
     width: 100%;
     max-width: 400px;
-    height: 300px;
+    height: auto; /* Altura flexible */
+    min-height: 300px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 20px; /* Padding unificado */
     box-sizing: border-box;
     position: relative;
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
@@ -218,11 +233,13 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    width: 100%;
 }
 
 .barber-avatar {
     height: 180px;
     width: auto;
+    max-width: 100%; /* Responsive imagen */
     object-fit: contain;
     filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.5));
     margin-bottom: 15px;
@@ -248,6 +265,7 @@
     cursor: pointer;
     padding: 10px;
     transition: transform 0.2s;
+    z-index: 10; /* Asegurar que estén sobre la tarjeta */
 }
 
 .carousel-arrow:hover {
@@ -275,6 +293,8 @@
     display: flex;
     width: 100%;
     margin-top: auto;
+    gap: 10px; /* Espacio entre botones */
+    justify-content: space-between;
 }
 
 .btn-next,
@@ -289,6 +309,7 @@
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    white-space: nowrap; /* Evita que el texto se rompa */
 }
 
 .btn-next:hover,
@@ -303,6 +324,8 @@
     padding: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     margin-bottom: 20px;
+    width: 100%; /* Asegurar ancho */
+    box-sizing: border-box;
 }
 
 .cal-header {
@@ -311,6 +334,8 @@
     align-items: center;
     padding: 0 10px;
     margin-bottom: 15px;
+    flex-wrap: wrap; /* Permitir wrap en pantallas muy pequeñas */
+    gap: 10px;
 }
 
 .cal-month-title {
@@ -319,6 +344,7 @@
     text-transform: uppercase;
     font-size: 1.1rem;
     letter-spacing: 1px;
+    text-align: center;
 }
 
 .cal-nav-btn {
@@ -334,6 +360,7 @@
     color: #000;
     font-size: 1.1rem;
     transition: transform 0.2s;
+    flex-shrink: 0;
 }
 
 .cal-nav-btn:hover {
@@ -466,7 +493,7 @@
 
 .slots-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Reducido minmax para móviles */
     gap: 12px;
 }
 
@@ -481,6 +508,7 @@
     transition: all 0.2s;
     position: relative;
     overflow: hidden;
+    text-align: center;
 }
 
 .time-btn:hover {
@@ -506,7 +534,7 @@
 
 .payment-methods-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Responsive Grid */
     gap: 15px;
     margin-bottom: 25px;
 }
@@ -533,6 +561,7 @@
 .payment-card-btn span {
     font-size: 0.9rem;
     font-weight: 500;
+    text-align: center;
 }
 
 .payment-card-btn.active {
@@ -596,6 +625,7 @@
     border-radius: 15px;
     padding: 15px;
     gap: 15px;
+    flex-wrap: wrap; /* Permitir wrap en móvil */
 }
 
 .mini-card-icon {
@@ -605,6 +635,7 @@
 
 .saved-card-info {
     flex: 1;
+    min-width: 150px;
 }
 
 .card-holder {
@@ -650,6 +681,7 @@
 .info-msg i {
     font-size: 1.5rem;
     color: #FFC107;
+    flex-shrink: 0;
 }
 
 .checkout-summary {
@@ -660,6 +692,8 @@
     padding: 15px 20px;
     border-radius: 12px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .total-label {
@@ -698,6 +732,7 @@
     flex-direction: column;
     justify-content: space-between;
     color: #fff;
+    box-sizing: border-box; /* Importante para el padding */
 }
 
 .card-chip {
@@ -708,10 +743,11 @@
 }
 
 .card-visual-number {
-    font-size: 1.4rem;
+    font-size: 1.4rem; /* Ajustado para pantallas pequeñas */
     letter-spacing: 2px;
     font-family: monospace;
     text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    word-break: break-all;
 }
 
 .card-visual-footer {
@@ -765,42 +801,28 @@
     border-bottom-color: #FFC107;
 }
 
-/* --- NUEVO: ESTILO DE ERROR VISUAL --- */
 .form-group input.input-error {
     border-bottom-color: #dc3545;
-    /* Rojo de error */
     animation: shake 0.3s ease-in-out;
 }
 
 @keyframes shake {
-    0% {
-        transform: translateX(0);
-    }
-
-    25% {
-        transform: translateX(-5px);
-    }
-
-    50% {
-        transform: translateX(5px);
-    }
-
-    75% {
-        transform: translateX(-5px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
 }
 
 .form-row {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap; /* Permitir wrap en móvil */
 }
 
 .form-group.half {
     flex: 1;
+    min-width: 120px; /* Ancho mínimo para campos cortos */
 }
 
 .save-card-check {
@@ -833,9 +855,10 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
 }
+
 .day-card.disabled {
     opacity: 0.3;
-    pointer-events: none; /* Esto evita el clic a nivel de CSS también */
+    pointer-events: none;
     filter: grayscale(100%);
 }
 
@@ -849,20 +872,187 @@
     color: #555;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin: 0 10px; /* Separación de las flechas o título */
+    margin: 0 10px;
 }
 
 .btn-today:hover {
-    background-color: #FFC107; /* Tu color de acento amarillo */
+    background-color: #FFC107;
     color: #000;
     border-color: #FFC107;
 }
 
-/* Ajuste opcional para el header para que todo quede centrado */
-.cal-header {
-    display: flex;
-    justify-content: space-between; /* O center, según prefieras */
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
+/* --- RESPONSIVE MEDIA QUERIES --- */
+
+/* Tablet y Móvil Horizontal (< 900px) */
+@media (max-width: 900px) {
+    .modal-container {
+        height: 85vh; /* Un poco más alto en tablets */
+        width: 95%;
+    }
+    
+    .stepper-sidebar {
+        width: 30%;
+        padding: 30px 15px;
+    }
+    
+    .step-label {
+        font-size: 0.8rem;
+        width: auto;
+    }
+}
+
+
+/* Móvil Vertical (< 768px) */
+
+@media (max-width: 768px) {
+    .modal-container {
+        flex-direction: column;
+        height: 95vh;
+        width: 100%;
+        border-radius: 15px 15px 0 0;
+    }
+
+    /* BARRA SUPERIOR (STEPPER) */
+    .stepper-sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row; /* Horizontal */
+        padding: 15px 10px; /* Padding ajustado */
+        overflow-x: auto;
+        border-radius: 15px 15px 0 0;
+        background: linear-gradient(90deg, #796705 0%, #3d3506 100%);
+        align-items: flex-start; /* Alinear arriba para que las lineas cuadren */
+        gap: 0; /* Quitamos gap para usar flex-grow en los items */
+        flex-shrink: 0;
+        scrollbar-width: none; 
+        -ms-overflow-style: none;  
+    }
+
+
+    .stepper-sidebar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* ITEMS DEL STEPPER */
+    .step-item {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+        position: relative; /* Necesario para la línea absoluta */
+        flex: 1; /* Esto hace que se distribuyan equitativamente en el ancho */
+        min-width: auto; 
+        gap: 5px;
+    }
+
+
+    .step-line {
+        display: block;
+        position: absolute;
+        top: 17.5px; 
+        left: calc(50% + 17.5px);
+        width: calc(100% - 35px);
+        height: 2px;
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    /* El último item no debe tener línea */
+    .step-item:last-child .step-line {
+        display: none;
+    }
+
+    .step-label {
+        font-size: 0.7rem;
+        text-align: center;
+        width: 100%; /* Que ocupe el ancho de su contenedor */
+        margin-top: 5px;
+        line-height: 1.1;
+        /* Opcional: Si el texto es muy largo en móvil, puedes ocultarlo o dejarlo */
+        /* display: none; */ 
+    }
+    
+    .step-item.active .step-label {
+        display: block;
+        color: #fff;
+    }
+
+    .step-indicator {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+        z-index: 2; /* Para que quede encima de la línea */
+        position: relative;
+    }
+
+    /* CONTENIDO */
+    .content-area {
+        padding: 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Carrusel Barbero */
+    .barber-carousel-card {
+        padding: 15px 5px;
+    }
+    
+    .barber-avatar {
+        height: 140px;
+    }
+    
+    .carousel-arrow {
+        padding: 5px;
+        font-size: 1.5rem;
+    }
+
+    /* Tarjeta Visual */
+    .credit-card-visual {
+        max-width: 100%;
+        height: 180px;
+        padding: 15px;
+    }
+    
+    .card-visual-number {
+        font-size: 1.1rem;
+    }
+
+    /* Botones */
+    .modal-actions {
+        padding-top: 10px;
+    }
+    
+    .btn-next, .btn-prev {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        flex: 1;
+    }
+}
+
+/* Pantallas muy pequeñas (< 400px) */
+@media (max-width: 400px) {
+    .step-item {
+        gap: 0;
+    }
+    
+    .step-label {
+        display: none !important; /* Solo iconos */
+    }
+    
+    .barber-name {
+        font-size: 1.1rem;
+    }
+    
+    .payment-methods-grid {
+        grid-template-columns: 1fr; /* Una sola columna */
+    }
+    
+    .checkout-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .total-amount {
+        font-size: 1.4rem;
+    }
 }

@@ -282,14 +282,13 @@ export class ClienteNotificationsComponent implements OnInit {
 
   // Mapeo de estados del Backend a clases CSS y Textos
   getStatusLabel(status: string): string {
-    // El backend devuelve: PENDIENTE, CONFIRMADA, CANCELADA, REPROGRAMADA, EN_PROCESO, COMPLETADA
     switch (status) {
       case 'PENDIENTE': return 'PENDIENTE';
-      case 'CONFIRMADA': return 'CONFIRMADA';
       case 'CANCELADA': return 'CANCELADA';
       case 'REPROGRAMADA': return 'REPROGRAMADA';
-      case 'EN_PROCESO': return 'EN CURSO';
-      case 'COMPLETADA': return 'FINALIZADA';
+      case 'EN_PROCESO': return 'EN_PROCESO';
+      case 'NO_PRESENTADO': return 'NO_PRESENTADO';
+      case 'COMPLETADA': return 'COMPLETADA';
       default: return status;
     }
   }

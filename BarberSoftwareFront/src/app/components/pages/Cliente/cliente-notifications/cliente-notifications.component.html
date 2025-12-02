@@ -97,7 +97,13 @@
 
                 <!-- Footer del cuerpo (Botones) -->
                 <div class="card-footer-actions">
-                    <button class="btn-action edit" (click)="openEditModal(booking)">Editar Reserva</button>
+                    <button class="btn-action edit" (click)="openEditModal(booking)"
+                        [disabled]="booking.status === 'CANCELADA' || booking.status === 'COMPLETADA' || booking.status === 'EN_PROCESO'  || booking.status === 'NO_PRESENTADO'"
+                        [class.disabled-btn]="booking.status === 'CANCELADA' || booking.status === 'COMPLETADA' || booking.status === 'EN_PROCESO'  || booking.status === 'NO_PRESENTADO'">
+
+                        {{ (booking.status === 'CANCELADA') ? 'Cancelada' : 'Editar Reserva' }}
+                    </button>
+
                     <div class="status-badge-large">{{ getStatusLabel(booking.status) }}</div>
                 </div>
 

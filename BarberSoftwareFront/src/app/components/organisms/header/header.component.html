@@ -10,11 +10,29 @@
         <app-logo variant="hero"></app-logo>
       </div>
 
-      <!-- Menú centro -->
+      <!-- Menú centro: ACTUALIZADO CON FRAGMENTS -->
       <nav class="header-nav">
-        <a routerLink="/" routerLinkActive="active">Inicio</a>
-        <a routerLink="/sobre-nosotros" routerLinkActive="active">Sobre Nosotros</a>
-        <a routerLink="/encuentranos" routerLinkActive="active">Encuéntranos</a>
+        <!-- Inicio: fragmento 'inicio' -->
+        <a routerLink="/" 
+           fragment="inicio" 
+           routerLinkActive="active" 
+           [routerLinkActiveOptions]="{exact: true}">
+           Inicio
+        </a>
+
+        <!-- Sobre Nosotros: fragmento 'sobre-nosotros' -->
+        <a routerLink="/" 
+           fragment="sobre-nosotros" 
+           routerLinkActive="active">
+           Sobre Nosotros
+        </a>
+
+        <!-- Encuéntranos: fragmento 'encuentranos' -->
+        <a routerLink="/" 
+           fragment="encuentranos" 
+           routerLinkActive="active">
+           Encuéntranos
+        </a>
       </nav>
 
       <!-- Icono usuario derecha -->
@@ -29,15 +47,12 @@
     <!-- Mobile -->
     <div class="d-flex d-lg-none justify-content-between align-items-center header-mobile">
 
-      <!-- Icono usuario -->
       <app-button [style]="'icon'" [routerLink]="dashboardRoute()">
         <i class="bi bi-person fs-3"></i>
       </app-button>
 
-      <!-- Logo -->
       <app-logo variant="hero"></app-logo>
 
-      <!-- Espaciador -->
       <div style="width: 36px;"></div>
 
     </div>

@@ -14,7 +14,8 @@
           <div class="separator-line"></div>
           <p class="hero-subtitle">DONDE LA ELEGANCIA Y EL ESTILO SE ENCUENTRAN</p>
 
-          <app-button link="#" [style]="'outline-gold'" [label]="'RESERVA'" class="mt-5 d-inline-block">
+          <app-button (click)="onReservar()" [style]="'outline-gold'" [label]="'RESERVA'"
+            class="mt-5 d-inline-block cursor-pointer">
             <i class="bi bi-arrow-right ms-2"></i>
           </app-button>
         </div>
