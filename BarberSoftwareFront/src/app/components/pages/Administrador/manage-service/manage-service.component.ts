@@ -257,33 +257,7 @@ export class ManageServiceComponent implements OnInit {
     }
   }
 
-  // --- ELIMINAR ---
-  eliminarServicio(servicio: ServiceUI) {
-    Swal.fire({
-      title: '¿Eliminar Servicio?',
-      text: "Esta acción no se puede deshacer",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sí, eliminar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.servicioFacade.eliminar(servicio.id).subscribe({
-          next: () => {
-            this.servicioEncontrado = null;
-            this.filtroBusqueda = '';
-            this.cargarServicios();
-            Swal.fire('Eliminado', 'El servicio ha sido borrado', 'success');
-          },
-          error: (err) => {
-            console.error(err);
-            Swal.fire('Error', 'No se pudo eliminar el servicio', 'error');
-          }
-        });
-      }
-    });
-  }
+
 
   // --- MANEJO DE ARCHIVOS (CONVERSIÓN A BASE64) ---
   onFileSelected(event: any) {

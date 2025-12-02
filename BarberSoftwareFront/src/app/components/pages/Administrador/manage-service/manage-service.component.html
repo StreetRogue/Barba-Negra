@@ -3,7 +3,6 @@
   <div class="services-wrapper">
     <div class="services-section-card">
       <div class="carousel-container">
-        <!-- Título SVG -->
         <div class="svg-title-container">
           <svg viewBox="0 0 800 150" preserveAspectRatio="xMidYMid meet">
             <defs>
@@ -28,7 +27,6 @@
           </div>
         </div>
 
-        <!-- Escenario 3D -->
         <div class="custom-carousel-stage">
 
           <button class="nav-btn prev-btn" (click)="prev()">
@@ -71,22 +69,20 @@
     </div>
   </div>
 
-  <!-- SECCIÓN 2: INSPECTOR (BUSCADOR) -->
   <div class="inspector-section fade-in-up">
 
     <div class="inspector-search-bar">
-      <i class="fa fa-search search-icon"></i>
+      <i class="bi bi-search search-icon"></i>
       <input type="text" placeholder="Escribe para buscar un servicio específico..." [(ngModel)]="filtroBusqueda"
         (input)="buscarServicio()" class="big-search-input">
 
       <button *ngIf="filtroBusqueda" class="btn-clear" (click)="limpiarBusqueda()">
-        <i class="fa fa-times"></i>
+        <i class="bi bi-x-lg"></i>
       </button>
     </div>
 
     <div class="inspector-result-area">
 
-      <!-- Crear Nuevo -->
       <div *ngIf="!filtroBusqueda && !servicioEncontrado" class="create-placeholder fade-in">
         <div class="dashed-box" (click)="abrirModalNuevo()">
           <div class="icon-circle"><i class="bi bi-plus-lg"></i></div>
@@ -95,7 +91,6 @@
         </div>
       </div>
 
-      <!-- Resultado Encontrado -->
       <div *ngIf="servicioEncontrado" class="service-super-card fade-in">
         <div class="super-card-image"
           [style.background-image]="'url(' + (servicioEncontrado.imagenUrl || 'assets/images/default-service.jpg') + ')'">
@@ -107,7 +102,6 @@
               <span class="status-badge" [class.active]="servicioEncontrado.activo">
                 {{ servicioEncontrado.activo ? 'Activo' : 'Oculto' }}
               </span>
-              <!-- Mostrar Categoría si existe -->
               <span class="category-badge" *ngIf="servicioEncontrado.nombreCategoria">
                 {{ servicioEncontrado.nombreCategoria }}
               </span>
@@ -117,25 +111,21 @@
           <p class="super-desc">{{ servicioEncontrado.descripcion }}</p>
           <div class="super-stats">
             <div class="stat-item">
-              <i class="fa fa-clock-o"></i>
+              <i class="bi bi-clock"></i>
               <span>{{ servicioEncontrado.duracion }} min</span>
               <small>Duración</small>
             </div>
           </div>
           <div class="super-actions">
             <button class="btn-action edit" (click)="abrirModalEditar(servicioEncontrado)">
-              <i class="fa fa-pencil"></i> Editar
-            </button>
-            <button class="btn-action delete" (click)="eliminarServicio(servicioEncontrado)">
-              <i class="fa fa-trash"></i> Eliminar
+              <i class="bi bi-pencil"></i> Editar
             </button>
           </div>
         </div>
       </div>
 
-      <!-- No encontrado -->
       <div *ngIf="filtroBusqueda && !servicioEncontrado" class="not-found-state">
-        <i class="fa fa-frown-o"></i>
+        <i class="bi bi-emoji-frown"></i>
         <p>No encontramos "{{ filtroBusqueda }}"</p>
         <button class="btn-text" (click)="abrirModalNuevo()">¿Quieres crearlo?</button>
       </div>
@@ -143,9 +133,6 @@
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- MODAL STEPPER (CON SELECTOR DE CATEGORÍA)  -->
-  <!-- ========================================== -->
   <div class="modal-overlay" *ngIf="mostrarModal">
     <div class="modal-content stepper-layout">
 
@@ -153,7 +140,7 @@
         <div class="step-indicator">
           <div class="step-item" [class.active]="stepActual === 1" [class.completed]="stepActual > 1">
             <div class="circle">
-              <i class="fa fa-check" *ngIf="stepActual > 1"></i>
+              <i class="bi bi-check" *ngIf="stepActual > 1"></i>
               <span *ngIf="stepActual <= 1">1</span>
             </div>
             <span class="step-label">Información General</span>
@@ -168,24 +155,20 @@
 
       <div class="stepper-body">
 
-        <!-- PASO 1 -->
         <div *ngIf="stepActual === 1" class="step-content fade-in">
           <h3 class="step-title">
             {{ servicioEdicion.id === 0 ? 'Nuevo Servicio' : 'Editar Servicio' }}
           </h3>
 
           <form>
-            <!-- Nombre -->
             <div class="floating-group">
               <input type="text" [(ngModel)]="servicioEdicion.nombre" name="nombre" required placeholder=" ">
               <label>Nombre del servicio</label>
             </div>
 
-            <!-- 👇 AQUÍ ESTÁ EL SELECTOR DE CATEGORÍA 👇 -->
             <div class="floating-group">
               <select [(ngModel)]="servicioEdicion.idCategoria" name="categoria" required class="select-input">
                 <option [ngValue]="undefined" disabled selected>Selecciona una opción</option>
-                <!-- Iteramos sobre las categorías cargadas del back -->
                 <option *ngFor="let cat of listaCategorias" [ngValue]="cat.id">
                   {{ cat.nombre }}
                 </option>
@@ -193,7 +176,6 @@
               <label class="fixed-label">Categoría</label>
             </div>
 
-            <!-- Precio y Duración -->
             <div class="row-2-cols">
               <div class="floating-group">
                 <input type="number" [(ngModel)]="servicioEdicion.duracion" name="duracion" required placeholder=" ">
@@ -205,14 +187,12 @@
               </div>
             </div>
 
-            <!-- Descripción -->
             <div class="floating-group">
               <textarea [(ngModel)]="servicioEdicion.descripcion" name="descripcion" rows="3"
                 placeholder=" "></textarea>
               <label>Descripción</label>
             </div>
 
-            <!-- Switch Activo -->
             <div class="availability-section">
               <span class="avail-label">Disponibilidad</span>
               <div class="toggle-pill">
