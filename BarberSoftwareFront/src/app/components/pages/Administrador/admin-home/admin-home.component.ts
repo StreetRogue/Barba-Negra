@@ -64,15 +64,11 @@ export class AdminHomeComponent implements OnInit {
     return new Date(this.dashboard.reservaActual.horaInicio);
   }
 
-  // ⚠️ AJUSTE AQUÍ: Calculamos la duración basados en inicio y fin
-  // porque en el Facade no pasamos explícitamente "duracionMinutos"
   get progressDuration() {
     if (!this.dashboard?.reservaActual) return 0;
 
     const inicio = new Date(this.dashboard.reservaActual.horaInicio).getTime();
     const fin = new Date(this.dashboard.reservaActual.horaFin).getTime();
-    
-    // Diferencia en milisegundos / 60000 = minutos
     const duracion = (fin - inicio) / 60000;
     
     return duracion > 0 ? duracion : 30; // Fallback a 30 min si el cálculo falla

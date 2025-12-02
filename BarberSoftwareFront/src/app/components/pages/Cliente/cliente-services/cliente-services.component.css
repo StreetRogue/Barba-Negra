@@ -14,7 +14,7 @@
 .carousel-container {
     position: relative;
     width: 100%;
-    padding-top: 80px;
+    padding-top: 100px;
     padding-bottom: 20px;
     border-radius: 20px;
     min-height: 450px;
@@ -71,7 +71,7 @@
     position: absolute;
     /* Todos apilados en el centro inicialmente */
     width: 200px;
-    height: 320px;
+    height: 360px;
     /* Incluye espacio para info abajo */
     transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     display: flex;
@@ -89,6 +89,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     background-color: #222;
     transition: all 0.5s ease;
+    position: relative;
 }
 
 .card-visual {
@@ -96,6 +97,7 @@
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* --- ESTADOS DE POSICIÓN --- */
@@ -151,30 +153,79 @@
 
 /* --- INFO TEXTO --- */
 .service-info {
-    margin-top: 15px;
+    /* Posición absoluta relativa al wrapper para que no dependa del tamaño de la carta */
+    position: absolute;
+    bottom: 0px;
+    /* Espacio suficiente para crecer hacia arriba */
+    left: 50%;
+
+    /* Centrado y ANULACIÓN de inercia de movimiento */
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease, transform 0s;
+    /* Transform 0s es vital */
+
+    /* Dimensiones */
+    width: 280px;
+    /* Más ancho que la carta (200px) */
     display: flex;
+    flex-direction: column;
+    /* Apilar título y precio */
     align-items: center;
-    gap: 10px;
-    animation: fadeIn 0.5s ease;
+    justify-content: flex-start;
+    gap: 5px;
+
+    z-index: 20;
+    /* Animación solo de opacidad */
+    animation: fadeInSimple 0.4s ease-out forwards;
+}
+
+/* Animación sin movimiento vertical para evitar el "salto" */
+@keyframes fadeInSimple {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .info-text {
     text-align: center;
+    width: 100%;
+    padding: 0 10px;
 }
 
 .service-name {
     color: #fff;
     font-weight: 700;
     margin: 0;
+
+    /* PERMITIR MÁS TEXTO */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Hasta 3 líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: none;
+    /* Sin límite duro de altura */
+    line-height: 1.2;
+    font-size: 1.1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    /* Mejor lectura */
 }
 
 .service-price {
     color: var(--color-yellow-accent, #FFC107);
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    /* Un poco más grande */
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .line-deco {
+    display: none;
     width: 30px;
     height: 1px;
     background: #555;
@@ -278,19 +329,19 @@
 /* --- EL TICKET (La Magia) --- */
 .ticket-card {
     display: flex;
-    min-height: 140px; 
-    height: auto;   
+    min-height: 140px;
+    height: auto;
     background: #2a2a2a;
     border-radius: 12px;
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .ticket-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* Variación Dorada (Premium) */
@@ -301,15 +352,18 @@
 
 /* --- LADO IZQUIERDO (STUB) --- */
 .ticket-stub {
-    width: 100px; /* Aumentado de 90px a 100px para más espacio */
-    background: rgba(0,0,0,0.2);
+    width: 100px;
+    /* Aumentado de 90px a 100px para más espacio */
+    background: rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    border-right: 2px dashed #444; /* Línea de corte */
-    text-align: center; /* Asegura el centrado del texto */
+    border-right: 2px dashed #444;
+    /* Línea de corte */
+    text-align: center;
+    /* Asegura el centrado del texto */
     padding: 0 5px;
 }
 
@@ -318,7 +372,8 @@
     font-weight: 800;
     color: #FFC107;
     line-height: 1;
-    width: 100%; /* Asegura que ocupe el ancho para centrarse */
+    width: 100%;
+    /* Asegura que ocupe el ancho para centrarse */
     text-align: center;
     margin-bottom: 2px;
 }
@@ -335,9 +390,11 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: #1a1a1a; /* Debe coincidir con el color de fondo de la página padre */
+    background-color: #1a1a1a;
+    /* Debe coincidir con el color de fondo de la página padre */
     border-radius: 50%;
-    right: -10px; /* Mitad adentro, mitad afuera */
+    right: -10px;
+    /* Mitad adentro, mitad afuera */
     z-index: 2;
 }
 
@@ -406,7 +463,7 @@
     font-weight: 800;
     font-family: monospace;
     letter-spacing: 1px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     padding: 2px 6px;
     border-radius: 3px;
     margin-left: 5px;
@@ -443,42 +500,52 @@
 
 @media (max-width: 600px) {
     .tickets-container {
-        grid-template-columns: 1fr; /* Una columna en móvil */
+        grid-template-columns: 1fr;
+        /* Una columna en móvil */
     }
 }
 
 /* --- INDICADOR DE DOBLE CLIC --- */
 .double-click-hint {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 0.85rem;
-  font-weight: 200;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  z-index: 20;
-  pointer-events: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 200;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 20;
+    pointer-events: none;
 }
 
 /* Animación del dedo o lápiz */
 .double-click-hint i {
-  font-size: 1.1rem;
-  animation: tapAnimation 1.5s infinite;
+    font-size: 1.1rem;
+    animation: tapAnimation 1.5s infinite;
 }
+
 /* Animación del dedo "tocando" */
 @keyframes tapAnimation {
-    0% { transform: scale(1); }
-    50% { transform: scale(0.8); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.8);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Mostrar cuando el usuario pasa el mouse sobre la tarjeta central */
@@ -492,7 +559,8 @@
     .card-center .double-click-hint {
         opacity: 1;
         transform: translateY(0);
-        background: rgba(0,0,0,0.6); /* Fondo más sólido en móvil */
+        background: rgba(0, 0, 0, 0.6);
+        /* Fondo más sólido en móvil */
         padding: 8px;
         border-radius: 0 0 16px 16px;
     }

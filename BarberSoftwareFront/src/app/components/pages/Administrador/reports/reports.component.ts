@@ -4,11 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-
-// Componentes
 import { CustomBarChartComponent } from '../../../molecules/custom-bar-chart/custom-bar-chart.component'; 
-
-// Fachadas y DTOs
 import { ReporteFacade } from '../../../../core/facade/ReporteFacade';
 import { BarberoFacade } from '../../../../core/facade/BarberoFacade';
 import { ServicioFacade } from '../../../../core/facade/ServicioFacade';
@@ -29,22 +25,14 @@ export class ReportesComponent implements OnInit {
   private reporteFacade = inject(ReporteFacade);
   private barberoFacade = inject(BarberoFacade);
   private servicioFacade = inject(ServicioFacade);
-
-  // Filtros
   fechaInicio: string = '';
   fechaFin: string = '';
   idBarbero: number | undefined = undefined;
   idServicio: number | undefined = undefined;
-
-  // Datos
   reporte: ReporteRespuestaDTO | null = null;
   historial: HistorialReservaDTORespuesta[] = [];
-  
-  // Catalogos para selects y mapeo de nombres
   listaBarberos: BarberoDTORespuesta[] = [];
   listaServicios: ServicioDTORespuesta[] = [];
-  
-  // Mapas para buscar nombres rápido por ID
   private mapBarberos = new Map<number, string>();
   private mapServicios = new Map<number, string>();
 
@@ -53,7 +41,6 @@ export class ReportesComponent implements OnInit {
     this.cargarCatalogosYReporte();
   }
 
-  // 1. Configurar fechas por defecto (Mes actual)
   inicializarFechas() {
     const hoy = new Date();
     const primerDia = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
@@ -62,7 +49,6 @@ export class ReportesComponent implements OnInit {
     this.fechaFin = hoy.toISOString().split('T')[0];
   }
 
-  // 2. Cargar Barberos, Servicios y luego el Reporte
   cargarCatalogosYReporte() {
     forkJoin({
       barberos: this.barberoFacade.listarBarberos(),
@@ -71,12 +57,8 @@ export class ReportesComponent implements OnInit {
       next: (res) => {
         this.listaBarberos = res.barberos;
         this.listaServicios = res.servicios;
-
-        // Llenar mapas para traducir ID -> Nombre en las gráficas
         this.listaBarberos.forEach(b => this.mapBarberos.set(b.id, b.nombre));
         this.listaServicios.forEach(s => this.mapServicios.set(s.id, s.nombre));
-
-        // Ya tenemos nombres, ahora cargamos los números
         this.aplicarFiltros();
       }
     });
@@ -103,15 +85,13 @@ export class ReportesComponent implements OnInit {
     this.aplicarFiltros();
   }
 
-  // --- TRANSFORMACIÓN DE DATOS PARA LAS GRÁFICAS ---
   
   get datosGraficaBarberos() {
     if (!this.reporte) return [];
     return this.reporte.porBarbero.map(item => ({
-      // Usamos el Map para obtener el nombre real, o un fallback
       label: this.mapBarberos.get(item.id) || `Barbero #${item.id}`,
       value: item.cantidad
-    })).sort((a, b) => b.value - a.value); // Ordenar mayor a menor
+    })).sort((a, b) => b.value - a.value); 
   }
 
   get datosGraficaServicios() {
@@ -122,7 +102,6 @@ export class ReportesComponent implements OnInit {
     })).sort((a, b) => b.value - a.value);
   }
 
-  // --- EXPORTAR PDF ---
   exportarPDF() {
     if (!this.reporte) return;
     const doc = new jsPDF();

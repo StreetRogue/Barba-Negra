@@ -2,25 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-
-// 1. IMPORTAR LA FACHADA Y LOS DTOs DEL DOMINIO
 import { ServicioFacade } from '../../../../core/facade/ServicioFacade';
 import { ServicioDTORespuesta } from '../../../../core/domain/models/DTOs/Servicio/ServicioRespuestaDTO';
 import { ServicioDTOPeticion } from '../../../../core/domain/models/DTOs/Servicio/ServicioPeticionDTO';
 import { CategoriaFacade } from '../../../../core/facade/CategoriaFacade';
 import { CategoriaDTORespuesta } from '../../../../core/domain/models/DTOs/Categorias/CategoriaRespuestaDTO';
 
-// Interfaz local para la Vista (Mantiene la compatibilidad con tu HTML actual)
+
 interface ServiceUI {
   id: number;
   nombre: string;
   descripcion: string;
   precio: number;
-  duracion: number; // En el back es duracionMinutos
-  activo: boolean;  // En el back es estado ('ACTIVO'/'INACTIVO')
-  imagenUrl?: string; // En el back es imagenBase64
-  idCategoria?: number; // <--- NUEVO CAMPO PARA EL SELECT
-  nombreCategoria?: string; // Para mostrar en la tabla si quieres
+  duracion: number; 
+  activo: boolean;  
+  imagenUrl?: string; 
+  idCategoria?: number; 
+  nombreCategoria?: string; 
 }
 
 @Component({
@@ -66,11 +64,9 @@ export class ManageServiceComponent implements OnInit {
   }
 
   cargarDatosIniciales() {
-    // 1. Cargar Categorías (Necesarias para el formulario)
     this.categoriaFacade.listarCategoria().subscribe({
       next: (cats) => {
         this.listaCategorias = cats;
-        // 2. Una vez tenemos categorías, cargamos servicios
         this.cargarServicios();
       },
       error: (err) => console.error('Error cargando categorías', err)
@@ -81,7 +77,6 @@ export class ManageServiceComponent implements OnInit {
   cargarServicios() {
     this.servicioFacade.listar().subscribe({
       next: (data: ServicioDTORespuesta[]) => {
-        // Mapeamos la respuesta del backend (DTO) al modelo visual (UI)
         this.listaServicios = data.map(dto => ({
           id: dto.id,
           nombre: dto.nombre,
@@ -89,19 +84,17 @@ export class ManageServiceComponent implements OnInit {
           precio: dto.precio,
           duracion: dto.duracionMinutos,
           activo: dto.estado === 'ACTIVO',
-          imagenUrl: dto.imagenBase64, // El backend debe devolver el string base64 completo o la URL
-          idCategoria: dto.categoria?.id, // Mapeamos la categoría actual
+          imagenUrl: dto.imagenBase64, 
+          idCategoria: dto.categoria?.id, 
           nombreCategoria: dto.categoria?.nombre
         }));
 
-        // Centrar el carrusel en el medio para efecto infinito visual
         if (this.listaServicios.length > 0) {
           this.activeIndex = Math.floor(this.listaServicios.length / 2);
         }
       },
       error: (err) => {
         console.error('Error al listar servicios:', err);
-        // Swal.fire('Error', 'No se pudieron cargar los servicios.', 'error');
       }
     });
   }
@@ -272,7 +265,6 @@ export class ManageServiceComponent implements OnInit {
       this.archivoSeleccionado = file;
       this.nombreArchivo = file.name;
 
-      // Llamamos a la función mágica de compresión
       this.compressImage(file, 800, 0.8).then(base64 => {
         this.imagenPrevia = base64; // Guardamos la versión ligera
       }).catch(err => {
@@ -282,12 +274,6 @@ export class ManageServiceComponent implements OnInit {
     }
   }
 
-  /**
-   * Redimensiona y comprime una imagen en el navegador usando Canvas.
-   * @param file Archivo original
-   * @param maxWidth Ancho máximo permitido (ej: 800px)
-   * @param quality Calidad JPG (0 a 1)
-   */
   compressImage(file: File, maxWidth: number, quality: number): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();

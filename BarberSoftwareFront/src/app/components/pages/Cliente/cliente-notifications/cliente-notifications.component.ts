@@ -80,9 +80,6 @@ export class ClienteNotificationsComponent implements OnInit {
   }
 
   refreshData() {
-    // Opcional: Si quieres volver a hoy al refrescar
-    // this.selectedDateObj = new Date(); 
-    
     this.cargarDatosCompletos();
   }
 
@@ -100,7 +97,7 @@ export class ClienteNotificationsComponent implements OnInit {
         // 1. Llenar mapas de referencia
         const reservasSeguras = res.reservas || [];
         res.servicios.forEach(s => this.serviciosMap.set(s.id, s));
-        res.barberos.forEach(b => this.barberoFacade.listarBarberos()); // Pequeño fix: barberos suele venir como array
+        res.barberos.forEach(b => this.barberoFacade.listarBarberos()); 
         // Nota: Si 'listarBarberos' devuelve BarberoResponseDTO[], mapeamos aquí:
         res.barberos.forEach(b => this.barberosMap.set(b.id, b));
 
@@ -120,13 +117,12 @@ export class ClienteNotificationsComponent implements OnInit {
             date: fechaInicio,
             startTime: this.formatTime(fechaInicio),
             endTime: this.formatTime(fechaFin),
-            status: r.estado, // El backend devuelve 'PENDIENTE', 'CANCELADA', etc.
+            status: r.estado,
             price: serv ? serv.precio : 0,
             duration: serv ? serv.duracionMinutos + ' Min' : 'N/A',
             serviceCode: 'SVC-' + r.idServicio,
             companyName: 'Barba Negra',
             expanded: false,
-            // Guardamos IDs para lógica interna
             idServicio: r.idServicio,
             idBarbero: r.idBarbero
           };
@@ -197,9 +193,8 @@ export class ClienteNotificationsComponent implements OnInit {
   }
 
   cancelarReserva(id: number) {
-    // 1. Validar tiempo antes de llamar al backend
     const booking = this.bookings.find(b => b.id === id);
-    if (booking && this.esDemasiadoTarde(booking.date)) { // booking.date ya tiene la fecha y hora inicio
+    if (booking && this.esDemasiadoTarde(booking.date)) { 
        Swal.fire({
          icon: 'warning',
          title: 'Demasiado tarde',

@@ -222,10 +222,10 @@ export class BarberNotificationComponent implements OnInit {
         `Solo puedes marcar "No presentado" pasados ${minutosEspera} minutos del inicio de la cita.\n\nPodrás hacerlo en ${minutosFaltantes} minutos.`,
         'warning'
       );
-      return; // ⛔ DETENEMOS AQUÍ
+      return; 
     }
 
-    // 4. Si pasa la validación, mostramos la confirmación original
+
     Swal.fire({
       title: '¿El cliente no llegó?',
       text: "Se marcará la reserva como No Presentado.",

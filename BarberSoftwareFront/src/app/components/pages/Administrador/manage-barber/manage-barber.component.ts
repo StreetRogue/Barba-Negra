@@ -216,11 +216,10 @@ export class ManageBarberComponent implements OnInit {
   }
 
   guardarHorarios() {
-    // Preparamos datos: Si es día libre, mandamos null en las horas (opcional, depende de tu back)
     const datosAEnviar = this.formularioHorarios.map(h => ({
       ...h,
       idBarbero: this.barberoSeleccionadoId,
-      horaInicio: h.esDiaLibre ? '' : h.horaInicio, // O null si tu DTO acepta null
+      horaInicio: h.esDiaLibre ? '' : h.horaInicio,
       horaFin: h.esDiaLibre ? '' : h.horaFin
     }));
 

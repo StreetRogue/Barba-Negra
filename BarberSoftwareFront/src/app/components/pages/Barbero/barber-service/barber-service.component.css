@@ -2,14 +2,14 @@
    GENERAL
 ===================== */
 .page-container {
-  min-height: 100vh;
-  padding: 2rem;
-  color: #fff;
-  border-radius: 24px;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100%;
+    min-height: 100vh;
+    padding: 2rem;
+    color: #fff;
+    border-radius: 24px;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
 }
 
 
@@ -28,13 +28,15 @@
 .services-section-card {
     width: 100%;
     max-width: 1000px;
-    background-color: #323337; /* Fondo oscuro tarjeta */
+    background-color: #323337;
+    /* Fondo oscuro tarjeta */
     border: 1px solid #333;
     border-radius: 24px;
     padding: 20px;
     position: relative;
     overflow: hidden;
-    min-height: 500px; /* Altura mínima para que se vea bien el empty state */
+    min-height: 500px;
+    /* Altura mínima para que se vea bien el empty state */
     display: flex;
     flex-direction: column;
 }
@@ -44,7 +46,7 @@
 ===================== */
 .svg-title-container {
     position: absolute;
-    top: -5px;
+
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -69,7 +71,8 @@
 .carousel-container {
     position: relative;
     width: 100%;
-    padding-top: 80px;
+
+    padding-top: 120px;
     padding-bottom: 20px;
     display: flex;
     justify-content: center;
@@ -103,7 +106,7 @@
 .service-card-wrapper {
     position: absolute;
     width: 220px;
-    height: 320px;
+    height: 380px;
     transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     display: flex;
     flex-direction: column;
@@ -113,7 +116,8 @@
 
 .service-card {
     width: 220px;
-    height: 260px; /* Altura visual de la imagen */
+    height: 260px;
+    /* Altura visual de la imagen */
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
@@ -121,6 +125,7 @@
     background-color: #222;
     position: relative;
     transition: 0.3s;
+    flex-shrink: 0;
 }
 
 .card-visual {
@@ -128,6 +133,7 @@
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* POSICIONES (Lógica 3D) */
@@ -138,7 +144,8 @@
 }
 
 .card-center .service-card {
-    border: 1px solid rgba(255, 215, 0, 0.5); /* Borde dorado suave */
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    /* Borde dorado suave */
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 }
 
@@ -165,17 +172,34 @@
 
 /* INFO BAJO LA CARD */
 .service-info {
-    margin-top: 20px;
-    width: 100%;
+    /* Posición Absoluta Externa */
+    position: absolute;
+    bottom: -5px;
+    /* Espacio para crecer hacia arriba */
+    left: 50%;
+
+    /* Centrado Instantáneo (Sin inercia) */
+    transform: translateX(-50%);
+    transition: opacity 0.3s ease, transform 0s;
+
+    /* Ancho mayor que la tarjeta (220px -> 280px) */
+    width: 280px;
+
     display: flex;
+    flex-direction: column;
+    /* Apilar verticalmente */
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    animation: fadeIn 0.5s ease;
+    justify-content: flex-start;
+    gap: 5px;
+
+    z-index: 20;
+    animation: fadeInSimple 0.4s ease-out forwards;
 }
 
 .info-text {
     text-align: center;
+    width: 100%;
+    padding: 0 10px;
 }
 
 .service-name {
@@ -183,20 +207,39 @@
     font-size: 1.3rem;
     margin: 0;
     font-weight: 700;
+
+    /* Permitir 3 líneas */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: none;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .service-price {
     color: #FFD60A;
     font-size: 1.1rem;
-    margin: 5px 0 0 0;
+    margin: 0;
+    /* Ajustado margen */
     font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .line-deco {
-    width: 30px;
-    height: 1px;
-    background: #fff;
-    opacity: 0.5;
+    display: none;
+}
+
+/* Nueva Animación sin salto vertical */
+@keyframes fadeInSimple {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* =====================
@@ -227,8 +270,13 @@
     transform: translateY(-50%) scale(1.1);
 }
 
-.prev-btn { left: 20px; }
-.next-btn { right: 20px; }
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
 
 /* =====================
    EMPTY STATE (VALIDACIÓN VACÍO)
@@ -239,7 +287,8 @@
     justify-content: center;
     align-items: center;
     min-height: 300px;
-    margin-top: 50px; /* Espacio para el título SVG */
+    margin-top: 50px;
+    /* Espacio para el título SVG */
 }
 
 .empty-content {
@@ -248,7 +297,7 @@
     padding: 2rem;
     border: 2px dashed #444;
     border-radius: 20px;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .empty-content i {
@@ -284,14 +333,21 @@
         padding-top: 60px;
         min-height: 400px;
     }
-    
+
     .custom-carousel-stage {
         height: 350px;
     }
 
     /* Ajuste Título */
-    .svg-title-text { font-size: 55px; letter-spacing: 2px; }
-    .svg-title-container { height: 70px; top: 0; }
+    .svg-title-text {
+        font-size: 55px;
+        letter-spacing: 2px;
+    }
+
+    .svg-title-container {
+        height: 70px;
+        top: 0;
+    }
 
     /* Ajuste Cards */
     .service-card-wrapper {
@@ -309,24 +365,43 @@
     }
 
     /* Posiciones laterales más cerradas en móvil */
-    .card-left { transform: translateX(-90px) scale(0.85) translateZ(-50px); }
-    .card-right { transform: translateX(90px) scale(0.85) translateZ(-50px); }
+    .card-left {
+        transform: translateX(-90px) scale(0.85) translateZ(-50px);
+    }
+
+    .card-right {
+        transform: translateX(90px) scale(0.85) translateZ(-50px);
+    }
 }
 
 @media (max-width: 480px) {
-    .svg-title-text { font-size: 45px; }
-    
+    .svg-title-text {
+        font-size: 45px;
+    }
+
     .nav-btn {
         width: 35px;
         height: 35px;
         font-size: 1.2rem;
     }
-    
-    .prev-btn { left: 10px; }
-    .next-btn { right: 10px; }
+
+    .prev-btn {
+        left: 10px;
+    }
+
+    .next-btn {
+        right: 10px;
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

@@ -23,10 +23,18 @@
 .carousel-container {
   position: relative;
   width: 100%;
+
+  padding-top: 120px;
+  padding-bottom: 20px;
+  border-radius: 20px;
+  min-height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+
   max-width: 1000px;
   margin: 0 auto;
-  padding-top: 30px;
-  min-height: 450px;
 }
 
 /* SVG */
@@ -63,7 +71,7 @@
 .service-card-wrapper {
   position: absolute;
   width: 200px;
-  height: 320px;
+  height: 360px;
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
   flex-direction: column;
@@ -142,60 +150,74 @@
 
 /* 1. CENTRO (ACTIVO) */
 .card-center {
-    z-index: 10;
-    transform: translateX(0) scale(1.1);
-    opacity: 1;
+  z-index: 10;
+  transform: translateX(0) scale(1.1);
+  opacity: 1;
 }
 
 .card-center .service-card {
-    filter: grayscale(0%) brightness(1);
-    /* Color real */
-    border: 1px solid rgba(255, 215, 0, 0.5);
-    /* Dorado */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  filter: grayscale(0%) brightness(1);
+  /* Color real */
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  /* Dorado */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 }
 
 /* 2. IZQUIERDA (ANTERIOR) */
 .card-left {
-    z-index: 5;
-    /* Se mueve a la izquierda y se mete detrás */
-    transform: translateX(-200px) scale(0.85) translateZ(-50px);
-    opacity: 0.7;
+  z-index: 5;
+  /* Se mueve a la izquierda y se mete detrás */
+  transform: translateX(-200px) scale(0.85) translateZ(-50px);
+  opacity: 0.7;
 }
 
 .card-left .service-card {
-    filter: grayscale(100%) brightness(0.4);
-    /* Oscuro */
+  filter: grayscale(100%) brightness(0.4);
+  /* Oscuro */
 }
 
 /* 3. DERECHA (SIGUIENTE) */
 .card-right {
-    z-index: 5;
-    /* Se mueve a la derecha y se mete detrás */
-    transform: translateX(200px) scale(0.85) translateZ(-50px);
-    opacity: 0.7;
+  z-index: 5;
+  /* Se mueve a la derecha y se mete detrás */
+  transform: translateX(200px) scale(0.85) translateZ(-50px);
+  opacity: 0.7;
 }
 
 .card-right .service-card {
-    filter: grayscale(100%) brightness(0.4);
-    /* Oscuro */
+  filter: grayscale(100%) brightness(0.4);
+  /* Oscuro */
 }
 
 /* 4. OCULTOS (DETRÁS) */
 .card-hidden {
-    z-index: 0;
-    transform: scale(0.5);
-    opacity: 0;
-    pointer-events: none;
+  z-index: 0;
+  transform: scale(0.5);
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Info en Carrusel */
 .service-info {
+  /* SACAMOS EL TEXTO DEL FLUJO NORMAL */
+  position: absolute;
+  bottom: -5px;
+  /* Lo pegamos al fondo del wrapper */
+  left: 50%;
+  transform: translateX(-50%);
+  /* Técnica clásica de centrado absoluto */
+
+  /* AQUI ESTÁ LA MAGIA: Ancho mayor al de la carta (200px) */
+  width: 280px;
+
+  transition: opacity 0.3s ease, transform 0s;
   margin-top: 15px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  animation: fadeIn 0.5s ease;
+  animation: fadeInSimple 0.4s ease-out forwards;
+  z-index: 20;
 }
 
 .info-text {
@@ -206,6 +228,14 @@
   color: #fff;
   font-weight: 700;
   margin: 0;
+  font-size: 1.3rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em;
+  line-height: 1.2;
 }
 
 .service-price {
@@ -513,6 +543,16 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSimple {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
 
@@ -1034,7 +1074,6 @@ input:checked+.slider:before {
 .carousel-container {
   position: relative;
   width: 100%;
-  padding-top: 80px;
   /* Mismo padding que cliente */
   padding-bottom: 20px;
   border-radius: 20px;
@@ -1049,7 +1088,8 @@ input:checked+.slider:before {
 /* TÍTULO SVG */
 .svg-title-container {
   position: absolute;
-  top: -5px;
+
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -1278,6 +1318,13 @@ input:checked+.slider:before {
     /* Asegurar que esté bien por encima */
   }
 
+  .service-info {
+    width: 240px;
+    /* Un poco menos ancho en móvil */
+    bottom: -30px;
+    /* Ajuste fino si es necesario */
+  }
+
   /* 1. CONTENEDOR PRINCIPAL */
   /* Quitamos el overflow hidden aquí para que las sombras y escalas no se corten */
   .services-section-card {
@@ -1299,7 +1346,7 @@ input:checked+.slider:before {
   }
 
   .custom-carousel-stage {
-    height: 380px;
+    height: 400px;
     margin-top: 10px;
   }
 
@@ -1320,7 +1367,7 @@ input:checked+.slider:before {
   .service-card-wrapper {
     width: 180px;
     /* Reducimos de 200px a 170px para que quepan */
-    height: 280px;
+    height: 310px;
   }
 
   .service-card {

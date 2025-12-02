@@ -188,9 +188,13 @@
             </div>
 
             <div class="floating-group">
-              <textarea [(ngModel)]="servicioEdicion.descripcion" name="descripcion" rows="3"
-                placeholder=" "></textarea>
+              <textarea [(ngModel)]="servicioEdicion.descripcion" name="descripcion" rows="3" placeholder=" "
+                maxlength="300"></textarea>
               <label>Descripción</label>
+
+              <div class="char-counter" [class.counter-danger]="(servicioEdicion.descripcion?.length || 0) >= 270">
+                {{ servicioEdicion.descripcion?.length || 0 }} / 300
+              </div>
             </div>
 
             <div class="availability-section">
