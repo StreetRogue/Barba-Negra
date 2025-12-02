@@ -57,19 +57,6 @@ export class EditBookingModalComponent implements OnInit {
         // 1. Emitir y cerrar primero
         this.bookingUpdated.emit({ action: 'cancel', id: this.booking.id });
         this.closeModal();
-        
-        // 2. Mostrar éxito con pequeño delay para asegurar que el modal se cerró
-        setTimeout(() => {
-            Swal.fire({
-              title: 'Cancelada',
-              text: 'Tu cita ha sido cancelada exitosamente.',
-              icon: 'success',
-              timer: 1500,
-              showConfirmButton: false,
-              background: '#222',
-              color: '#fff'
-            });
-        }, 300);
       }
     });
   }
@@ -112,19 +99,6 @@ export class EditBookingModalComponent implements OnInit {
           time: this.newSelectedTime
         });
         this.closeModal();
-
-        // 2. Feedback con delay
-        setTimeout(() => {
-            Swal.fire({
-              icon: 'success',
-              title: '¡Reprogramado!',
-              text: 'Tu cita se ha actualizado correctamente.',
-              background: '#222',
-              color: '#fff',
-              timer: 2000,
-              showConfirmButton: false
-            });
-        }, 300);
       }
     });
   }
