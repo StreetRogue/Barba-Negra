@@ -168,7 +168,9 @@ export class ClienteNotificationsComponent implements OnInit {
       id: booking.id,
       serviceName: booking.serviceName,
       date: booking.date,
-      startTime: booking.startTime
+      startTime: booking.startTime,
+      idBarbero: booking.idBarbero, 
+      idServicio: booking.idServicio
     };
     this.showEditModal = true;
   }
@@ -309,4 +311,11 @@ export class ClienteNotificationsComponent implements OnInit {
   }
   scrollDays(d: number) { if(this.daysStrip) this.daysStrip.nativeElement.scrollBy({ left: d * 200, behavior: 'smooth' }); }
   scrollToSelected() { document.getElementById('selected-day-notif')?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }
+
+  esEditable(status: string): boolean {
+    // Solo se pueden editar reservas que aún están pendientes o confirmadas
+    const estadosEditables = ['PENDIENTE', 'REPROGRAMADA'];
+    return estadosEditables.includes(status);
+  }
+
 }
